@@ -32,7 +32,7 @@
                         <img src="static/images/logo.png" alt="">
                     </div>
                         
-                        <br>
+                    <br>
 
                     <div class="form-group">
                         <label class="control-label col-md-3" for="usuario">Usuario</label>
