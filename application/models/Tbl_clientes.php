@@ -2,7 +2,7 @@
 
 class Tbl_clientes extends CI_Model{
     private $tabla = 'clientes';
-    private $id = 'idClientes';
+    private $id = 'id';
 
 
     public function __construct() {
@@ -22,7 +22,7 @@ class Tbl_clientes extends CI_Model{
 
     public function get_all(){
         try {
-            $this->db->where("idEstadoClientes", "1");
+            $this->db->where("idEstados", "1");
             $query = $this->db->get($this->tabla);
             return $query->result();
         } catch (Exception $exc) {

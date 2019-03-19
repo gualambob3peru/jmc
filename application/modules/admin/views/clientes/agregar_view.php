@@ -9,7 +9,7 @@
 <br>
 
 <div class="card">
-    <h5 class="card-header">Agregar Cliente</h5>
+    <h5 class="card-header">Agregar <?php echo ucwords($controller) ?></h5>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">

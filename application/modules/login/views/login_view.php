@@ -17,46 +17,50 @@
 
 <body>
     <div class="container-fluid">
-        <!-- <h1 style="text-align:center;color:#002d6a">JMC</h1> -->
 
         <div class="row">
-            
-        </div>
-        <div class="row">
-            
             <br>
-            <div class="col-md-offset-4 col-md-4">
-                <div class="row">
-                    <?php echo form_open('',array('class'=>'form-horizontal')); ?>
-                    <div class="row text-center">
-                        <img src="static/images/logo.png" alt="">
-                    </div>
-                        
-                    <br>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div>
+                    <form method="post"> 
+                        <div class="row text-center">
+                            <img src="static/images/logo.png" alt="">
+                        </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="usuario">Usuario</label>
-                        <div class="col-md-9">
-                            <input class="form-control" type="text" id="usuario" placeholder="Usuario" name="usuario">
-                            <?php echo form_error('usuario','<div class="error">', '</div>'); ?>
+                        <br>
+
+                        <?php helper_form_text("usuario","Usuario","admin"); ?>
+
+                        <?php helper_form_text("contrasena","Contraseña","123456","password"); ?>
+
+                        <!-- <div class="form-group">
+                            <label class="control-label col-md-3" for="usuario">Usuario</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="text" id="usuario" placeholder="Usuario"
+                                    name="usuario">
+                                <?php echo form_error('usuario','<div class="error">', '</div>'); ?>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3" for="contrasena">Contraseña</label>
-                        <div class="col-md-9">
-                            <input class="form-control" type="password" id="contrasena" placeholder="Contraseña"
-                                name="contrasena">
-                            <?php echo form_error('contrasena','<div class="error">', '</div>'); ?>
+                        
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="contrasena">Contraseña</label>
+                            <div class="col-md-9">
+                                <input class="form-control" type="password" id="contrasena" placeholder="Contraseña"
+                                    name="contrasena">
+                                <?php echo form_error('contrasena','<div class="error">', '</div>'); ?>
+                            </div>
+                        </div> -->
+
+                        <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                                <button type="submit" class="btn btn-primary">Entrar</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-offset-3 col-md-9">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
-                        </div>
-                    </div>
                     </form>
                 </div>
             </div>
+            <div class="col-md-4"></div>
         </div>
     </div>
 </body>

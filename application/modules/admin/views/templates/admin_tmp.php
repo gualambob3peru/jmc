@@ -35,16 +35,16 @@
     }
 
     .barraLateral {
-        background: #e3e9ee;
+        background: #EBE9E9;
         height:100%;
     }
     .barraLateral li {
         color: #4b4b4b;
-        background: #e3e9ee;
+        background: #EBE9E9;
         height: 52px;
         padding: 13px;
         padding-left:25px;
-        border: 1px solid #cdd5dc;
+        border: 1px solid #C9CAD9;
         /* text-align:center; */
         
     }
@@ -95,7 +95,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="admin/clientes">Clientes</a>
                 </li>
-
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/vehiculos">Vehiculos</a>
+                </li>
 
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

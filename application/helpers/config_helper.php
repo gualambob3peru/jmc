@@ -16,7 +16,7 @@
 			<div class='form-group row'>
 				<label for='".$id."' class='col-sm-".$size1." col-form-label'>".$texto."</label>
 				<div class='col-sm-".$size2."'>
-					<input type='".$tipo."' name='".$id."' class='form-control' id='".$id."' value='".$valor."'>
+					<input type='".$tipo."' name='".$id."' class='form-control' id='".$id."' value='".$valor."'>".form_error($id, '<div class="text-danger">', '</div>')."
 				</div>
 			</div>
 			";
@@ -24,13 +24,20 @@
 	}
 
 	if ( ! function_exists('helper_form_select')){
-	    function helper_form_select($id,$texto,$data){
+	    function helper_form_select($id,$texto,$data,$descripcion="descripcion",$ide="",$size1="4",$size2="8"){
+			$options = "<option value=''>Elegir...</option>";
+			foreach ($data as $key => $value) {
+				$selected = ($ide==$value->id)?"selected":"";
+				//echo $ide. "  - ".$value->id;
+				$options.="<option ".$selected." value='".$value->id."'>".$value->$descripcion."</option>";
+			}
+
 			echo "
 			<div class='form-group row'>
-				<label for='".$id."' class='col-sm-2 col-form-label'>".$texto."</label>
-				<div class='col-sm-10'>
-					<select name='".$id."' id='".$id."'>
-
+				<label for='".$id."' class='col-sm-".$size1." col-form-label'>".$texto."</label>
+				<div class='col-sm-".$size2."'>
+					<select class='form-control' name='".$id."' id='".$id."'>
+						".$options."
 					</select>
 				</div>
 			</div>

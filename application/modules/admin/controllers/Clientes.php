@@ -11,7 +11,7 @@ class Clientes extends MX_Controller {
         "ruc" => "",
         "direccion" => "",
         "correo" => "",
-        "idEstadoClientes" => "1"
+        "idEstados" => "1"
     ];
 
     public function __construct(){
@@ -26,6 +26,7 @@ class Clientes extends MX_Controller {
     }
 	 
 	public function index(){ 
+        $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
         $this->load->tmp_admin->setLayout('templates/admin_tmp');
         $this->load->tmp_admin->render($this->cview.'/view.php');
@@ -39,12 +40,14 @@ class Clientes extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $this->tmp_admin->set("controller",$this->controller);
             $this->load->tmp_admin->setLayout('templates/admin_tmp');
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
         {   
             $data = $this->upPost($this->data);
+            $data["nombresCompletos"] = $this->input->post("apellidoPaterno") ." ". $this->input->post("apellidoMaterno") ." ". $this->input->post("nombres") ;
             $data["fechaRegistro"] = date("Y-m-d");
 
             $this->obj_model->insert($data);
@@ -61,6 +64,7 @@ class Clientes extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
             $this->load->tmp_admin->setLayout('templates/admin_tmp');
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
@@ -68,6 +72,9 @@ class Clientes extends MX_Controller {
         else
         {
             $data = $this->upPost($this->data);
+            $data["nombresCompletos"] = $this->input->post("apellidoPaterno") ." ". $this->input->post("apellidoMaterno") ." ". $this->input->post("nombres") ;
+
+           
             $this->obj_model->update($data,$id);
             redirect("admin/".$this->controller);
         }
@@ -75,7 +82,7 @@ class Clientes extends MX_Controller {
 
 	public function eliminar($id){ 
         $data = [
-            "idEstadoClientes" => "0"
+            "idEstados" => "0"
         ];
         $this->obj_model->update($data,$id);
         redirect("admin/".$this->controller);
