@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 19-03-2019 a las 18:18:01
+-- Tiempo de generación: 20-03-2019 a las 16:21:32
 -- Versión del servidor: 5.7.25-0ubuntu0.18.04.2
 -- Versión de PHP: 7.2.15-0ubuntu0.18.04.1
 
@@ -47,7 +47,7 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `dni`, `ruc`, `direccion`, `correo`, `saldo`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'Franz Wilder', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz Wilder', '3234234', '10446832544', 'Urb Prolima Los Olivos', 'sdfsdf@gmail.com', 0, 1, ''),
-(2, 'afaefaef', 'efafe', 'aefaef', 'efafe aefaef afaefaef', '3424', '234234', 'fsdssdf', 'afadf@fgasfadf.com', 0, 1, ''),
+(2, 'afaefaef', 'efafe', 'aefaef', 'efafe aefaef afaefaef', '3424', '234234', 'fsdssdf', 'afadf@fgasfadf.com', 0, 0, ''),
 (3, 'adf', 'adfad', 'adfa', 'adfad adfa adf', '987654321', '23423', '4dfsd', 'aasdsad@dffsdf.com', 0, 1, ''),
 (4, 'aaa', 'bb', 'cc', 'bb cc aaa', '2222', '3333', 'dd', 'eee@gmai.com', 0, 1, ''),
 (5, 'aaaa', 'saaaaa', 'aaaa', 'saaaaa aaaa aaaa', '121212', '121212', 'bbbb', 'ccc@cccc.com', 0, 1, ''),
@@ -149,9 +149,10 @@ INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`
 (4, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
 (5, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
 (6, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
-(7, 'RRRR', 3, 2, 'MMMM', 1234, 'QWERTY', '1.jpg', 1, 1, 2019),
-(8, '1a1a1a1', 1, 1, 'efaf', 2019, 'efaef', '1.jpeg', 1, 1, 2019),
-(9, 'gdgh', 1, 1, 'dghd', 24141, 'fgdgdfg', '1.jpg', 5, 1, 2019);
+(7, 'RRRR', 3, 2, 'MMMM', 1234, 'QWERTY', '1.jpeg', 1, 1, 2019),
+(8, '1a1a1a1', 1, 1, 'efaf', 2019, 'efaef', '1.jpeg', 1, 0, 2019),
+(9, 'gdgh', 1, 1, 'dghd', 24141, 'fgdgdfg', '1.jpg', 5, 0, 2019),
+(10, 'lknjlki', 1, 1, 'ghjkghjk', 5678, 'dhdhdgh', '1.jpg', 1, 1, 2019);
 
 --
 -- Índices para tablas volcadas
@@ -215,7 +216,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
