@@ -4,6 +4,6 @@
 <script type="text/javascript" charset="utf8" src="static/main/js/datatable/js/dataTables.bootstrap.min.js"></script>
 <div>
 	<div class="row">
-		Backend
+		Aca va servicios!
 	</div>
 </div>
