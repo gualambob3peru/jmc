@@ -98,9 +98,15 @@
                 <li class="nav-item">
                     <a class="nav-link" href="admin/vehiculos">Vehiculos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/personas">Mecánicos</a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="admin/servicios">Servicios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="admin/entregas">Entrega</a>
                 </li>
 
                 <li class="nav-item dropdown no-arrow">
@@ -130,7 +136,9 @@
                 <div class="row">
                     <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
                     <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-car"></i> Vehículos</a>
+                    <a class="barraEnlace" href="admin/personas"><i class="fas fa-car"></i> Mecánicos</a>
                     <a class="barraEnlace" href="admin/servicios"><i class="fas fa-car-crash"></i> Servicios</a>
+                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car-crash"></i> Entrega</a>
 
                 </div>
             </div>
