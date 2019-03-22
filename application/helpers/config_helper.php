@@ -23,6 +23,19 @@
 	    }
 	}
 
+	if ( ! function_exists('helper_form_textarea')){
+	    function helper_form_textarea($id,$texto,$valor="",$size1="4",$size2="8",$cols="4",$rows="8"){
+			echo "
+			<div class='form-group row'>
+				<label for='".$id."' class='col-sm-".$size1." col-form-label'>".$texto."</label>
+				<div class='col-sm-".$size2."'>
+					<textarea rows='".$rows."' rows='".$cols."' name='".$id."' class='form-control' id='".$id."'>".$valor."</textarea>".form_error($id, '<div class="text-danger">', '</div>')."
+				</div>
+			</div>
+			";
+	    }
+	}
+
 	if ( ! function_exists('helper_form_select')){
 	    function helper_form_select($id,$texto,$data,$descripcion="descripcion",$ide="",$size1="4",$size2="8"){
 			$options = "<option value=''>Elegir...</option>";
