@@ -1,4 +1,3 @@
-
 <script>
 $(function() {
     let controller = "<?php echo $controller ?>";
@@ -34,6 +33,7 @@ $(function() {
                     <tr>
                         <th>Vehículo</th>
                         <th>Cliente</th>
+                        <th>Mecánico</th>
                         <th>Servicio</th>
                         <th>Fecha de Servicio</th>
                         <th></th>
@@ -43,6 +43,7 @@ $(function() {
                     <tr>
                         <td><?php echo $value->placa ?></td>
                         <td><?php echo $value->nombresCompletos ?></td>
+                        <td><?php echo $value->nombresClientes ?></td>
                         <td><?php echo $value->descripcion_servicios ?></td>
                         <td><?php echo $value->fechaServicio ?></td>
                         <td>
