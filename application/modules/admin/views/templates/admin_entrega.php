@@ -72,8 +72,8 @@
         color: #181818;
     }
 
-    a.barraEnlace:hover i {
-
+    a.barraEnlace:hover i{
+       
         color: #181818;
     }
     </style>
@@ -119,8 +119,13 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-2 barraLateral">
+                <div class="row">
+                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car-crash"></i> Entrega</a>
 
-            <div class="col-md-12 cuerpo">
+                </div>
+            </div>
+            <div class="col-md-10 cuerpo">
                 <?php echo $body; ?>
             </div>
         </div>

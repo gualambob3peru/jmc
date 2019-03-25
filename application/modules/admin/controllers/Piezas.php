@@ -2,6 +2,7 @@
 
 class Piezas extends MX_Controller {
     public $cview = "piezas";
+    public $template = 'templates/admin_config';
     public $controller = "piezas";
     public $data =[
         "codigo" => "",
@@ -24,7 +25,7 @@ class Piezas extends MX_Controller {
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
-        $this->load->tmp_admin->setLayout('templates/admin_tmp');
+        $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
@@ -38,7 +39,7 @@ class Piezas extends MX_Controller {
         if ($this->form_validation->run($this) == FALSE)
         {
             $this->tmp_admin->set("controller",$this->controller);
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
@@ -62,7 +63,7 @@ class Piezas extends MX_Controller {
         {
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
         else

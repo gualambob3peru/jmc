@@ -3,12 +3,13 @@
 class Clientes extends MX_Controller {
     public $cview = "clientes";
     public $controller = "clientes";
+    public $template = 'templates/admin_config';
     public $data =[
         "nombres" => "",
         "apellidoPaterno" => "",
         "apellidoMaterno" => "",
-        "dni" => "",
-        "ruc" => "",
+        "idTipoDocumentos" => "",
+        "documento" => "",
         "direccion" => "",
         "correo" => "",
         "idEstados" => "1"
@@ -17,6 +18,7 @@ class Clientes extends MX_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Tbl_usuario','obj_usuario');    
+        $this->load->model('Tbl_tipoDocumentos','obj_tipoDocumentos');    
            
         $this->load->model('Tbl_clientes','obj_model');    
        
@@ -28,7 +30,7 @@ class Clientes extends MX_Controller {
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
-        $this->load->tmp_admin->setLayout('templates/admin_tmp');
+        $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
@@ -40,8 +42,12 @@ class Clientes extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $tipoDocumentos = $this->obj_tipoDocumentos->get_all();
+
+
+            $this->tmp_admin->set("tipoDocumentos",$tipoDocumentos);
             $this->tmp_admin->set("controller",$this->controller);
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
@@ -64,9 +70,13 @@ class Clientes extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $tipoDocumentos = $this->obj_tipoDocumentos->get_all();
+
+
+            $this->tmp_admin->set("tipoDocumentos",$tipoDocumentos);
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
         else

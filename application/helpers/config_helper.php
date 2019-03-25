@@ -34,7 +34,7 @@
 			</div>
 			";
 	    }
-	}
+	} 
 
 	if ( ! function_exists('helper_form_select')){
 	    function helper_form_select($id,$texto,$data,$descripcion="descripcion",$ide="",$size1="4",$size2="8"){

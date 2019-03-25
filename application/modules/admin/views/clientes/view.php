@@ -32,8 +32,8 @@ $(function() {
                 <table class="table">
                     <tr>
                         <th>Nombres</th>
-                        <th>DNI</th>
-                        <th>RUC</th>
+                        <th>Tipo de Documento</th>
+                        <th>Documento</th>
                         <th>Dirección</th>
                         <th>Correo</th>
                         <th>Saldo</th>
@@ -43,8 +43,8 @@ $(function() {
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
                         <td><?php echo $value->nombresCompletos ?></td>
-                        <td><?php echo $value->dni ?></td>
-                        <td><?php echo $value->ruc ?></td>
+                        <td><?php echo $value->descripcion_tipoDocumentos ?></td>
+                        <td><?php echo $value->documento ?></td>
                         <td><?php echo $value->direccion ?></td>
                         <td><?php echo $value->correo ?></td>
                         <td><?php echo $value->saldo ?></td>

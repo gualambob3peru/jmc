@@ -3,6 +3,7 @@
 class Entregas extends MX_Controller {
     public $cview = "entregas";
     public $controller = "entregas";
+    public $template = 'templates/admin_entrega';
     public $data =[
         "idVehiculos" => "",
         "idPersonas" => "",
@@ -29,7 +30,7 @@ class Entregas extends MX_Controller {
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
-        $this->load->tmp_admin->setLayout('templates/admin_tmp');
+        $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
@@ -47,7 +48,7 @@ class Entregas extends MX_Controller {
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
 
             $this->tmp_admin->set("controller",$this->controller);
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
@@ -76,7 +77,7 @@ class Entregas extends MX_Controller {
             
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
         else

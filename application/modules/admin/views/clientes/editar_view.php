@@ -17,8 +17,8 @@
                     <?php helper_form_text("nombres","Nombres",$model->nombres) ?>
                     <?php helper_form_text("apellidoPaterno","Apellido Paterno",$model->apellidoPaterno) ?>
                     <?php helper_form_text("apellidoMaterno","Apellido Materno",$model->apellidoMaterno) ?>
-                    <?php helper_form_text("dni","DNI",$model->dni,"number") ?>
-                    <?php helper_form_text("ruc","RUC",$model->ruc) ?>
+                    <?php helper_form_select("idTipoDocumentos","Tipo de Documento",$tipoDocumentos,"descripcion",$model->idTipoDocumentos) ?>
+                    <?php helper_form_text("documento","Documento",$model->documento) ?>
                     <?php helper_form_text("direccion","Dirección",$model->direccion) ?>
                     <?php helper_form_text("correo","Correo",$model->correo,"email") ?>
 

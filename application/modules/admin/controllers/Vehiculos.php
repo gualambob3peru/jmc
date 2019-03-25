@@ -2,6 +2,7 @@
 
 class Vehiculos extends MX_Controller {
     public $cview = "vehiculos";
+    public $template = 'templates/admin_config';
     public $controller = "vehiculos";
     public $data =[
         "placa" => "",
@@ -33,7 +34,7 @@ class Vehiculos extends MX_Controller {
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
-        $this->load->tmp_admin->setLayout('templates/admin_tmp');
+        $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
@@ -50,7 +51,7 @@ class Vehiculos extends MX_Controller {
             $this->tmp_admin->set("modelos",$this->obj_modelos->get_all());
             $this->tmp_admin->set("clientes",$this->obj_clientes->get_all());
             $this->tmp_admin->set("controller",$this->controller);
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
@@ -106,7 +107,7 @@ class Vehiculos extends MX_Controller {
             $this->tmp_admin->set("modelos",$this->obj_modelos->get_all());
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
         else

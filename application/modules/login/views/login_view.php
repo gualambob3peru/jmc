@@ -20,6 +20,8 @@
 
         <div class="row">
             <br>
+            <br>
+            <br>
             <div class="col-md-4"></div>
             <div class="col-md-4">
                 <div>
@@ -34,27 +36,11 @@
 
                         <?php helper_form_text("contrasena","Contraseña","123456","password"); ?>
 
-                        <!-- <div class="form-group">
-                            <label class="control-label col-md-3" for="usuario">Usuario</label>
-                            <div class="col-md-9">
-                                <input class="form-control" type="text" id="usuario" placeholder="Usuario"
-                                    name="usuario">
-                                <?php echo form_error('usuario','<div class="error">', '</div>'); ?>
+                        <div class="form-group row">
+                            <div class="col-md-4">
                             </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label col-md-3" for="contrasena">Contraseña</label>
-                            <div class="col-md-9">
-                                <input class="form-control" type="password" id="contrasena" placeholder="Contraseña"
-                                    name="contrasena">
-                                <?php echo form_error('contrasena','<div class="error">', '</div>'); ?>
-                            </div>
-                        </div> -->
-
-                        <div class="form-group">
-                            <div class="col-md-offset-3 col-md-9">
-                                <button type="submit" class="btn btn-primary">Entrar</button>
+                            <div class="col-md-8">
+                                <button type="submit" class="btn btn-lg btn-success">Entrar</button>
                             </div>
                         </div>
                     </form>

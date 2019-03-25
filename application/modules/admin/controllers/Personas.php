@@ -3,6 +3,7 @@
 class Personas extends MX_Controller {
     public $cview = "personas";
     public $controller = "personas";
+    public $template = 'templates/admin_config';
     public $data =[
         "nombres" => "",
         "apellidoPaterno" => "",
@@ -33,7 +34,7 @@ class Personas extends MX_Controller {
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
-        $this->load->tmp_admin->setLayout('templates/admin_tmp');
+        $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
@@ -49,7 +50,7 @@ class Personas extends MX_Controller {
             $this->tmp_admin->set("tipoPersonas",$this->obj_tipoPersonas->get_all());
             $this->tmp_admin->set("tipoDocumentos",$this->obj_tipoDocumentos->get_all());
 
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/agregar_view.php');
         }
         else
@@ -76,7 +77,7 @@ class Personas extends MX_Controller {
             $this->tmp_admin->set("tipoDocumentos",$this->obj_tipoDocumentos->get_all());
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
-            $this->load->tmp_admin->setLayout('templates/admin_tmp');
+            $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
         else

@@ -72,8 +72,8 @@
         color: #181818;
     }
 
-    a.barraEnlace:hover i {
-
+    a.barraEnlace:hover i{
+       
         color: #181818;
     }
     </style>
@@ -89,7 +89,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+            <li class="nav-item active">
                     <a class="nav-link" href="admin/entregas">Entrega <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -119,8 +119,18 @@
     </nav>
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-2 barraLateral">
+                <div class="row">
+                    <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
+                    <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-car"></i> Vehículos</a>
+                    <a class="barraEnlace" href="admin/personas"><i class="fas fa-car"></i> Mecánicos</a>
+                    <a class="barraEnlace" href="admin/piezas"><i class="fas fa-car"></i> Repuestos</a>
+                    <a class="barraEnlace" href="admin/servicios"><i class="fas fa-car-crash"></i> Servicios</a>
+                    
 
-            <div class="col-md-12 cuerpo">
+                </div>
+            </div>
+            <div class="col-md-10 cuerpo">
                 <?php echo $body; ?>
             </div>
         </div>

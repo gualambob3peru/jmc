@@ -22,8 +22,15 @@ class Tbl_clientes extends CI_Model{
 
     public function get_all(){
         try {
-            $this->db->where("idEstados", "1");
-            $query = $this->db->get($this->tabla);
+
+            $this->db->from("clientes c");
+            $this->db->select("c.id, c.nombres, c.apellidoPaterno, c.apellidoMaterno, c.nombresCompletos, c.idTipoDocumentos, c.documento, c.direccion, c.correo, c.saldo, c.idEstados, c.fechaRegistro, t.descripcion descripcion_tipoDocumentos");
+
+            $this->db->join("tipoDocumentos t","t.id=c.idTipoDocumentos");
+            $this->db->where("c.idEstados", "1");   
+
+
+            $query = $this->db->get();
             return $query->result();
         } catch (Exception $exc) {
             return FALSE;   
