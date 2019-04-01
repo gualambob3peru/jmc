@@ -3,7 +3,7 @@
 class Entregas extends MX_Controller {
     public $cview = "entregas";
     public $controller = "entregas";
-    public $template = 'templates/admin_entrega';
+    public $template = 'templates/admin_config';
     public $data =[
         "idVehiculos" => "",
         "idPersonas" => "",

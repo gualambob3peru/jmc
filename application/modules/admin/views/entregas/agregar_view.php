@@ -1,27 +1,27 @@
-
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
-    $(function(){
-        var availableTags = <?php echo json_encode($vehiculos) ?>;
-        $("#autoVehiculo").autocomplete({
-            minLength: 0,
-            focus: function( event, ui ) {
-                console.log(ui)
-                $( "#autoVehiculo" ).val( ui.item.placa );
-                return false;
-            },
-            source : availableTags,
-            change : function(event,ui){
-                console.log(ui)
-            },
-            select : function(event,ui){
-                console.log(ui)
-                $("#autoVehiculo").val(ui.item.placa);
-                return false;
-            }
-        })
+$(function() {
+    let vehiculos = <?php echo json_encode($vehiculos) ?>;
+    vehiculos = $.map(vehiculos, function(item) {
+        return {
+            label: item
+            .placa, // Set the display lebel for the searched list of company names which we're getting from server side coding.
+            value: item.id // Set the raw value of each shown items.
+        }
     })
+
+    $("#autoVehiculo").autocomplete({
+        source: vehiculos,
+        select: function(event, ui) {
+            $("#autoVehiculo").val(ui.item.label)
+            $("#idVehiculos").val(ui.item.value)
+            return false;
+        }
+    })
+
+
+})
 </script>
 
 

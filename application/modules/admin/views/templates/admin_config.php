@@ -89,12 +89,12 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!-- <li class="nav-item active">
                     <a class="nav-link" href="admin/entregas">Entrega <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="admin/clientes">Configuraciones Generales</a>
-                </li>
+                </li> -->
 
                 <li class="nav-item dropdown no-arrow">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
@@ -122,12 +122,9 @@
             <div class="col-md-2 barraLateral">
                 <div class="row">
                     <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
-                    <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-car"></i> Vehículos</a>
-                    <a class="barraEnlace" href="admin/personas"><i class="fas fa-car"></i> Mecánicos</a>
-                    <a class="barraEnlace" href="admin/piezas"><i class="fas fa-car"></i> Repuestos</a>
-                    <a class="barraEnlace" href="admin/servicios"><i class="fas fa-car-crash"></i> Servicios</a>
-                    
-
+                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car"></i> Servicios</a>
+                    <a class="barraEnlace" href="admin/piezas"><i class="fas fa-car"></i> Almacen</a>
+                    <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>
                 </div>
             </div>
             <div class="col-md-10 cuerpo">
