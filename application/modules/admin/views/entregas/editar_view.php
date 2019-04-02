@@ -192,7 +192,7 @@ $(function() {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <input type="submit" value="Guardar" class="btn btn-lg btn-success">
+                            <input type="button" value="Guardar" class="btn btn-lg btn-success">
                         </div>
                     </div>
 
