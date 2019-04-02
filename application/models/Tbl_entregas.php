@@ -11,28 +11,54 @@ class Tbl_entregas extends CI_Model{
     
     public function get_id($id){
         try {
-            $this->db->where($this->id,$id);
+            $this->db->from("entregas e");
+            $this->db->select("e.id, e.observaciones, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
+            $this->db->join("vehiculos v","v.id=e.idVehiculos");
+            $this->db->join("clientes c","c.id=v.idClientes");
 
-            $query = $this->db->get($this->tabla);
+
+
+            $this->db->where("e.idEstados", "1");
+            $query = $this->db->get();
             return $query->row();
         } catch (Exception $exc) {
             return FALSE;   
         }
     }
 
+    public function get_entregaServicios($idServicios){
+        $this->db->from("entregaServicios eS");
+            $this->db->select("eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion");
+            $this->db->join("personas p","p.id=eS.idPersonas");
+            $this->db->join("servicios s","s.id=eS.idServicios");
+
+
+
+           
+            $query = $this->db->get();
+            return $query->result();
+    }
+
     public function get_all(){
         try {
             $this->db->from("entregas e");
-            $this->db->select("e.id, e.idVehiculos,e.idPersonas,e.fechaRegistro,e.idServicios,e.fechaServicio,e.idEstados,v.placa,p.nombresCompletos,s.descripcion descripcion_servicios,c.nombresCompletos nombresClientes");
+            $this->db->select("e.id, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
             $this->db->join("vehiculos v","v.id=e.idVehiculos");
             $this->db->join("clientes c","c.id=v.idClientes");
-            $this->db->join("personas p","p.id=e.idPersonas");
-            $this->db->join("servicios s","s.id=e.idServicios");
+
 
 
             $this->db->where("e.idEstados", "1");
             $query = $this->db->get();
             return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function insert_entregaServicios($data){
+        try {
+            $this->db->insert("entregaServicios", $data);
         } catch (Exception $exc) {
             return FALSE;   
         }

@@ -178,6 +178,11 @@ class Vehiculos extends MX_Controller {
         
         return $data;
     }
+
+    public function ajax_cargar_vehiculo($placa){
+        $vehiculo = $this->obj_model->get_campo("placa",$placa);
+        echo json_encode(array('respuesta' => $vehiculo ));
+    }
     
     public function logout(){                     
         $this->session->unset_userdata('logged');

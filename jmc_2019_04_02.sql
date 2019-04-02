@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-03-2019 a las 01:14:33
+-- Tiempo de generación: 02-04-2019 a las 22:52:19
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -66,21 +66,53 @@ INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `
 CREATE TABLE `entregas` (
   `id` int(11) NOT NULL,
   `idVehiculos` int(11) NOT NULL,
-  `idPersonas` int(11) NOT NULL,
   `fechaRegistro` varchar(40) NOT NULL,
-  `idServicios` int(11) NOT NULL,
   `fechaServicio` varchar(40) NOT NULL,
-  `idEstados` int(11) NOT NULL
+  `idEstados` int(11) NOT NULL,
+  `observaciones` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `entregas`
 --
 
-INSERT INTO `entregas` (`id`, `idVehiculos`, `idPersonas`, `fechaRegistro`, `idServicios`, `fechaServicio`, `idEstados`) VALUES
-(1, 10, 1, '', 1, '2019-03-15', 1),
-(2, 10, 1, '2019-03-23', 1, '2019-03-02', 0),
-(3, 7, 3, '', 1, '2019-03-24', 0);
+INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `idEstados`, `observaciones`) VALUES
+(1, 10, '', '2019-03-15', 1, 'aaa'),
+(2, 10, '2019-03-23', '2019-03-02', 0, ''),
+(3, 7, '', '2019-03-24', 0, ''),
+(4, 10, '2019-04-20', '', 0, 'daadf'),
+(5, 10, '2019-04-02', '2019-04-20', 0, 'daadf'),
+(6, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
+(7, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
+(8, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
+(9, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
+(10, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
+(11, 10, '2019-04-02', '2019-04-20', 1, 'daadf');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entregaservicios`
+--
+
+CREATE TABLE `entregaservicios` (
+  `id` int(11) NOT NULL,
+  `idPersonas` int(11) NOT NULL,
+  `idServicios` int(11) NOT NULL,
+  `idEntregas` int(11) NOT NULL,
+  `monto` float NOT NULL,
+  `observacionesServicio` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `entregaservicios`
+--
+
+INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`, `monto`, `observacionesServicio`) VALUES
+(1, 3, 1, 0, 1111, 'adfafd'),
+(2, 1, 1, 0, 22222, 'adfafd'),
+(3, 3, 1, 0, 1111, 'adfafd'),
+(4, 1, 1, 0, 22222, 'adfafd');
 
 -- --------------------------------------------------------
 
@@ -284,15 +316,15 @@ CREATE TABLE `vehiculos` (
 --
 
 INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`, `serie`, `imagen`, `idClientes`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'AAU112', 1, 1, 'adfadf', 113, 'dfadf', '', 4, 0, 2019),
-(2, 'AAB123', 1, 2, 'sfgs', 23423423, 'wewewer', '', 8, 0, 2019),
-(3, 'AAA111', 1, 1, 'motor1', 1990, 'serirserse', '', 1, 0, 2019),
-(4, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
-(5, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
-(6, 'adfadf', 2, 1, '', 0, '', '', 1, 0, 2019),
+(1, 'AAU112', 1, 1, 'adfadf', 113, 'dfadf', '', 4, 1, 2019),
+(2, 'AAB123', 1, 2, 'sfgs', 23423423, 'wewewer', '', 8, 1, 2019),
+(3, 'AAA111', 1, 1, 'motor1', 1990, 'serirserse', '', 1, 1, 2019),
+(4, 'adfadf', 2, 1, '', 0, '', '', 1, 1, 2019),
+(5, 'adfadf', 2, 1, '', 0, '', '', 1, 1, 2019),
+(6, 'adfadf', 2, 1, '', 0, '', '', 1, 1, 2019),
 (7, 'RRRR', 3, 2, 'MMMM', 1234, 'QWERTY', '1.jpeg', 1, 1, 2019),
-(8, '1a1a1a1', 1, 1, 'efaf', 2019, 'efaef', '1.jpeg', 1, 0, 2019),
-(9, 'gdgh', 1, 1, 'dghd', 24141, 'fgdgdfg', '1.jpg', 5, 0, 2019),
+(8, '1a1a1a1', 1, 1, 'efaf', 2019, 'efaef', '1.jpeg', 1, 1, 2019),
+(9, 'gdgh', 1, 1, 'dghd', 24141, 'fgdgdfg', '1.jpg', 5, 1, 2019),
 (10, 'lknjlki', 1, 1, 'ghjkghjk', 5678, 'dhdhdgh', '1.jpg', 1, 1, 2019);
 
 --
@@ -309,6 +341,12 @@ ALTER TABLE `clientes`
 -- Indices de la tabla `entregas`
 --
 ALTER TABLE `entregas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `entregaservicios`
+--
+ALTER TABLE `entregaservicios`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -379,7 +417,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de la tabla `entregaservicios`
+--
+ALTER TABLE `entregaservicios`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`

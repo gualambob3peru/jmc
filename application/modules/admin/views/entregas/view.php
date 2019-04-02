@@ -33,8 +33,6 @@ $(function() {
                     <tr>
                         <th>Vehículo</th>
                         <th>Cliente</th>
-                        <th>Mecánico</th>
-                        <th>Servicio</th>
                         <th>Fecha de Servicio</th>
                         <th></th>
                     </tr>
@@ -42,9 +40,7 @@ $(function() {
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
                         <td><?php echo $value->placa ?></td>
-                        <td><?php echo $value->nombresCompletos ?></td>
                         <td><?php echo $value->nombresClientes ?></td>
-                        <td><?php echo $value->descripcion_servicios ?></td>
                         <td><?php echo $value->fechaServicio ?></td>
                         <td>
                             <div class="input-group">

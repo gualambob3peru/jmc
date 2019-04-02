@@ -36,8 +36,7 @@ class Entregas extends MX_Controller {
     
 	public function agregar(){ 
         $this->form_validation->set_rules('idVehiculos', 'Vehículo', 'trim|required');
-        $this->form_validation->set_rules('idPersonas', 'Mecánico', 'trim|required');
-        $this->form_validation->set_rules('idServicios', 'Servicio', 'trim|required');
+       
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
@@ -53,12 +52,31 @@ class Entregas extends MX_Controller {
         }
         else
         {   
-            $data = $this->upPost($this->data);
-
+            $data = array();
+            $data["idVehiculos"] = $this->input->post("idVehiculos");
             $data["fechaRegistro"] = date("Y-m-d");
+            $data["fechaServicio"] = $this->input->post("fechaServicio");
+            $data["observaciones"] = $this->input->post("observaciones");
+            $data["idEstados"] = "1";
 
             $this->obj_model->insert($data);
-            redirect("admin/".$this->controller);
+
+
+            $idPersonas = $this->input->post("idPersonas");
+            $idServicios = $this->input->post("idServicios");
+            $observacionesServicio = $this->input->post("observacionesServicio");
+            $monto = $this->input->post("monto");
+            
+            for ($i=0; $i < count($idPersonas); $i++) { 
+                $dataServicio = array();
+                $dataServicio["idPersonas"] = $idPersonas[$i];
+                $dataServicio["idServicios"] = $idServicios[$i];
+                $dataServicio["observacionesServicio"] = $observacionesServicio[$i];
+                $dataServicio["monto"] = $monto[$i];
+                $this->obj_model->insert_entregaServicios($dataServicio);
+            }
+
+            redirect("admin/entregas");
         }
     }
 
@@ -71,9 +89,12 @@ class Entregas extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $entregaServicios = $this->obj_model->get_entregaServicios($id);
+
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
+            $this->tmp_admin->set("entregaServicios",$entregaServicios);
             
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
