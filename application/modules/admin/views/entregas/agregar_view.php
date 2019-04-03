@@ -67,6 +67,12 @@ $(function() {
         $(this).parents("tr").eq(0).remove();
     });
 
+    $("#btnGuardarEntrega").click(function(){
+        let idVehiculos = $("#idVehiculos").val(),
+            fechaServicio = $("#fechaServicio").val(),
+            observaciones = $("#observaciones").val();
+    });
+
 })
 </script>
 
@@ -79,7 +85,7 @@ $(function() {
                 <h5 class="card-header">Agregar <?php echo ucwords($controller) ?></h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
 
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
@@ -100,9 +106,12 @@ $(function() {
 
                             <?php helper_form_textarea("observaciones","Observaciones") ?>
 
+                            <!-- <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i class="fas fa-save"></i> Guardar</button> -->
+
+                            <input type="submit" value="Guardar" class="btn btn-lg btn-success">    
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Cliente</th>
@@ -138,7 +147,7 @@ $(function() {
 
     <br>
 
-    <div class="row">
+    <!-- <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <h5 class="card-header">Servicios</h5>
@@ -188,7 +197,7 @@ $(function() {
 
             </div>
         </div>
-    </div>
+    </div> -->
 </form>
 
 <div class="modal fade" id="modalAddServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

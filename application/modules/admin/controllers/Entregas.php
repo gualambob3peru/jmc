@@ -59,7 +59,7 @@ class Entregas extends MX_Controller {
             $data["observaciones"] = $this->input->post("observaciones");
             $data["idEstados"] = "1";
 
-            $this->obj_model->insert($data);
+            $id_last = $this->obj_model->insert($data);
 
 
             $idPersonas = $this->input->post("idPersonas");
@@ -76,7 +76,7 @@ class Entregas extends MX_Controller {
                 $this->obj_model->insert_entregaServicios($dataServicio);
             }
 
-            redirect("admin/entregas");
+            redirect("admin/entregas/editar/".$id_last);
         }
     }
 
@@ -95,6 +95,9 @@ class Entregas extends MX_Controller {
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
             $this->tmp_admin->set("entregaServicios",$entregaServicios);
+            $this->tmp_admin->set("id",$id);
+
+         
             
             $this->tmp_admin->set("controller",$this->controller);
             $this->tmp_admin->set("model",$this->obj_model->get_id($id));
@@ -119,6 +122,14 @@ class Entregas extends MX_Controller {
         redirect("admin/".$this->controller);
     }
 
+    public function eliminarServicio($id,$idEntrega){ 
+        $data = [
+            "idEstados" => "0"
+        ];
+        $this->obj_model->updateServicio($data,$id);
+        redirect("admin/".$this->controller."/editar/".$idEntrega);
+    }
+
     public function upPost($data){
         $data = $this->data;
 
@@ -127,6 +138,31 @@ class Entregas extends MX_Controller {
                 $data[$key] = $this->input->post($key);
         
         return $data;
+    }
+
+    public function actualizarEntrega(){
+        $data = array();
+       
+        $id = $this->input->post("id");
+        $data["idVehiculos"] = $this->input->post("idVehiculos");
+        $data["fechaServicio"] = $this->input->post("fechaServicio");
+        $data["observaciones"] = $this->input->post("observaciones");
+         
+        $this->obj_model->update($data,$id);
+
+        echo json_encode(array('resultado' => 1 ));
+    }
+
+    public function guardarServicios(){
+        $data = array();
+        $data["idPersonas"] = $this->input->post("idPersonas");
+        $data["idServicios"] = $this->input->post("idServicios");
+        $data["observacionesServicio"] = $this->input->post("observacionesServicio");
+        $data["monto"] = $this->input->post("monto");
+        $data["idEntregas"] = $this->input->post("idModal");
+
+        $this->obj_model->insert_entregaServicios($data);
+        redirect("admin/entregas/editar/".$this->input->post("idModal"));
     }
     
     public function logout(){                     

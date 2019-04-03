@@ -19,6 +19,7 @@ class Tbl_entregas extends CI_Model{
 
 
             $this->db->where("e.idEstados", "1");
+            $this->db->where("e.id",$id);
             $query = $this->db->get();
             return $query->row();
         } catch (Exception $exc) {
@@ -28,13 +29,15 @@ class Tbl_entregas extends CI_Model{
 
     public function get_entregaServicios($idServicios){
         $this->db->from("entregaServicios eS");
-            $this->db->select("eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion");
+            $this->db->select("eS.id,eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion");
             $this->db->join("personas p","p.id=eS.idPersonas");
             $this->db->join("servicios s","s.id=eS.idServicios");
-            //$this->db->where("");
+            
+            
+            
 
-
-           
+            $this->db->where("eS.idEstados", "1");
+            $this->db->where("eS.idEntregas",$idServicios);
             $query = $this->db->get();
             return $query->result();
     }
@@ -67,6 +70,8 @@ class Tbl_entregas extends CI_Model{
     public function insert($data){
         try {
             $this->db->insert($this->tabla, $data);
+
+            return $this->db->insert_id();
         } catch (Exception $exc) {
             return FALSE;   
         }
@@ -76,6 +81,14 @@ class Tbl_entregas extends CI_Model{
         try {
             $this->db->where($this->id, $id);
             $this->db->update($this->tabla, $data);
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+    public function updateServicio($data,$id){
+        try {
+            $this->db->where($this->id, $id);
+            $this->db->update("entregaServicios", $data);
         } catch (Exception $exc) {
             return FALSE;   
         }

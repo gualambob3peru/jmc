@@ -34,6 +34,7 @@ $(function() {
                 $("#ajax_modelo").text(vehiculo.descripcion_modelos);
                 $("#ajax_placa").text(vehiculo.placa);
                 $("#ajax_anio").text(vehiculo.anio);
+
             }
         })
     });
@@ -44,36 +45,62 @@ $(function() {
 
 
 
-    $("#saveService").click(function() {
-        $("#modalAddServicio").modal("hide");
-        let idPersonas = $("#idPersonas").val();
-        idServicios = $("#idServicios").val(),
-            observacionesServicio = $("#observacionesServicio").val(),
-            monto = $("#monto").val(),
-            persona = $("#idPersonas").find(":selected").text(),
-            servicio = $("#idServicios").find(":selected").text();
+    // $("#saveService").click(function() {
+    //     $("#modalAddServicio").modal("hide");
+    //     let idPersonas = $("#idPersonas").val();
+    //     idServicios = $("#idServicios").val(),
+    //         observacionesServicio = $("#observacionesServicio").val(),
+    //         monto = $("#monto").val(),
+    //         persona = $("#idPersonas").find(":selected").text(),
+    //         servicio = $("#idServicios").find(":selected").text();
 
 
-        let tr = '<tr><td>   <input type="hidden" name="idPersonas[]" value="' + idPersonas +
-            '"> <input type="hidden" name="idServicios[]" value="' + idServicios +
-            '"><input type="hidden" name="observacionesServicio[]" value="' + observacionesServicio +
-            '"><input type="hidden" name="monto[]" value="' + monto + '">    ' + servicio +
-            '</td><td>' + monto + '</td><td>' + persona +
-            '</td><td> <input type="button" class="btn btn-danger btnEliminarServicio" value="Eliminar"> </td> </tr>';
-        $("#tbodyServicios").append(tr);
-    });
+    //     let tr = '<tr><td>   <input type="hidden" name="idPersonas[]" value="' + idPersonas +
+    //         '"> <input type="hidden" name="idServicios[]" value="' + idServicios +
+    //         '"><input type="hidden" name="observacionesServicio[]" value="' + observacionesServicio +
+    //         '"><input type="hidden" name="monto[]" value="' + monto + '">    ' + servicio +
+    //         '</td><td>' + monto + '</td><td>' + persona +
+    //         '</td><td> <input type="button" class="btn btn-danger    btnEliminarServicio" value="Eliminar"> </td> </tr>';
+    //     $("#tbodyServicios").append(tr);
+    // });
 
     $("body").on("click", ".btnEliminarServicio", function() {
         $(this).parents("tr").eq(0).remove();
     });
 
     $("#cargarPlaca").click();
+
+    id = "<?php echo $id ?>";
+
+    $("#btnGuardarEntrega").click(function() {
+        let idVehiculos = $("#idVehiculos").val(),
+            fechaServicio = $("#fechaServicio").val(),
+            observaciones = $("#observaciones").val();
+
+        console.log(idVehiculos, fechaServicio, observaciones);
+
+        $.ajax({
+            url: "admin/entregas/actualizarEntrega",
+            type: "post",
+            dataType: "json",
+            data: {
+                idVehiculos: idVehiculos,
+                fechaServicio: fechaServicio,
+                observaciones: observaciones,
+                id: $("#ide").val()
+            },
+            success: function(response) {
+                console.log(response);
+                location.reload();
+            }
+        });
+    });
 })
 </script>
 
 
 <form action="" method="post">
-
+    <input type="hidden" id="ide" value="<?php echo $id; ?>">
     <div class="row">
         <div class="col-md-12">
 
@@ -97,11 +124,14 @@ $(function() {
 
                                 </div>
                             </div>
-                            <input type="hidden" name="idVehiculos" id="idVehiculos">
+                            <input type="hidden" name="idVehiculos" id="idVehiculos"
+                                value="<?php echo $model->idVehiculos ?>">
                             <?php helper_form_text("fechaServicio","Fecha de Servicio",$model->fechaServicio,"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
 
+                            <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i
+                                    class="fas fa-save"></i> Guardar</button>
                         </div>
 
                         <div class="col-md-6">
@@ -141,7 +171,7 @@ $(function() {
     <br>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12   ">
             <div class="card">
                 <h5 class="card-header">Servicios</h5>
                 <div class="card-body">
@@ -171,7 +201,7 @@ $(function() {
                                             echo "<td>".$value->descripcion."</td>";
                                             echo "<td>".$value->monto."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
-                                            echo "<td><input type='button' class='btn btn-danger btnEliminarServicio' value='Eliminar'></td>";
+                                            echo "<td><a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' >Eliminar</a></td>";
                                             echo "</tr>";
                                         }
 
@@ -186,20 +216,7 @@ $(function() {
             </div>
         </div>
 
-        <div class="col-md-6">
-            <div class="card">
-                <h5 class="card-header">Guardar Servivios</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <input type="button" value="Guardar" class="btn btn-lg btn-success">
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
+        
     </div>
 </form>
 
@@ -207,25 +224,28 @@ $(function() {
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Agregar Servicio</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="" method="post">
+            <form action="admin/entregas/guardarServicios" method="post">
+            <input type="hidden" name="idModal" value="<?php echo $id ?>">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Servicio</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
                     <?php helper_form_select("idPersonas","Mecánico",$personas,"nombresCompletos" ) ?>
                     <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?>
                     <?php helper_form_textarea("observacionesServicio","Observaciones") ?>
 
                     <?php helper_form_text("monto","Monto","","number") ?>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-outline-success" id="saveService">Guardar</button>
-            </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
