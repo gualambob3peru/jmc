@@ -173,13 +173,13 @@ $(function() {
     <div class="row">
         <div class="col-md-12   ">
             <div class="card">
-                <h5 class="card-header">Servicios</h5>
+                <h5 class="card-header">Catálogo de servicios</h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
                             <button type="button" class="btn btn-outline-info" id="btnAddServicio"><i
                                     class="fas fa-plus"></i>
-                                Agregar Servicios</button>
+                                Agregar Servicio</button>
 
                             <br>
                             <br>

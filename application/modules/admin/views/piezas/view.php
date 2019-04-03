@@ -16,7 +16,7 @@ $(function() {
 <br>
 
 <div class="card">
-    <h5 class="card-header"><?php echo ucwords($controller) ?></h5>
+    <h5 class="card-header">Repuestos</h5>
     <div class="card-body">
         <!-- <h5 class="card-title">Special title treatment</h5> -->
 
@@ -34,6 +34,7 @@ $(function() {
                         <th>Código</th>
                         <th>Descripción</th>
                         <th>Costo</th>
+                        <th>Stock</th>
                     </tr>
 
                     <?php foreach($model as $key=>$value): ?>
@@ -41,6 +42,7 @@ $(function() {
                         <td><?php echo $value->codigo ?></td>
                         <td><?php echo $value->descripcion ?></td>
                         <td><?php echo $value->costo ?></td>
+                        <td><?php echo $value->stock ?></td>
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
