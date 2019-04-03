@@ -31,7 +31,7 @@ class Tbl_entregas extends CI_Model{
             $this->db->select("eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion");
             $this->db->join("personas p","p.id=eS.idPersonas");
             $this->db->join("servicios s","s.id=eS.idServicios");
-
+            //$this->db->where("");
 
 
            
