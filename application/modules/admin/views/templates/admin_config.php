@@ -122,7 +122,7 @@
             <div class="col-md-2 barraLateral">
                 <div class="row">
                     <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
-                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car"></i> Servicios</a>
+                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car"></i> Registros</a>
                     <a class="barraEnlace" href="admin/piezas"><i class="fas fa-car"></i> Almacen</a>
                     <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>
                 </div>

@@ -105,7 +105,7 @@ $(function() {
         <div class="col-md-12">
 
             <div class="card">
-                <h5 class="card-header">Editar <?php echo ucwords($controller) ?></h5>
+                <h5 class="card-header">Editar Registros </h5>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
