@@ -16,7 +16,7 @@ $(function() {
 <br>
 
 <div class="card">
-    <h5 class="card-header">Registros</h5>
+    <h5 class="card-header">Registros de Vehículos</h5>
     <div class="card-body">
         <!-- <h5 class="card-title">Special title treatment</h5> -->
 
