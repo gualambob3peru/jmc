@@ -45,7 +45,7 @@ class Tbl_entregas extends CI_Model{
     public function get_all(){
         try {
             $this->db->from("entregas e");
-            $this->db->select("e.id, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
+            $this->db->select("e.id, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes,c.saldo");
             $this->db->join("vehiculos v","v.id=e.idVehiculos");
             $this->db->join("clientes c","c.id=v.idClientes");
 

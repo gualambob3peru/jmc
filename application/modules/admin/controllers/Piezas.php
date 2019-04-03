@@ -8,6 +8,7 @@ class Piezas extends MX_Controller {
         "codigo" => "",
         "descripcion" => "",
         "costo" => "",
+        "stock" => "",
         "idEstados" => "1"
     ];
 

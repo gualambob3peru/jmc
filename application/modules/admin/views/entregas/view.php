@@ -31,17 +31,19 @@ $(function() {
 
                 <table class="table">
                     <tr>
+                        <th>Fecha de Servicio</th>
                         <th>Vehículo</th>
                         <th>Cliente</th>
-                        <th>Fecha de Servicio</th>
+                        <th>Saldo</th>
                         <th></th>
                     </tr>
 
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
+                        <td><?php echo $value->fechaServicio ?></td>
                         <td><?php echo $value->placa ?></td>
                         <td><?php echo $value->nombresClientes ?></td>
-                        <td><?php echo $value->fechaServicio ?></td>
+                        <td><?php echo $value->saldo ?></td>
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
