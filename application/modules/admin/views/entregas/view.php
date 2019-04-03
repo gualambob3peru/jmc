@@ -16,13 +16,13 @@ $(function() {
 <br>
 
 <div class="card">
-    <h5 class="card-header"><?php echo ucwords($controller) ?></h5>
+    <h5 class="card-header">Registros</h5>
     <div class="card-body">
         <!-- <h5 class="card-title">Special title treatment</h5> -->
 
         <div class="row">
             <div class="col-md-12">
-                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info"> <i class="fas fa-plus"></i> Agregar <?php echo ucwords($controller) ?></a>
+                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-lg btn-outline-info"> <i class="fas fa-plus"></i></a>
             </div>
         </div>
         <br>
