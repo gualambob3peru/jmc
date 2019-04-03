@@ -108,7 +108,7 @@ $(function() {
                 <h5 class="card-header">Editar <?php echo ucwords($controller) ?></h5>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-8">
 
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
@@ -134,7 +134,7 @@ $(function() {
                                     class="fas fa-save"></i> Guardar</button>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Cliente</th>
