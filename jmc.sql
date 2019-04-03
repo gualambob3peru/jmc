@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-04-2019 a las 01:00:20
+-- Tiempo de generación: 04-04-2019 a las 01:48:15
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -90,7 +90,10 @@ INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `
 (11, 10, '2019-04-02', '2019-04-20', 1, 'daadf'),
 (12, 1, '2019-04-03', '2019-04-03', 1, 'ob'),
 (13, 3, '2019-04-03', '2019-04-03', 1, 'GGG'),
-(14, 5, '2019-04-04', '2019-04-04', 1, 'hhhh');
+(14, 5, '2019-04-04', '2019-04-04', 1, 'hhhh'),
+(15, 1, '2019-04-04', '2019-04-04', 1, 'ii'),
+(16, 1, '2019-04-04', '2019-04-04', 1, 'iuiu gttgtgtg'),
+(17, 2, '2019-04-04', '2019-04-04', 1, 'kjnon');
 
 -- --------------------------------------------------------
 
@@ -120,7 +123,16 @@ INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`,
 (5, 1, 1, 13, 1234, 'ddddd', 0),
 (6, 3, 1, 13, 2323, 'adasd', 0),
 (7, 1, 1, 6, 77878, 'obseraaa', 0),
-(8, 1, 1, 13, 11111, 'qweweqwe', 0);
+(8, 1, 1, 13, 11111, 'qweweqwe', 0),
+(9, 1, 1, 15, 654, 'yuyf', 1),
+(10, 0, 0, 15, 876, 'iu', 1),
+(11, 3, 1, 15, 0, 'jiojiojioio', 0),
+(12, 3, 1, 15, 0, 'uihiuh', 0),
+(13, 1, 1, 16, 1234, 'lijoijio', 1),
+(14, 0, 0, 17, 1000, 'iuhiuh', 1),
+(15, 0, 0, 17, 1000, 'iuhiuh', 1),
+(16, 0, 0, 17, 2000, 'kjk', 1),
+(17, 3, 1, 17, 2000, 'iugiug', 1);
 
 -- --------------------------------------------------------
 
@@ -208,16 +220,18 @@ CREATE TABLE `piezas` (
   `descripcion` varchar(90) NOT NULL,
   `costo` float NOT NULL,
   `idEstados` int(11) NOT NULL,
-  `fechaRegistro` date NOT NULL
+  `fechaRegistro` date NOT NULL,
+  `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `piezas`
 --
 
-INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'P-003', 'Llantas', 133, 1, '2019-03-23'),
-(2, 'P-002', 'Frenos', 120, 1, '2019-03-23');
+INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
+(1, 'P-003', 'Llantas', 133, 1, '2019-03-23', 100),
+(2, 'P-002', 'Frenos', 120, 1, '2019-03-23', 50),
+(3, 'iu', 'kjnj', 9879, 1, '2019-04-04', 8769);
 
 -- --------------------------------------------------------
 
@@ -333,7 +347,8 @@ INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`
 (7, 'RRRR', 3, 2, 'MMMM', 1234, 'QWERTY', '1.jpeg', 1, 1, 2019),
 (8, '1a1a1a1', 1, 1, 'efaf', 2019, 'efaef', '1.jpeg', 1, 1, 2019),
 (9, 'gdgh', 1, 1, 'dghd', 24141, 'fgdgdfg', '1.jpg', 5, 1, 2019),
-(10, 'lknjlki', 1, 1, 'ghjkghjk', 5678, 'dhdhdgh', '1.jpg', 1, 1, 2019);
+(10, 'lknjlki', 1, 1, 'ghjkghjk', 5678, 'dhdhdgh', '1.jpg', 1, 1, 2019),
+(11, 'uytuyt', 2, 2, 'ihoi', 8768, 'lk', '', 5, 1, 2019);
 
 --
 -- Índices para tablas volcadas
@@ -425,13 +440,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -455,7 +470,7 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `piezas`
 --
 ALTER TABLE `piezas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -485,7 +500,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
