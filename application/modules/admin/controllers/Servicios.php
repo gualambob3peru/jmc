@@ -20,6 +20,8 @@ class Servicios extends MX_Controller {
         if($this->session->userdata('logged') != 'true'){
             redirect('login');
         }
+
+        date_default_timezone_set("America/Lima");
     }
 	 
 	public function index(){ 
@@ -44,7 +46,7 @@ class Servicios extends MX_Controller {
         else
         {   
             $data = $this->upPost($this->data);
-            $data["fechaRegistro"] = date("Y-m-d");
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
 
             $this->obj_model->insert($data);
             redirect("admin/".$this->controller);

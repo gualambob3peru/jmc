@@ -29,6 +29,9 @@ class Vehiculos extends MX_Controller {
         if($this->session->userdata('logged') != 'true'){
             redirect('login');
         }
+
+        date_default_timezone_set("America/Lima");
+       
     }
 	 
 	public function index(){ 
@@ -57,12 +60,17 @@ class Vehiculos extends MX_Controller {
         else
         {   
             $data = $this->upPost($this->data);
-            $data["fechaRegistro"] = date("Y-m-d");
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
 
             $id_last = $this->obj_model->insert($data);
 
-            //cargar archivo
-            exec("mkdir static/images/".$this->controller."/".$id_last."/");
+          
+
+            $carpeta = "static/images/".$this->controller."/".$id_last."/";
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta, 0777, true);
+            }
+            
             $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
             $config['allowed_types']        = 'gif|jpg|png|jpeg';
             $config['max_size']             = 50000;
@@ -75,6 +83,7 @@ class Vehiculos extends MX_Controller {
             if ( ! $this->upload->do_upload('imagen'))
             {
                 $error = array('error' => $this->upload->display_errors());
+                //print_r($error);
                 redirect("admin/".$this->controller."/agregar");
             }
             else
@@ -115,13 +124,13 @@ class Vehiculos extends MX_Controller {
             
             $data = $this->upPost($this->data);
             $this->obj_model->update($data,$id);
-
-            //comprueba y crea directorio 
-            if (file_exists("static/images/".$this->controller."/".$id."/")) {
-               
-            } else {
-                exec("mkdir static/images/".$this->controller."/".$id."/");
+            
+            $carpeta = "static/images/".$this->controller."/".$id;
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta, 0777, true);
             }
+
+           
 
             
             $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id.'/';
@@ -143,7 +152,7 @@ class Vehiculos extends MX_Controller {
             if ( ! $this->upload->do_upload('imagen'))
             {
                 $error = array('error' => $this->upload->display_errors());
-              
+                print_r($error);
                 redirect("admin/".$this->controller."/editar/".$id);
             }
             else

@@ -16,6 +16,7 @@ class Entregas extends MX_Controller {
     public function __construct(){
         parent::__construct();
         $this->load->model('Tbl_usuario','obj_usuario');    
+        $this->load->model('Tbl_clientes','obj_clientes');    
         $this->load->model('Tbl_vehiculos','obj_vehiculos');    
         $this->load->model('Tbl_personas','obj_personas');    
         $this->load->model('Tbl_servicios','obj_servicios');    
@@ -25,6 +26,7 @@ class Entregas extends MX_Controller {
         if($this->session->userdata('logged') != 'true'){
             redirect('login');
         }
+        date_default_timezone_set("America/Lima");
     }
 	 
 	public function index(){ 
@@ -54,7 +56,7 @@ class Entregas extends MX_Controller {
         {   
             $data = array();
             $data["idVehiculos"] = $this->input->post("idVehiculos");
-            $data["fechaRegistro"] = date("Y-m-d");
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
             $data["fechaServicio"] = $this->input->post("fechaServicio");
             $data["observaciones"] = $this->input->post("observaciones");
             $data["idEstados"] = "1";
@@ -126,7 +128,17 @@ class Entregas extends MX_Controller {
         $data = [
             "idEstados" => "0"
         ];
+
+        //hallando servicio
+        $servicio = $this->obj_model->get_idEntregasServicios($id);
+
         $this->obj_model->updateServicio($data,$id);
+
+        $entrega = $this->obj_model->get_id($idEntrega);
+
+        $this->obj_clientes->update_saldo($entrega->idClientes,$servicio->monto,2);
+
+
         redirect("admin/".$this->controller."/editar/".$idEntrega);
     }
 
@@ -159,9 +171,20 @@ class Entregas extends MX_Controller {
         $data["idServicios"] = $this->input->post("idServicios");
         $data["observacionesServicio"] = $this->input->post("observacionesServicio");
         $data["monto"] = $this->input->post("monto");
+        $data["fechaRegistro"] = date("Y-m-d H:i:s");
+        $data["fechaServicio"] = $this->input->post("fechaEntregaServicio");
         $data["idEntregas"] = $this->input->post("idModal");
 
-        $this->obj_model->insert_entregaServicios($data);
+        
+
+        if($this->obj_model->insert_entregaServicios($data)>0){
+         
+            $entrega = $this->obj_model->get_id($this->input->post("idModal"));
+
+            $this->obj_clientes->update_saldo($entrega->idClientes,$this->input->post("monto"));
+            
+        }
+
         redirect("admin/entregas/editar/".$this->input->post("idModal"));
     }
     

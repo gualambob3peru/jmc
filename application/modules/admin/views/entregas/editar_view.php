@@ -126,7 +126,7 @@ $(function() {
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos"
                                 value="<?php echo $model->idVehiculos ?>">
-                            <?php helper_form_text("fechaServicio","Fecha de Servicio",$model->fechaServicio,"date") ?>
+                            <?php helper_form_text("fechaServicio","Fecha de Registro",$model->fechaServicio,"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
 
@@ -201,7 +201,7 @@ $(function() {
                                             echo "<td>".$value->descripcion."</td>";
                                             echo "<td>".$value->monto."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
-                                            echo "<td><a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' >Eliminar</a></td>";
+                                            echo "<td><a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
                                             echo "</tr>";
                                         }
 
@@ -237,15 +237,14 @@ $(function() {
                     <?php helper_form_select("idPersonas","Mecánico",$personas,"nombresCompletos" ) ?>
                     <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?>
                     <?php helper_form_textarea("observacionesServicio","Observaciones") ?>
-
+                    <?php helper_form_text("fechaEntregaServicio","Fecha de Servicio",date("Y-m-d"),"date") ?>                         
                     <?php helper_form_text("monto","Monto","","number") ?>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-outline-success">Guardar</button>
                 </div>
             </form>
-        </div>
+            </div>
     </div>
 </div>

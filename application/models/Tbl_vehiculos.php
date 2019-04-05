@@ -50,6 +50,7 @@ class Tbl_vehiculos extends CI_Model{
             $this->db->join("marcas ma","ma.id=v.idMarcas");
             $this->db->join("modelos mo","mo.id=v.idModelos");
 
+            $this->db->order_by("v.fechaRegistro", "desc");
             $this->db->where("v.idEstados", "1");
             $query = $this->db->get();
             return $query->result();

@@ -12,11 +12,14 @@
 
 	if ( ! function_exists('helper_form_text')){
 	    function helper_form_text($id,$texto,$valor="",$tipo="text",$size1="4",$size2="8"){
+				$step="";
+				if($tipo=="number")
+					$step = "step='.01'";
 			echo "
 			<div class='form-group row'>
 				<label for='".$id."' class='col-sm-".$size1." col-form-label'>".$texto."</label>
 				<div class='col-sm-".$size2."'>
-					<input type='".$tipo."' name='".$id."' class='form-control' id='".$id."' value='".$valor."'>".form_error($id, '<div class="text-danger">', '</div>')."
+					<input type='".$tipo."' ".$step." name='".$id."' class='form-control' id='".$id."' value='".$valor."'>".form_error($id, '<div class="text-danger">', '</div>')."
 				</div>
 			</div>
 			";

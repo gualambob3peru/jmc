@@ -25,6 +25,8 @@ class Clientes extends MX_Controller {
         if($this->session->userdata('logged') != 'true'){
             redirect('login');
         }
+
+        date_default_timezone_set("America/Lima");
     }
 	 
 	public function index(){ 
@@ -54,7 +56,7 @@ class Clientes extends MX_Controller {
         {   
             $data = $this->upPost($this->data);
             $data["nombresCompletos"] = $this->input->post("apellidoPaterno") ." ". $this->input->post("apellidoMaterno") ." ". $this->input->post("nombres") ;
-            $data["fechaRegistro"] = date("Y-m-d");
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
 
             $this->obj_model->insert($data);
             redirect("admin/".$this->controller);

@@ -54,7 +54,20 @@ class Tbl_clientes extends CI_Model{
         }
     }
 
-    
+    public function update_saldo($id,$monto,$aumenta ="1"){
+        try {
+            if($aumenta=="1"){
+                $this->db->set("saldo","saldo+".$monto,FALSE);
+            }else{
+                $this->db->set("saldo","saldo-".$monto,FALSE);
+            }
+            $this->db->where($this->id, $id);
+            $this->db->update($this->tabla);
+            return $this->db->last_query();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
 
 } 
 ?>

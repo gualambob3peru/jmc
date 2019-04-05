@@ -20,7 +20,7 @@
     <script type="text/javascript" src="static/main/bootstrap/js/bootstrap.min.js"></script>
     <link rel="icon" href="osinerg.ico" type="image/ico">
 
-    <style>
+    <style> 
     body {
         font-family: Exo;
     }
@@ -51,9 +51,11 @@
         background: #f0f4f7;
         margin-top: 10px;
     }
-
-    a.barraEnlace {
+    a.barraEnlace{
         text-decoration: none;
+    }
+    .barraEnlace {
+        
         border-style: solid;
         border-width: 0 1px 1px 1px;
         color: #4b4b4b;
@@ -67,14 +69,28 @@
         border-color: black;
     }
 
-    a.barraEnlace:hover {
+    .barraEnlace:hover {
         background: #ddd;
         color: #181818;
     }
 
-    a.barraEnlace:hover i{
+    .barraEnlace:hover i{
        
         color: #181818;
+    }
+    .subMenu{
+        background: #EBE9E9;
+        top: -1px;
+        z-index: 1000;
+        width: 200px;
+        right: -200px;
+        border: 1px solid black;
+        position: absolute;
+        display:none;
+    }
+
+    .barraPadre:hover .subMenu{
+        display:block;
     }
     </style>
 </head>
@@ -124,7 +140,15 @@
                     <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
                     <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-male"></i> Vehiculos</a>
                     <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car"></i> Registros</a>
-                    <a class="barraEnlace" href="admin/piezas"><i class="fas fa-car"></i> Almacen</a>
+                    <div class="barraEnlace barraPadre" style="position:relative">
+                        <i class="fas fa-car"></i> Almacen 
+                    
+                        <div class="subMenu">
+                            <a href="admin/piezas" class="barraEnlace">Repuestos</a>
+                            <a href="admin/compras" class="barraEnlace">Compras</a>
+                        </div>
+                     
+                    </div>
                     <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>
                 </div>
             </div>

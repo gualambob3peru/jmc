@@ -9,7 +9,7 @@
 <br>
 
 <div class="card">
-    <h5 class="card-header">Editar Repuestos ?></h5>
+    <h5 class="card-header">Editar Repuestos</h5>
     <div class="card-body">
         <div class="row">
             <div class="col-md-6">

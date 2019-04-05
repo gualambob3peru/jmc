@@ -11,6 +11,7 @@ class Admin extends MX_Controller {
             redirect('login');
           
         }
+        date_default_timezone_set("America/Lima");
     }
 	 
 	public function index(){ 

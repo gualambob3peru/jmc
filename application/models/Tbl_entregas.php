@@ -12,7 +12,7 @@ class Tbl_entregas extends CI_Model{
     public function get_id($id){
         try {
             $this->db->from("entregas e");
-            $this->db->select("e.id, e.observaciones, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
+            $this->db->select("e.id, c.id idClientes, e.observaciones, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
             $this->db->join("vehiculos v","v.id=e.idVehiculos");
             $this->db->join("clientes c","c.id=v.idClientes");
 
@@ -27,7 +27,18 @@ class Tbl_entregas extends CI_Model{
         }
     }
 
-    public function get_entregaServicios($idServicios){
+    public function get_idEntregasServicios($idEntregasServicios){
+        try {
+            
+            $this->db->where("id",$idEntregasServicios);
+            $query = $this->db->get("entregaServicios");
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function get_entregaServicios($idEntregas){
         $this->db->from("entregaServicios eS");
             $this->db->select("eS.id,eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion");
             $this->db->join("personas p","p.id=eS.idPersonas");
@@ -37,7 +48,7 @@ class Tbl_entregas extends CI_Model{
             
 
             $this->db->where("eS.idEstados", "1");
-            $this->db->where("eS.idEntregas",$idServicios);
+            $this->db->where("eS.idEntregas",$idEntregas);
             $query = $this->db->get();
             return $query->result();
     }
@@ -50,8 +61,9 @@ class Tbl_entregas extends CI_Model{
             $this->db->join("clientes c","c.id=v.idClientes");
 
 
-
+            
             $this->db->where("e.idEstados", "1");
+            $this->db->order_by("e.fechaRegistro", "desc");
             $query = $this->db->get();
             return $query->result();
         } catch (Exception $exc) {
@@ -62,6 +74,8 @@ class Tbl_entregas extends CI_Model{
     public function insert_entregaServicios($data){
         try {
             $this->db->insert("entregaServicios", $data);
+            return $this->db->insert_id();
+
         } catch (Exception $exc) {
             return FALSE;   
         }

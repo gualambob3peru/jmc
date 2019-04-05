@@ -1,7 +1,7 @@
 <?php
 
-class Tbl_piezas extends CI_Model{
-    private $tabla = 'piezas';
+class Tbl_compras extends CI_Model{
+    private $tabla = 'compras';
     private $id = 'id';
 
 
@@ -48,20 +48,6 @@ class Tbl_piezas extends CI_Model{
         }
     }
 
-    public function update_cantidad($id,$cantidad,$aumenta ="1"){
-        try {
-            if($aumenta=="1"){
-                $this->db->set("stock","stock+".$cantidad,FALSE);
-            }else{
-                $this->db->set("stock","stock-".$cantidad,FALSE);
-            }
-            $this->db->where($this->id, $id);
-            $this->db->update($this->tabla);
-            return $this->db->last_query();
-        } catch (Exception $exc) {
-            return FALSE;   
-        }
-    }
     
 
 } 
