@@ -186,6 +186,7 @@ $(function() {
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
+                                        <th>Fecha</th>
                                         <th>Nombre</th>
                                         <th>Costo</th>
                                         <th>Mecánico</th>
@@ -198,6 +199,7 @@ $(function() {
                                     <?php
                                         foreach ($entregaServicios as $key => $value) {
                                             echo "<tr>";
+                                            echo "<td>".substr($value->fechaServicio,0,10)."</td>";
                                             echo "<td>".$value->descripcion."</td>";
                                             echo "<td>".$value->monto."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
