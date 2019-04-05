@@ -40,7 +40,7 @@ $(function() {
 
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
-                        <td><?php echo $value->fechaServicio ?></td>
+                        <td><?php echo substr($value->fechaServicio,0,10) ?></td>
                         <td><?php echo $value->placa ?></td>
                         <td><?php echo $value->nombresClientes ?></td>
                         <td><?php echo $value->saldo ?></td>
