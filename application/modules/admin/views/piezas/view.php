@@ -22,7 +22,7 @@ $(function() {
 
         <div class="row">
             <div class="col-md-12">
-                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info"> <i class="fas fa-plus"></i> Agregar <?php echo ucwords($controller) ?></a>
+                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info"> <i class="fas fa-plus"></i> Repuestos</a>
             </div>
         </div>
         <br>
@@ -35,6 +35,7 @@ $(function() {
                         <th>Descripción</th>
                         <th>Costo</th>
                         <th>Stock</th>
+                        <th></th>
                     </tr>
 
                     <?php foreach($model as $key=>$value): ?>
