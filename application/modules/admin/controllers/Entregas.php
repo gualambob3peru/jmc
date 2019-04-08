@@ -20,6 +20,7 @@ class Entregas extends MX_Controller {
         $this->load->model('Tbl_vehiculos','obj_vehiculos');    
         $this->load->model('Tbl_personas','obj_personas');    
         $this->load->model('Tbl_servicios','obj_servicios');    
+        $this->load->model('Tbl_piezas','obj_piezas');    
            
         $this->load->model('Tbl_entregas','obj_model');    
        
@@ -93,6 +94,9 @@ class Entregas extends MX_Controller {
         {
             $entregaServicios = $this->obj_model->get_entregaServicios($id);
 
+            $piezas = $this->obj_piezas->get_all();
+            $this->tmp_admin->set("piezas",$piezas);
+
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
@@ -150,6 +154,13 @@ class Entregas extends MX_Controller {
                 $data[$key] = $this->input->post($key);
         
         return $data;
+    }
+
+    public function getAjaxRepuestos(){
+        $idEntregaServicios = $this->input->post("idEntregaServicios");
+        $repuestos = $this->obj_model->getRepuestos_ES($idEntregaServicios);
+        
+        echo json_encode(array('repuestos' => $repuestos ));
     }
 
     public function actualizarEntrega(){

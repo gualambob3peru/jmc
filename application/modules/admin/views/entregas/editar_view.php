@@ -77,7 +77,7 @@ $(function() {
             fechaServicio = $("#fechaServicio").val(),
             observaciones = $("#observaciones").val();
 
-        console.log(idVehiculos, fechaServicio, observaciones);
+
 
         $.ajax({
             url: "admin/entregas/actualizarEntrega",
@@ -90,10 +90,79 @@ $(function() {
                 id: $("#ide").val()
             },
             success: function(response) {
-                console.log(response);
+
                 location.reload();
             }
         });
+    });
+
+    $("body").on("click", ".btnAddRepuesto", function() {
+        let idEntregaServicios = $(this).attr("idEntregaServicios");
+
+        $("#modalAddRepuestos").attr("idEntregaServicios", idEntregaServicios);
+
+        $.ajax({
+            url: "admin/entregas/getAjaxRepuestos",
+            type: "post",
+            dataType: "json",
+            data: {
+                idEntregaServicios: idEntregaServicios
+            },
+            success: function(response) {
+                let rows = "<tr><th>Repuesto</th><th>Cantidad</th></tr>",
+                    repuestos = response.repuestos;
+
+                for (i in repuestos) {
+                    rows += "<tr>";
+                    rows += "<td>" + repuestos[i].descripcion + "</td>";
+                    rows += "<td>" + repuestos[i].cantidad + "</td>";
+                    rows += "</tr>";
+                }
+
+                $(".tableRepuestos").html(rows);
+
+            }
+        });
+        $("#modalAddRepuestos").modal();
+
+
+
+    });
+
+
+    $("#btnModalRepuestos").click(function() {
+        $("#modalAdd2").modal();
+    });
+
+    $("#idPiezas").change(function() {
+        $("#stock").val($(this).find(":selected").attr("stock"));
+    });
+
+    $("#cantidad").keyup(function() {
+        console.log($(this).val(), $("#stock").val());
+
+        if (parseInt($(this).val()) > parseInt($("#stock").val())) {
+            $(this).val($("#stock").val());
+        }
+    });
+
+    $("#btnAddModal2").click(function() {
+
+        let idPieza = $("#idPiezas").val(),
+            desIdPieza = $("#idPiezas").find(":selected").text(),
+            cantidad = $("#cantidad").val(),
+            row = "";
+
+        if(idPieza=="" || cantidad ==""){
+            alert("Debe llenar todos los campos")
+            return;
+        }
+        row = "<tr><td>"+desIdPieza+"</td><td>"+cantidad+"</td></tr>";
+
+
+        $("#trBorrar").remove();
+        $("#tableAddRepuestos").append(row);
+
     });
 })
 </script>
@@ -203,7 +272,7 @@ $(function() {
                                             echo "<td>".$value->descripcion."</td>";
                                             echo "<td>".$value->monto."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
-                                            echo "<td><a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
+                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
                                             echo "</tr>";
                                         }
 
@@ -218,7 +287,7 @@ $(function() {
             </div>
         </div>
 
-        
+
     </div>
 </form>
 
@@ -227,7 +296,7 @@ $(function() {
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="admin/entregas/guardarServicios" method="post">
-            <input type="hidden" name="idModal" value="<?php echo $id ?>">
+                <input type="hidden" name="idModal" value="<?php echo $id ?>">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Agregar Servicio</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -239,7 +308,7 @@ $(function() {
                     <?php helper_form_select("idPersonas","Mecánico",$personas,"nombresCompletos" ) ?>
                     <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?>
                     <?php helper_form_textarea("observacionesServicio","Observaciones") ?>
-                    <?php helper_form_text("fechaEntregaServicio","Fecha de Servicio",date("Y-m-d"),"date") ?>                         
+                    <?php helper_form_text("fechaEntregaServicio","Fecha de Servicio",date("Y-m-d"),"date") ?>
                     <?php helper_form_text("monto","Monto","","number") ?>
                 </div>
                 <div class="modal-footer">
@@ -247,6 +316,108 @@ $(function() {
                     <button type="submit" class="btn btn-outline-success">Guardar</button>
                 </div>
             </form>
-            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalAddRepuestos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="" method="post">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Repuestos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="misRepuestos">
+
+
+                        <table class="table table-bordered tableRepuestos">
+
+                        </table>
+                    </div>
+
+                    <button type="button" class="btn btn-outline-info" id="btnModalRepuestos"> <i
+                            class="fas fa-plus"></i> </button>
+
+                    <br>
+
+                    <div class="divAddRepuestos">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Repuesto</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableAddRepuestos">
+                                <tr id="trBorrar">
+                                    <td>-</td>
+                                    <td>-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalAdd2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="" method="post">
+
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Repuestos</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group row">
+                        <label for="cantidad" class="col-sm-4 col-form-label">Repuesto</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="" id="idPiezas">
+                                <option value="">Elegir</option>
+                                <?php foreach($piezas as $key=>$value): ?>
+                                <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>">
+                                    <?php echo $value->descripcion ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <?php helper_form_text("cantidad","Cantidad") ?>
+
+                    <div class="form-group row">
+                        <label for="cantidad" class="col-sm-4 col-form-label">Stock</label>
+                        <div class="col-sm-8">
+                            <input disabled type="text" name="stock" id="stock" class="form-control" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" id="btnAddModal2" data-dismiss="modal" class="btn btn-outline-success">Agregar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>

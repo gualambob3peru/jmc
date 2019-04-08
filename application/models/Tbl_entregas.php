@@ -37,6 +37,20 @@ class Tbl_entregas extends CI_Model{
             return FALSE;   
         }
     }
+    public function getRepuestos_ES($idEntregasServicios){
+        try {
+            $this->db->from("servicioRepuestos sR");
+            $this->db->select("sR.id, sR.idEntregaServicios, sR.idRepuestos, sR.cantidad, r.descripcion");
+
+            $this->db->join("piezas r","sR.idRepuestos=r.id");
+
+            $this->db->where("sR.idEntregaServicios",$idEntregasServicios);
+            $query = $this->db->get();
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
 
     public function get_entregaServicios($idEntregas){
         $this->db->from("entregaServicios eS");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-04-2019 a las 18:49:05
+-- Tiempo de generación: 08-04-2019 a las 19:46:30
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -50,8 +50,8 @@ CREATE TABLE `clientes` (
 INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `idTipoDocumentos`, `documento`, `direccion`, `correo`, `saldo`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'Franz Wilder', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz Wilder', 2, '12345678', 'Urb Prolima Los Olivos', 'sdfsdf@gmail.com', '0.00', 1, '0000-00-00 00:00:00'),
 (2, 'afaefaef', 'efafe', 'aefaef', 'efafe aefaef afaefaef', 1, '', 'fsdssdf', 'afadf@fgasfadf.com', '0.00', 0, '0000-00-00 00:00:00'),
-(3, 'adf', 'adfad', 'adfa', 'adfad adfa adf', 1, '', '4dfsd', 'aasdsad@dffsdf.com', '400.00', 1, '0000-00-00 00:00:00'),
-(4, 'aaa', 'bb', 'cc', 'bb cc aaa', 1, '', 'dd', 'eee@gmai.com', '0.00', 1, '0000-00-00 00:00:00'),
+(3, 'adf', 'adfad', 'adfa', 'adfad adfa adf', 1, '', '4dfsd', 'aasdsad@dffsdf.com', '844.23', 1, '0000-00-00 00:00:00'),
+(4, 'aaa', 'bb', 'cc', 'bb cc aaa', 1, '', 'dd', 'eee@gmai.com', '1234.00', 1, '0000-00-00 00:00:00'),
 (5, 'aaaa', 'saaaaa', 'aaaa', 'saaaaa aaaa aaaa', 1, '', 'bbbb', 'ccc@cccc.com', '0.00', 1, '0000-00-00 00:00:00'),
 (6, 'bbb', 'bbb', 'bbb', 'bbb bbb bbb', 1, '', 'fff', 'fff@gmail.com', '0.00', 1, '2019-03-18 00:00:00'),
 (7, 'ererer', 'erer', 'erere', 'erer erere ererer', 1, '', 'erer', 'erererer@gmail.com', '0.00', 1, '2019-03-19 00:00:00'),
@@ -67,9 +67,6 @@ CREATE TABLE `compras` (
   `id` int(11) NOT NULL,
   `ruc` varchar(90) NOT NULL,
   `razonSocial` varchar(150) NOT NULL,
-  `idPiezas` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `costo` decimal(10,2) NOT NULL,
   `idEstados` int(11) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
   `fechaCompras` datetime NOT NULL
@@ -79,13 +76,36 @@ CREATE TABLE `compras` (
 -- Volcado de datos para la tabla `compras`
 --
 
-INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idPiezas`, `cantidad`, `costo`, `idEstados`, `fechaRegistro`, `fechaCompras`) VALUES
-(1, '123123', 'sgsfg', 4, 234, '234.00', 0, '2019-04-04 15:35:19', '0000-00-00 00:00:00'),
-(2, '123123', 'sfgsfg', 3, 234, '234.00', 0, '2019-04-04 15:39:54', '2019-04-04 00:00:00'),
-(3, 'adf', 'sfgsfg', 4, 234, '180.00', 1, '2019-04-04 15:42:08', '2019-04-27 19:52:00'),
-(4, '123123', 'sfgsfg', 4, 123, '245245.00', 1, '2019-04-05 11:05:03', '2019-04-18 21:56:00'),
-(5, '123123', 'sfgsfg', 4, 123, '245245.00', 1, '2019-04-05 11:07:59', '2019-04-18 21:56:00'),
-(6, '123123', 'sfgsfg', 1, 510, '234.00', 0, '2019-04-05 11:08:46', '2019-04-19 15:15:00');
+INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idEstados`, `fechaRegistro`, `fechaCompras`) VALUES
+(1, '123123', 'proveedor 1', 1, '2019-04-06 14:35:37', '2019-04-06 14:35:00'),
+(2, '123123', 'sfgsfg', 1, '2019-04-06 14:38:51', '2019-04-06 14:38:00'),
+(3, '123123', 'sfgsfg', 1, '2019-04-06 16:47:53', '2019-04-06 16:47:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comprasrepuestos`
+--
+
+CREATE TABLE `comprasrepuestos` (
+  `id` int(11) NOT NULL,
+  `idCompras` int(11) NOT NULL,
+  `idRepuestos` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL,
+  `costo` decimal(10,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `comprasrepuestos`
+--
+
+INSERT INTO `comprasrepuestos` (`id`, `idCompras`, `idRepuestos`, `cantidad`, `costo`) VALUES
+(1, 1, 1, 100, '500.00'),
+(2, 1, 2, 150, '600.00'),
+(3, 2, 1, 500, '123.00'),
+(4, 2, 2, 600, '123.00'),
+(5, 3, 2, 123, '123.00'),
+(6, 3, 1, 456, '123.00');
 
 -- --------------------------------------------------------
 
@@ -125,7 +145,10 @@ INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `
 (16, 1, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 1, 'iuiu gttgtgtg'),
 (17, 2, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 1, 'kjnon'),
 (18, 3, '2019-04-04 10:57:41', '2019-04-04 00:00:00', 0, 'adfadf'),
-(19, 3, '2019-04-04 10:59:38', '0000-00-00 00:00:00', 1, 'hhhhhh');
+(19, 3, '2019-04-04 10:59:38', '0000-00-00 00:00:00', 1, 'hhhhhh'),
+(20, 3, '2019-04-05 11:55:14', '2019-04-05 00:00:00', 1, 'hch'),
+(21, 3, '2019-04-05 11:57:07', '2019-04-05 00:00:00', 1, 'wrvwrv'),
+(22, 6, '2019-04-05 11:57:38', '0000-00-00 00:00:00', 1, 'scc');
 
 -- --------------------------------------------------------
 
@@ -165,7 +188,13 @@ INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`,
 (13, 1, 1, 19, '1234.00', 'sads', 0, '2019-04-04 12:52:41', '2019-04-04 00:00:00'),
 (14, 3, 1, 19, '100.00', 'fgsfgsfg', 1, '2019-04-04 12:53:07', '2019-04-04 00:00:00'),
 (15, 1, 1, 19, '200.00', 'fsdfsdf', 0, '2019-04-04 12:53:18', '2019-04-04 00:00:00'),
-(16, 1, 1, 19, '300.00', 'etheth', 1, '2019-04-04 12:54:11', '2019-04-04 00:00:00');
+(16, 1, 1, 19, '300.00', 'etheth', 1, '2019-04-04 12:54:11', '2019-04-04 00:00:00'),
+(17, 1, 1, 20, '321.23', 'jyfuy', 1, '2019-04-05 11:55:27', '2019-04-05 00:00:00'),
+(18, 0, 0, 21, '0.00', '', 1, '2019-04-05 12:00:10', '2019-04-05 00:00:00'),
+(19, 0, 0, 20, '0.00', '', 1, '2019-04-05 12:02:27', '2019-04-05 00:00:00'),
+(20, 1, 1, 22, '123.00', 'wttwrtwrt', 0, '2019-04-05 12:21:22', '2019-04-05 00:00:00'),
+(21, 1, 1, 22, '1234.00', 'sdfsf', 1, '2019-04-06 16:48:41', '2019-04-06 00:00:00'),
+(22, 1, 1, 21, '123.00', 'sadasd', 1, '2019-04-06 18:39:42', '2019-04-06 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -262,11 +291,28 @@ CREATE TABLE `piezas` (
 --
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
-(1, 'P-003', 'Llantas', '133.00', 1, '2019-03-23 00:00:00', 100),
-(2, 'P-002', 'Frenos', '120.00', 1, '2019-03-23 00:00:00', 50),
-(3, 'iu', 'kjnj', '9879.00', 1, '2019-04-04 00:00:00', 8769),
-(4, 'P-012', 'Llanta 2', '180.00', 1, '2019-04-04 00:00:00', 243),
-(5, 'P-013', 'Llanta3', '120.00', 1, '2019-04-04 00:00:00', 120);
+(1, 'P-001', 'Llantas', '123.00', 1, '2019-04-06 14:34:36', 1056),
+(2, 'P-002', 'Motor', '150.00', 1, '2019-04-06 14:34:56', 873);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `serviciorepuestos`
+--
+
+CREATE TABLE `serviciorepuestos` (
+  `id` int(11) NOT NULL,
+  `idEntregaServicios` int(11) NOT NULL,
+  `idRepuestos` int(11) NOT NULL,
+  `cantidad` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `serviciorepuestos`
+--
+
+INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idRepuestos`, `cantidad`) VALUES
+(1, 21, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -375,8 +421,9 @@ CREATE TABLE `vehiculos` (
 INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`, `serie`, `imagen`, `idClientes`, `idEstados`, `fechaRegistro`) VALUES
 (3, 'aaaa', 1, 1, 'aefa', 1, 'aef', '1.jpg', 3, 1, '2019-04-04 10:50:00'),
 (4, 'bbbb', 1, 1, 'aefa', 3456, 'sadfsdf', '1.JPG', 3, 1, '2019-04-04 17:53:36'),
-(5, 'rrrrr', 1, 1, 'dfadf', 23234, 'sdfsg', '1.JPG', 1, 1, '2019-04-04 17:54:54'),
-(6, 'uuuuuuuuu', 1, 1, 'aefa', 23423, 'edsfdf', '1.png', 4, 1, '2019-04-04 10:56:07');
+(5, 'rrrrr', 1, 1, 'dfadf', 23234, 'sdfsg', '1.jpg', 1, 1, '2019-04-04 17:54:54'),
+(6, 'uuuuuuuuu', 1, 1, 'aefa', 23423, 'edsfdf', '1.jpg', 4, 1, '2019-04-04 10:56:07'),
+(7, 'aaaaa', 2, 1, 'aefa', 321, 'iugb', '1.JPG', 3, 1, '2019-04-05 11:53:31');
 
 --
 -- Índices para tablas volcadas
@@ -392,6 +439,12 @@ ALTER TABLE `clientes`
 -- Indices de la tabla `compras`
 --
 ALTER TABLE `compras`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `comprasrepuestos`
+--
+ALTER TABLE `comprasrepuestos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -428,6 +481,12 @@ ALTER TABLE `personas`
 -- Indices de la tabla `piezas`
 --
 ALTER TABLE `piezas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `serviciorepuestos`
+--
+ALTER TABLE `serviciorepuestos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -474,19 +533,25 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `comprasrepuestos`
+--
+ALTER TABLE `comprasrepuestos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -510,7 +575,13 @@ ALTER TABLE `personas`
 -- AUTO_INCREMENT de la tabla `piezas`
 --
 ALTER TABLE `piezas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `serviciorepuestos`
+--
+ALTER TABLE `serviciorepuestos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -540,7 +611,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

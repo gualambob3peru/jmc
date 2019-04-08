@@ -38,8 +38,8 @@ class Compras extends MX_Controller {
 	public function agregar(){ 
         $this->form_validation->set_rules('ruc', 'RUC', 'trim|required');
         $this->form_validation->set_rules('razonSocial', 'Razon Social', 'trim|required');
-        $this->form_validation->set_rules('cantidad', 'Cantidad', 'trim|required');
-        $this->form_validation->set_rules('idPiezas', 'Repuesto', 'trim|required');
+        // $this->form_validation->set_rules('cantidad', 'Cantidad', 'trim|required');
+        // $this->form_validation->set_rules('idPiezas', 'Repuesto', 'trim|required');
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
@@ -53,21 +53,43 @@ class Compras extends MX_Controller {
         }
         else
         {   
+           //Ingresando Compra
+            $dataCompras = array();
+            $dataCompras["ruc"] = $this->input->post("ruc"); 
+            $dataCompras["razonSocial"] = $this->input->post("razonSocial");
+            $dataCompras["fechaCompras"] = $this->input->post("fechaCompras"); 
+            $dataCompras["idEstados"] = "1"; 
+            $dataCompras["fechaRegistro"] = date("Y-m-d H:i:s"); 
+            $idCompras = $this->obj_model->insert($dataCompras);
 
-            $idPiezas = $this->input->post("idPiezas");
+            $idRepuestos = $this->input->post("idRepuestos");
             $cantidad = $this->input->post("cantidad");
-
-            //aumentando stock
-            $this->obj_piezas->update_cantidad($idPiezas,$cantidad);
-
-            $data = $this->upPost($this->data);
-
-            $data["fechaRegistro"] = date("Y-m-d H:i:s");
+            $costo = $this->input->post("costo");
 
             
+            //Ingresando Compras Repuestos
+            $comprRespues = array();
+            foreach ($idRepuestos as $key => $value) {
+                $row = array();
+                $row["idRepuestos"] = $idRepuestos[$key];
+                $row["cantidad"] = $cantidad[$key];
+                $row["costo"] = $costo[$key];
+                $row["idCompras"] = $idCompras;
 
-            $this->obj_model->insert($data);
+                array_push($comprRespues,$row);
+            }
+
+            $this->obj_model->insert_batch_cr($comprRespues);
+
+
+            // Cambiando Stock
+            foreach ($idRepuestos as $key => $value) {
+                $this->obj_piezas->update_cantidad($idRepuestos[$key],$cantidad[$key]);
+            }
+
             redirect("admin/".$this->controller);
+            
+
         }
     }
 
@@ -95,6 +117,17 @@ class Compras extends MX_Controller {
             $this->obj_model->update($data,$id);
             redirect("admin/".$this->controller);
         }
+    }
+
+    public function getAjaxCompras(){
+        $idCompras = $this->input->post("idCompras");
+
+        $compra = $this->obj_model->get_id($idCompras);
+
+        //Hallando compra de respuestos
+        $repuestos = $this->obj_model->get_repuestos_idCompras($idCompras);
+
+        echo json_encode(array("compra"=>$compra,"repuestos"=>$repuestos));
     }
 
 	public function eliminar($id){ 

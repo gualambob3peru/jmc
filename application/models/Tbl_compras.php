@@ -31,9 +31,32 @@ class Tbl_compras extends CI_Model{
         }
     }
 
+    public function get_repuestos_idCompras($idCompras){
+        try {
+            $this->db->from("comprasRepuestos c");
+            $this->db->select("c.id, c.idRepuestos, c.cantidad, c.costo, r.descripcion");
+            $this->db->join("piezas r","r.id=c.idRepuestos");
+
+            $this->db->where("idCompras", $idCompras);
+            $query = $this->db->get();
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function insert($data){
         try {
             $this->db->insert($this->tabla, $data);
+            return $this->db->insert_id();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function insert_batch_cr($data){
+        try {
+            $this->db->insert_batch("comprasRepuestos", $data);
         } catch (Exception $exc) {
             return FALSE;   
         }
