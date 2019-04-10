@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 08-04-2019 a las 19:46:30
+-- Tiempo de generación: 10-04-2019 a las 16:12:49
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -148,7 +148,7 @@ INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `
 (19, 3, '2019-04-04 10:59:38', '0000-00-00 00:00:00', 1, 'hhhhhh'),
 (20, 3, '2019-04-05 11:55:14', '2019-04-05 00:00:00', 1, 'hch'),
 (21, 3, '2019-04-05 11:57:07', '2019-04-05 00:00:00', 1, 'wrvwrv'),
-(22, 6, '2019-04-05 11:57:38', '0000-00-00 00:00:00', 1, 'scc');
+(22, 6, '2019-04-05 11:57:38', '2019-04-09 00:00:00', 1, 'scc');
 
 -- --------------------------------------------------------
 
@@ -292,7 +292,7 @@ CREATE TABLE `piezas` (
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
 (1, 'P-001', 'Llantas', '123.00', 1, '2019-04-06 14:34:36', 1056),
-(2, 'P-002', 'Motor', '150.00', 1, '2019-04-06 14:34:56', 873);
+(2, 'P-002', 'Motor', '150.00', 1, '2019-04-06 14:34:56', 0);
 
 -- --------------------------------------------------------
 
@@ -303,16 +303,9 @@ INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fech
 CREATE TABLE `serviciorepuestos` (
   `id` int(11) NOT NULL,
   `idEntregaServicios` int(11) NOT NULL,
-  `idRepuestos` int(11) NOT NULL,
+  `idPiezas` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `serviciorepuestos`
---
-
-INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idRepuestos`, `cantidad`) VALUES
-(1, 21, 1, 10);
 
 -- --------------------------------------------------------
 
@@ -581,7 +574,7 @@ ALTER TABLE `piezas`
 -- AUTO_INCREMENT de la tabla `serviciorepuestos`
 --
 ALTER TABLE `serviciorepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`

@@ -100,6 +100,7 @@ $(function() {
         let idEntregaServicios = $(this).attr("idEntregaServicios");
 
         $("#modalAddRepuestos").attr("idEntregaServicios", idEntregaServicios);
+        $("#modalIdEntregaServicios").val(idEntregaServicios);
 
         $.ajax({
             url: "admin/entregas/getAjaxRepuestos",
@@ -120,10 +121,11 @@ $(function() {
                 }
 
                 $(".tableRepuestos").html(rows);
+                $("#modalAddRepuestos").modal();
 
             }
         });
-        $("#modalAddRepuestos").modal();
+
 
 
 
@@ -149,20 +151,22 @@ $(function() {
     $("#btnAddModal2").click(function() {
 
         let idPieza = $("#idPiezas").val(),
-            desIdPieza = $("#idPiezas").find(":selected").text(),
+            desIdPieza = $("#idPiezas").find(":selected").text().trim(),
             cantidad = $("#cantidad").val(),
             row = "";
 
-        if(idPieza=="" || cantidad ==""){
+        if (idPieza == "" || cantidad == "") {
             alert("Debe llenar todos los campos")
             return;
         }
-        row = "<tr><td>"+desIdPieza+"</td><td>"+cantidad+"</td></tr>";
+        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza + "'>" +
+            desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
+            cantidad + "</td></tr>";
 
 
         $("#trBorrar").remove();
         $("#tableAddRepuestos").append(row);
-
+        $(".tablaRepuestosAgregados").css("display", "table");
     });
 })
 </script>
@@ -325,8 +329,9 @@ $(function() {
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="" method="post">
-
+            <form action="admin/entregas/postSavePiezas" method="post">
+                <input type="hidden" name="idEntregaServicios" id="modalIdEntregaServicios">
+                <input type="hidden" name="idEntrega" value="<?php echo $model->id ?>">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Agregar Repuestos</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -342,13 +347,16 @@ $(function() {
                         </table>
                     </div>
 
-                    <button type="button" class="btn btn-outline-info" id="btnModalRepuestos"> <i
-                            class="fas fa-plus"></i> </button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-outline-info" id="btnModalRepuestos"> <i class="fas fa-plus"></i> </button>
+                        </div>
+                    </div>
 
                     <br>
 
                     <div class="divAddRepuestos">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered tablaRepuestosAgregados" style="display:none">
                             <thead>
                                 <tr>
                                     <th>Repuesto</th>
@@ -357,8 +365,7 @@ $(function() {
                             </thead>
                             <tbody id="tableAddRepuestos">
                                 <tr id="trBorrar">
-                                    <td>-</td>
-                                    <td>-</td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -367,7 +374,7 @@ $(function() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                    <button type="submot" class="btn btn-outline-success">Guardar</button>
                 </div>
             </form>
         </div>
@@ -415,7 +422,8 @@ $(function() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="button" id="btnAddModal2" data-dismiss="modal" class="btn btn-outline-success">Agregar</button>
+                    <button type="button" id="btnAddModal2" data-dismiss="modal"
+                        class="btn btn-outline-success">Agregar</button>
                 </div>
             </form>
         </div>

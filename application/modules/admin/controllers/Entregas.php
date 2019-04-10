@@ -198,6 +198,28 @@ class Entregas extends MX_Controller {
 
         redirect("admin/entregas/editar/".$this->input->post("idModal"));
     }
+
+    public function postSavePiezas(){
+        
+
+        $idPiezas = $this->input->post("idRepuestos");
+        $cantidad = $this->input->post("cantidad");
+        $idEntregaServicios = $this->input->post("idEntregaServicios");
+        $idEntrega = $this->input->post("idEntrega");
+
+        foreach ($idPiezas as $key => $value) {
+            $data = array();
+            $data["idEntregaServicios"] = $idEntregaServicios;
+            $data["idPiezas"] = $idPiezas[$key];
+            $data["cantidad"] = $cantidad[$key];
+            $this->obj_model->insert_servicioRepuestos($data);
+
+            //actualizando stock de piezas
+            $this->obj_piezas->update_cantidad($idPiezas[$key],$cantidad[$key],2);
+        }
+
+        redirect("admin/entregas/editar/".$idEntrega);
+    }
     
     public function logout(){                     
         $this->session->unset_userdata('logged');
