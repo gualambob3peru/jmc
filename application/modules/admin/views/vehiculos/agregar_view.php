@@ -24,6 +24,7 @@ $(function(){
                 <form method="post" enctype="multipart/form-data">
                     <?php if ( array_key_exists("mensaje",$_SESSION)): ?>
                         <h5 class="text-danger"><?php echo $_SESSION["mensaje"] ?></h5>
+                        <?php $_SESSION["mensaje"] = "" ?>
                     <?php endif; ?>
                     <?php helper_form_select("idClientes","Cliente",$clientes,"nombresCompletos") ?>
                     <?php helper_form_text("placa","Placa") ?>

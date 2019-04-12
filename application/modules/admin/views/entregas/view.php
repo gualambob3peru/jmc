@@ -34,7 +34,7 @@ $(function() {
                         <th>Fecha de Servicio</th>
                         <th>Vehículo</th>
                         <th>Cliente</th>
-                        <th>Saldo</th>
+                        <th>Total Servicio</th>
                         <th></th>
                     </tr>
 
@@ -43,7 +43,7 @@ $(function() {
                         <td><?php echo substr($value->fechaServicio,0,10) ?></td>
                         <td><?php echo $value->placa ?></td>
                         <td><?php echo $value->nombresClientes ?></td>
-                        <td><?php echo $value->saldo ?></td>
+                        <td><?php echo $value->montoTotal ?></td>
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">

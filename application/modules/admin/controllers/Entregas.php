@@ -32,7 +32,18 @@ class Entregas extends MX_Controller {
 	 
 	public function index(){ 
         $this->tmp_admin->set("controller",$this->controller);
-        $this->tmp_admin->set("model",$this->obj_model->get_all());
+        
+        $model = $this->obj_model->get_all();
+        foreach ($model as $key => $value) {
+            $idEntregas = $value->id;
+            $entregaServicios = $this->obj_model->get_entregaServicios($idEntregas);
+            $montoTotal = 0;
+            foreach ($entregaServicios as $key2 => $value2) {
+                $montoTotal += (float)$value2->montoTotal;
+            }
+            $model[$key]->montoTotal = $montoTotal;
+        }
+        $this->tmp_admin->set("model",$model);
         $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
@@ -99,7 +110,7 @@ class Entregas extends MX_Controller {
                 //obtenido los repuestos de esta entrega
                 $servicioRepuesto = $this->obj_model->getRepuestos_ES($value->id);
                 foreach ($servicioRepuesto as $key2 => $value2) {
-                    $montoTotal += $value2->monto;
+                    $montoTotal += (float)$value2->monto;
                 }
                 $entregaServicios[$key]->montoTotal= $montoTotal;
             }
@@ -230,6 +241,26 @@ class Entregas extends MX_Controller {
             //actualizando stock de piezas
             $this->obj_piezas->update_cantidad($idPiezas[$key],$cantidad[$key],2);
         }
+
+        //SUmando monto de repuestos para actualizar entrega servicios
+        $servicioRepuestos = $this->obj_model->getRepuestos_ES($idEntregaServicios);
+        $montoRepuestos = 0;
+        foreach ($servicioRepuestos as $key => $value) {
+            $montoRepuestos += (float)$value->monto;
+        }
+
+        $data = array();
+        $data["montoRepuestos"] = $montoRepuestos;
+        $this->obj_model->updateServicio($data,$idEntregaServicios);
+
+        //actualizando monto Total
+        $entregaServicio = $this->obj_model->get_idEntregasServicios($idEntregaServicios);
+        $monto = $entregaServicio->monto;
+        $montoRepuestos = $entregaServicio->montoRepuestos;
+
+        $data = array();
+        $data["montoTotal"] = (float)$montoRepuestos + (float)$monto;
+        $this->obj_model->updateServicio($data,$idEntregaServicios);
 
         redirect("admin/entregas/editar/".$idEntrega);
     }
