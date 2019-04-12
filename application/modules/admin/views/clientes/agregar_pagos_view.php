@@ -15,6 +15,22 @@ $(function() {
                 break;
         }
     });
+
+    $("#idTipoMoneda").change(function() {
+        let valor = $(this).val();
+        console.log(valor);
+    
+        switch (valor) {
+            case "1":
+                $(".divTipoCambio").css("display","none");
+                break;
+            case "2":
+                $(".divTipoCambio").css("display","flex");
+                break;
+            default:
+                break;
+        }
+    });
 });
 </script>
 
@@ -49,7 +65,15 @@ $(function() {
 
 
                     <?php helper_form_select("idTipoMoneda","Tipo de Moneda",$tipoMonedas) ?>
-                    <?php helper_form_text("tipoCambio","Tipo de Cambio","3.21") ?>
+                    
+                    <div class="form-group row divTipoCambio">
+                        <label for="tipoCambio" class="col-sm-4 col-form-label">Tipo de Cambio</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="tipoCambio" class="form-control" id="tipoCambio" value="3.21">
+                        </div>
+                    </div>
+
+
                     <?php helper_form_text("monto","Monto","") ?>
 
                     <button type="submit" class="btn btn-outline-success"><i class="fas fa-save"></i> Guardar</button>

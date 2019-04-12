@@ -140,12 +140,19 @@ class Clientes extends MX_Controller {
             $data["documento"] = $this->input->post("documento") ;
             $data["idTipoMoneda"] = $this->input->post("idTipoMoneda") ;
             $data["tipoCambio"] = $this->input->post("tipoCambio") ;
-            $data["monto"] = $this->input->post("monto") ;
+
+            if($data["idTipoMoneda"] == "2"){
+                $data["monto"] = $this->input->post("monto") * $data["tipoCambio"];
+            }else{
+                $data["monto"] = $this->input->post("monto");
+            }
             $data["fechaRegistro"] = date("Y-m-d H:i:s");
             $data["idEstados"] = "1";
           
 
             $this->obj_model->insert_pago($data);
+
+            $this->obj_model->update_saldo($idClientes,$data["monto"],2);
             redirect("admin/clientes/pagos/".$idClientes);
         }
     }
