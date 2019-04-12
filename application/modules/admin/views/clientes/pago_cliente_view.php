@@ -8,7 +8,7 @@ $(function() {
     });
 
     $("#btnAceptar").click(function() {
-        window.location = "admin/" + controller + "/eliminar/" + $("#modalEliminar").attr("elId");
+        window.location = "admin/" + controller + "/eliminarPago/<?php echo $idClientes ?>/" + $("#modalEliminar").attr("elId");
     });
 });
 </script>
@@ -16,14 +16,14 @@ $(function() {
 <br>
 
 <div class="card">
-    <h5 class="card-header"><?php echo ucwords($controller) ?></h5>
+    <h5 class="card-header">Pagos</h5>
     <div class="card-body">
         <!-- <h5 class="card-title">Special title treatment</h5> -->
 
         <div class="row">
             <div class="col-md-12">
-                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info"> <i
-                        class="fas fa-plus"></i> Agregar <?php echo ucwords($controller) ?></a>
+                <a href="admin/<?php echo $controller ?>/agregarPagos/<?php echo $idClientes ?>" class="btn btn-outline-info"> <i
+                        class="fas fa-plus"></i> Agregar Pago</a>
             </div>
         </div>
         <br>
@@ -32,29 +32,23 @@ $(function() {
 
                 <table class="table">
                     <tr>
+                        <th>Fecha</th>
                         <th>Nombres</th>
-                        <th>Tipo de Documento</th>
-                        <th>Documento</th>
-                        <th>Dirección</th>
-                        <th>Correo</th>
-                        <th>Saldo</th>
-                        <th>Acción</th>
+                        <th>Monto</th>
+                        <th>Acciones</th>    
                     </tr>
 
-                    <?php foreach($model as $key=>$value): ?>
+                    <?php foreach($pagos as $key=>$value): ?>
                     <tr>
+                        <td><?php echo substr($value->fechaPago,0,10) ?></td>
                         <td><?php echo $value->nombresCompletos ?></td>
-                        <td><?php echo $value->descripcion_tipoDocumentos ?></td>
-                        <td><?php echo $value->documento ?></td>
-                        <td><?php echo $value->direccion ?></td>
-                        <td><?php echo $value->correo ?></td>
-                        <td><?php echo $value->saldo ?></td>
+                        <td><?php echo $value->monto ?></td>
+
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
-                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>" class="btn btn-outline-info"><i class="far fa-edit"></i> Editar</a>
-                                    <a href="admin/<?php echo $controller ?>/pagos/<?php echo $value->id ?>" class="btn btn-outline-success"><i class="far fa-edit"></i> Pagos</a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                    
+                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="far fa-trash-alt"></i> Anular</button>
                                 </div>
                             </div>
                         </td>

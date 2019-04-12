@@ -93,6 +93,17 @@ class Entregas extends MX_Controller {
         if ($this->form_validation->run($this) == FALSE)
         {
             $entregaServicios = $this->obj_model->get_entregaServicios($id);
+            
+            foreach ($entregaServicios as $key => $value) {
+                $montoTotal = 0;
+                //obtenido los repuestos de esta entrega
+                $servicioRepuesto = $this->obj_model->getRepuestos_ES($value->id);
+                foreach ($servicioRepuesto as $key2 => $value2) {
+                    $montoTotal += $value2->monto;
+                }
+                $entregaServicios[$key]->montoTotal= $montoTotal;
+            }
+           
 
             $piezas = $this->obj_piezas->get_all();
             $this->tmp_admin->set("piezas",$piezas);
@@ -204,6 +215,7 @@ class Entregas extends MX_Controller {
 
         $idPiezas = $this->input->post("idRepuestos");
         $cantidad = $this->input->post("cantidad");
+        $monto = $this->input->post("monto");
         $idEntregaServicios = $this->input->post("idEntregaServicios");
         $idEntrega = $this->input->post("idEntrega");
 
@@ -212,6 +224,7 @@ class Entregas extends MX_Controller {
             $data["idEntregaServicios"] = $idEntregaServicios;
             $data["idPiezas"] = $idPiezas[$key];
             $data["cantidad"] = $cantidad[$key];
+            $data["monto"] = $monto[$key];
             $this->obj_model->insert_servicioRepuestos($data);
 
             //actualizando stock de piezas

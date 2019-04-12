@@ -1,3 +1,11 @@
+<script>
+$(function(){
+    (function(a){a.fn.validCampoFranz=function(b){a(this).on({keypress:function(a){var c=a.which,d=a.keyCode,e=String.fromCharCode(c).toLowerCase(),f=b;(-1!=f.indexOf(e)||9==d||37!=c&&37==d||39==d&&39!=c||8==d||46==d&&46!=c)&&161!=c||a.preventDefault()}})}})(jQuery);
+
+    $('#placa').validCampoFranz('abcdefghijklmnopqrstuvwxyz0123456789');
+});
+</script>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -14,6 +22,9 @@
         <div class="row">
             <div class="col-md-6">    
                 <form method="post" enctype="multipart/form-data">
+                    <?php if ( array_key_exists("mensaje",$_SESSION)): ?>
+                        <h5 class="text-danger"><?php echo $_SESSION["mensaje"] ?></h5>
+                    <?php endif; ?>
                     <?php helper_form_select("idClientes","Cliente",$clientes,"nombresCompletos") ?>
                     <?php helper_form_text("placa","Placa") ?>
                     <?php helper_form_select("idMarcas","Marca",$marcas) ?>

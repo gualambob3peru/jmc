@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-04-2019 a las 16:12:49
+-- Tiempo de generación: 12-04-2019 a las 02:47:27
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -52,7 +52,7 @@ INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `
 (2, 'afaefaef', 'efafe', 'aefaef', 'efafe aefaef afaefaef', 1, '', 'fsdssdf', 'afadf@fgasfadf.com', '0.00', 0, '0000-00-00 00:00:00'),
 (3, 'adf', 'adfad', 'adfa', 'adfad adfa adf', 1, '', '4dfsd', 'aasdsad@dffsdf.com', '844.23', 1, '0000-00-00 00:00:00'),
 (4, 'aaa', 'bb', 'cc', 'bb cc aaa', 1, '', 'dd', 'eee@gmai.com', '1234.00', 1, '0000-00-00 00:00:00'),
-(5, 'aaaa', 'saaaaa', 'aaaa', 'saaaaa aaaa aaaa', 1, '', 'bbbb', 'ccc@cccc.com', '0.00', 1, '0000-00-00 00:00:00'),
+(5, 'aaaa', 'saaaaa', 'aaaa', 'saaaaa aaaa aaaa', 1, '', 'bbbb', 'ccc@cccc.com', '0.00', 0, '0000-00-00 00:00:00'),
 (6, 'bbb', 'bbb', 'bbb', 'bbb bbb bbb', 1, '', 'fff', 'fff@gmail.com', '0.00', 1, '2019-03-18 00:00:00'),
 (7, 'ererer', 'erer', 'erere', 'erer erere ererer', 1, '', 'erer', 'erererer@gmail.com', '0.00', 1, '2019-03-19 00:00:00'),
 (8, 'Renzo', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Renzo', 1, '', 'dksoginsn', 'dsgs@gamdigad.com', '0.00', 1, '2019-03-19 00:00:00');
@@ -106,6 +106,25 @@ INSERT INTO `comprasrepuestos` (`id`, `idCompras`, `idRepuestos`, `cantidad`, `c
 (4, 2, 2, 600, '123.00'),
 (5, 3, 2, 123, '123.00'),
 (6, 3, 1, 456, '123.00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `datosgenerales`
+--
+
+CREATE TABLE `datosgenerales` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(90) NOT NULL,
+  `valor` varchar(90) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `datosgenerales`
+--
+
+INSERT INTO `datosgenerales` (`id`, `descripcion`, `valor`) VALUES
+(1, 'tipoCambio', '3.21');
 
 -- --------------------------------------------------------
 
@@ -243,6 +262,36 @@ INSERT INTO `modelos` (`id`, `descripcion`, `idMarcas`, `idEstados`, `fechaRegis
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `pagoclientes`
+--
+
+CREATE TABLE `pagoclientes` (
+  `id` int(11) NOT NULL,
+  `idClientes` int(11) NOT NULL,
+  `monto` decimal(10,2) NOT NULL,
+  `tipoCambio` varchar(11) NOT NULL,
+  `idTipoPago` int(11) NOT NULL,
+  `documento` int(11) NOT NULL,
+  `fechaRegistro` datetime NOT NULL,
+  `fechaPago` datetime NOT NULL,
+  `idTipoMoneda` int(11) NOT NULL,
+  `idEstados` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pagoclientes`
+--
+
+INSERT INTO `pagoclientes` (`id`, `idClientes`, `monto`, `tipoCambio`, `idTipoPago`, `documento`, `fechaRegistro`, `fechaPago`, `idTipoMoneda`, `idEstados`) VALUES
+(1, 1, '100.00', '3.21', 1, 121313, '2019-04-11 00:00:00', '2019-04-17 00:00:00', 1, 1),
+(2, 1, '1234.00', '3.21', 2, 1213131313, '2019-04-11 18:35:59', '2019-04-11 00:00:00', 1, 1),
+(3, 1, '777.00', '3.21', 2, 1213131313, '2019-04-11 18:36:38', '2019-04-11 00:00:00', 1, 1),
+(4, 1, '1234.00', '3.21', 1, 1213131313, '2019-04-11 18:39:08', '2019-04-12 00:00:00', 1, 0),
+(5, 1, '22222.00', '3.21', 2, 1213131313, '2019-04-11 18:40:01', '2019-04-28 00:00:00', 2, 0);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `personas`
 --
 
@@ -291,7 +340,7 @@ CREATE TABLE `piezas` (
 --
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
-(1, 'P-001', 'Llantas', '123.00', 1, '2019-04-06 14:34:36', 1056),
+(1, 'P-001', 'Llantas', '123.00', 1, '2019-04-06 14:34:36', 1038),
 (2, 'P-002', 'Motor', '150.00', 1, '2019-04-06 14:34:56', 0);
 
 -- --------------------------------------------------------
@@ -304,8 +353,17 @@ CREATE TABLE `serviciorepuestos` (
   `id` int(11) NOT NULL,
   `idEntregaServicios` int(11) NOT NULL,
   `idPiezas` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL,
+  `monto` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `serviciorepuestos`
+--
+
+INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idPiezas`, `cantidad`, `monto`) VALUES
+(1, 21, 1, 6, '100.50'),
+(2, 21, 1, 12, '1476.00');
 
 -- --------------------------------------------------------
 
@@ -348,6 +406,49 @@ CREATE TABLE `tipodocumentos` (
 INSERT INTO `tipodocumentos` (`id`, `descripcion`, `idEstados`) VALUES
 (1, 'dni', 1),
 (2, 'ruc', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipomonedas`
+--
+
+CREATE TABLE `tipomonedas` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(90) NOT NULL,
+  `simbolo` varchar(90) NOT NULL,
+  `idEstados` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipomonedas`
+--
+
+INSERT INTO `tipomonedas` (`id`, `descripcion`, `simbolo`, `idEstados`) VALUES
+(1, 'Soles', 'S./', 1),
+(2, 'Dolares', '$.', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipopagos`
+--
+
+CREATE TABLE `tipopagos` (
+  `id` int(11) NOT NULL,
+  `descripcion` varchar(90) NOT NULL,
+  `idEstados` int(11) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipopagos`
+--
+
+INSERT INTO `tipopagos` (`id`, `descripcion`, `idEstados`) VALUES
+(1, 'efectivo', 1),
+(2, 'desposito', 1),
+(3, 'cheque', 1),
+(4, 'transferencia', 1);
 
 -- --------------------------------------------------------
 
@@ -416,7 +517,8 @@ INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`
 (4, 'bbbb', 1, 1, 'aefa', 3456, 'sadfsdf', '1.JPG', 3, 1, '2019-04-04 17:53:36'),
 (5, 'rrrrr', 1, 1, 'dfadf', 23234, 'sdfsg', '1.jpg', 1, 1, '2019-04-04 17:54:54'),
 (6, 'uuuuuuuuu', 1, 1, 'aefa', 23423, 'edsfdf', '1.jpg', 4, 1, '2019-04-04 10:56:07'),
-(7, 'aaaaa', 2, 1, 'aefa', 321, 'iugb', '1.JPG', 3, 1, '2019-04-05 11:53:31');
+(7, 'aaaaa', 2, 1, 'aefa', 321, 'iugb', '1.JPG', 3, 1, '2019-04-05 11:53:31'),
+(8, 'asdferer', 1, 1, 'adfadf', 2345, 'dsf', '1.JPG', 1, 1, '2019-04-11 19:20:21');
 
 --
 -- Índices para tablas volcadas
@@ -441,6 +543,12 @@ ALTER TABLE `comprasrepuestos`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `datosgenerales`
+--
+ALTER TABLE `datosgenerales`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `entregas`
 --
 ALTER TABLE `entregas`
@@ -462,6 +570,12 @@ ALTER TABLE `marcas`
 -- Indices de la tabla `modelos`
 --
 ALTER TABLE `modelos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `pagoclientes`
+--
+ALTER TABLE `pagoclientes`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -492,6 +606,18 @@ ALTER TABLE `servicios`
 -- Indices de la tabla `tipodocumentos`
 --
 ALTER TABLE `tipodocumentos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipomonedas`
+--
+ALTER TABLE `tipomonedas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `tipopagos`
+--
+ALTER TABLE `tipopagos`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -535,6 +661,12 @@ ALTER TABLE `comprasrepuestos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `datosgenerales`
+--
+ALTER TABLE `datosgenerales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
@@ -559,6 +691,12 @@ ALTER TABLE `modelos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `pagoclientes`
+--
+ALTER TABLE `pagoclientes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
@@ -574,7 +712,7 @@ ALTER TABLE `piezas`
 -- AUTO_INCREMENT de la tabla `serviciorepuestos`
 --
 ALTER TABLE `serviciorepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -587,6 +725,18 @@ ALTER TABLE `servicios`
 --
 ALTER TABLE `tipodocumentos`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tipomonedas`
+--
+ALTER TABLE `tipomonedas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `tipopagos`
+--
+ALTER TABLE `tipopagos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `tipopersonas`
@@ -604,7 +754,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

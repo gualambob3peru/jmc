@@ -40,7 +40,7 @@ class Tbl_entregas extends CI_Model{
     public function getRepuestos_ES($idEntregasServicios){
         try {
             $this->db->from("servicioRepuestos sR");
-            $this->db->select("sR.id, sR.idEntregaServicios, sR.idPiezas, sR.cantidad, r.descripcion");
+            $this->db->select("sR.id, sR.idEntregaServicios, sR.idPiezas, sR.cantidad, sR.monto, r.descripcion");
 
             $this->db->join("piezas r","sR.idPiezas=r.id");
 

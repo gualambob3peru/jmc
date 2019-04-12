@@ -40,6 +40,7 @@ class Vehiculos extends MX_Controller {
         $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
+
     
 	public function agregar(){ 
          $this->form_validation->set_rules('placa', 'Placa', 'trim|required');
@@ -47,6 +48,7 @@ class Vehiculos extends MX_Controller {
         $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
+        //$this->form_validation->set_message('placa_check', 'Esta placa ya fue registrada');
         
         if ($this->form_validation->run($this) == FALSE)
         {
@@ -59,44 +61,54 @@ class Vehiculos extends MX_Controller {
         }
         else
         {   
-            $data = $this->upPost($this->data);
-            $data["fechaRegistro"] = date("Y-m-d H:i:s");
-
-            $id_last = $this->obj_model->insert($data);
+            $vehiculo = $this->obj_model->get_campo("placa",$this->input->post("placa"));
+            
+            if($vehiculo!=NULL){
+                $_SESSION["mensaje"] = "La placa ya fue registrada";
+                redirect("admin/vehiculos/agregar");
+            }else{
+       
+                $data = $this->upPost($this->data);
+                $data["fechaRegistro"] = date("Y-m-d H:i:s");
+    
+                $id_last = $this->obj_model->insert($data);
+    
+            
+    
+                $carpeta = "static/images/".$this->controller."/".$id_last."/";
+                if (!file_exists($carpeta)) {
+                    mkdir($carpeta, 0777, true);
+                }
+                
+                $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 50000;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $config['file_name']           = "1";
+    
+                $this->load->library('upload', $config);
+    
+                if ( ! $this->upload->do_upload('imagen'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    //print_r($error);
+                    redirect("admin/".$this->controller."/agregar");
+                }
+                else
+                {
+                    $result = array('upload_data' => $this->upload->data());
+                
+                    $data = [
+                        "imagen" => $result["upload_data"]["file_name"]
+                    ];
+                    $this->obj_model->update($data,$id_last);
+    
+                    redirect("admin/".$this->controller);
+                }
+            }
 
           
-
-            $carpeta = "static/images/".$this->controller."/".$id_last."/";
-            if (!file_exists($carpeta)) {
-                mkdir($carpeta, 0777, true);
-            }
-            
-            $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
-            $config['allowed_types']        = 'gif|jpg|png|jpeg';
-            $config['max_size']             = 50000;
-            $config['max_width']            = 5000;
-            $config['max_height']           = 5000;
-            $config['file_name']           = "1";
-
-            $this->load->library('upload', $config);
-
-            if ( ! $this->upload->do_upload('imagen'))
-            {
-                $error = array('error' => $this->upload->display_errors());
-                //print_r($error);
-                redirect("admin/".$this->controller."/agregar");
-            }
-            else
-            {
-                $result = array('upload_data' => $this->upload->data());
-              
-                $data = [
-                    "imagen" => $result["upload_data"]["file_name"]
-                ];
-                $this->obj_model->update($data,$id_last);
-
-                redirect("admin/".$this->controller);
-            }
            
             //redirect("admin/".$this->controller);
         }

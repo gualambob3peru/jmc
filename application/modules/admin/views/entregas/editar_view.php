@@ -145,7 +145,12 @@ $(function() {
 
         if (parseInt($(this).val()) > parseInt($("#stock").val())) {
             $(this).val($("#stock").val());
+            
         }
+
+        console.log($("#cantidad").val(),$("#idPiezas").find(":selected").attr("costo"));
+            
+            $("#costoMonto").val( $("#cantidad").val() * $("#idPiezas").find(":selected").attr("costo"));
     });
 
     $("#btnAddModal2").click(function() {
@@ -153,13 +158,14 @@ $(function() {
         let idPieza = $("#idPiezas").val(),
             desIdPieza = $("#idPiezas").find(":selected").text().trim(),
             cantidad = $("#cantidad").val(),
+            costoMonto = $("#costoMonto").val(),
             row = "";
 
         if (idPieza == "" || cantidad == "") {
             alert("Debe llenar todos los campos")
             return;
         }
-        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza + "'>" +
+        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza + "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
             desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
             cantidad + "</td></tr>";
 
@@ -262,7 +268,9 @@ $(function() {
                                         <th>Fecha</th>
                                         <th>Nombre</th>
                                         <th>Costo</th>
+                                        <th>Repuestos</th>
                                         <th>Mecánico</th>
+                                        <th>Total</th>
                                         <th>Acciones</th>
                                     </tr>
 
@@ -275,7 +283,9 @@ $(function() {
                                             echo "<td>".substr($value->fechaServicio,0,10)."</td>";
                                             echo "<td>".$value->descripcion."</td>";
                                             echo "<td>".$value->monto."</td>";
+                                            echo "<td>".$value->montoTotal."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
+                                            echo "<td>".($value->monto + $value->montoTotal)."</td>";
                                             echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
                                             echo "</tr>";
                                         }
@@ -403,7 +413,7 @@ $(function() {
                             <select class="form-control" name="" id="idPiezas">
                                 <option value="">Elegir</option>
                                 <?php foreach($piezas as $key=>$value): ?>
-                                <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>">
+                                <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>" costo="<?php echo $value->costo ?>">
                                     <?php echo $value->descripcion ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -411,12 +421,21 @@ $(function() {
                     </div>
 
 
-                    <?php helper_form_text("cantidad","Cantidad") ?>
+                    
 
                     <div class="form-group row">
                         <label for="cantidad" class="col-sm-4 col-form-label">Stock</label>
                         <div class="col-sm-8">
                             <input disabled type="text" name="stock" id="stock" class="form-control" value="">
+                        </div>
+                    </div>
+
+                    <?php helper_form_text("cantidad","Cantidad") ?>
+
+                    <div class="form-group row">
+                        <label for="costoMonto" class="col-sm-4 col-form-label">Monto</label>
+                        <div class="col-sm-8">
+                            <input disabled type="text" name="costoMonto" id="costoMonto" class="form-control">
                         </div>
                     </div>
                 </div>

@@ -19,6 +19,8 @@ class Clientes extends MX_Controller {
         parent::__construct();
         $this->load->model('Tbl_usuario','obj_usuario');    
         $this->load->model('Tbl_tipoDocumentos','obj_tipoDocumentos');    
+        $this->load->model('Tbl_tipoPagos','obj_tipoPagos');    
+        $this->load->model('Tbl_tipoMonedas','obj_tipoMonedas');    
            
         $this->load->model('Tbl_clientes','obj_model');    
        
@@ -92,12 +94,77 @@ class Clientes extends MX_Controller {
         }
     }
 
+    public function pagos($idClientes){
+        $pagos = $this->obj_model->get_pagos_id($idClientes);
+     
+        
+        $this->tmp_admin->set("pagos",$pagos);
+        $this->tmp_admin->set("idClientes",$idClientes);
+        $this->tmp_admin->set("controller",$this->controller);
+        $this->load->tmp_admin->setLayout($this->template);
+        $this->load->tmp_admin->render($this->cview.'/pago_cliente_view.php');
+    }
+
+    public function AgregarPagos($idClientes){
+        $this->form_validation->set_rules('fechaPago', 'Fecha de Pago', 'trim|required');
+        $this->form_validation->set_rules('idTipoMoneda', 'Tipo de Moneda', 'trim|required');
+        $this->form_validation->set_rules('idTipoPago', 'Tipo de Pago', 'trim|required');
+        //$this->form_validation->set_rules('tipoCambio', 'Tipo de Cambio', 'trim|required');
+        $this->form_validation->set_rules('monto', 'Monto', 'trim|required');
+
+        
+        
+        if ($this->form_validation->run($this) == FALSE)
+        {
+            //$tipoDocumentos = $this->obj_tipoDocumentos->get_all();
+
+            $tipoPagos = $this->obj_tipoPagos->get_all(); 
+            $tipoMonedas = $this->obj_tipoMonedas->get_all(); 
+
+             
+            $this->tmp_admin->set("controller",$this->controller);
+            $this->tmp_admin->set("idClientes",$idClientes);
+            $this->tmp_admin->set("tipoPagos",$tipoPagos);
+            $this->tmp_admin->set("tipoMonedas",$tipoMonedas);
+
+            $this->load->tmp_admin->setLayout($this->template);
+            $this->load->tmp_admin->render($this->cview.'/agregar_pagos_view.php');
+        }
+        else
+        {   
+
+            
+            $data["idClientes"] = $this->input->post("idClientes") ;
+            $data["fechaPago"] = $this->input->post("fechaPago") ;
+            $data["idTipoPago"] = $this->input->post("idTipoPago") ;
+            $data["documento"] = $this->input->post("documento") ;
+            $data["idTipoMoneda"] = $this->input->post("idTipoMoneda") ;
+            $data["tipoCambio"] = $this->input->post("tipoCambio") ;
+            $data["monto"] = $this->input->post("monto") ;
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
+            $data["idEstados"] = "1";
+          
+
+            $this->obj_model->insert_pago($data);
+            redirect("admin/clientes/pagos/".$idClientes);
+        }
+    }
+
 	public function eliminar($id){ 
         $data = [
             "idEstados" => "0"
         ];
         $this->obj_model->update($data,$id);
         redirect("admin/".$this->controller);
+    }
+
+    public function eliminarPago($idClientes,$id){ 
+        $data = [
+            "idEstados" => "0"
+        ];
+        $this->obj_model->update_pago($data,$id);
+       
+        redirect("admin/clientes/pagos/".$idClientes);
     }
 
     public function upPost($data){

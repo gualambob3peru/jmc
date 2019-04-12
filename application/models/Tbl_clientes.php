@@ -12,9 +12,25 @@ class Tbl_clientes extends CI_Model{
     public function get_id($id){
         try {
             $this->db->where($this->id,$id);
-
+            
             $query = $this->db->get($this->tabla);
             return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function get_pagos_id($id){
+        try {
+            $this->db->from("pagoClientes pg");
+            $this->db->select("pg.id, pg.monto,c.id idClientes, c.nombresCompletos, pg.fechaPago");
+            $this->db->join("clientes c","c.id=pg.idClientes");
+
+            $this->db->where("c.id",$id);
+            $this->db->where("pg.idEstados", "1");
+            $this->db->order_by("pg.fechaRegistro", "desc");
+            $query = $this->db->get();
+            return $query->result();
         } catch (Exception $exc) {
             return FALSE;   
         }
@@ -45,10 +61,27 @@ class Tbl_clientes extends CI_Model{
         }
     }
 
+    public function insert_pago($data){
+        try {
+            $this->db->insert("pagoClientes", $data);
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function update($data,$id){
         try {
             $this->db->where($this->id, $id);
             $this->db->update($this->tabla, $data);
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function update_pago($data,$id){
+        try {
+            $this->db->where($this->id, $id);
+            $this->db->update("pagoClientes", $data);
         } catch (Exception $exc) {
             return FALSE;   
         }
