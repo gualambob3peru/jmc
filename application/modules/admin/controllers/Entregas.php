@@ -165,6 +165,14 @@ class Entregas extends MX_Controller {
         $this->obj_clientes->update_saldo($entrega->idClientes,$servicio->monto,2);
 
 
+        //SUmando monto de repuestos para actualizar entrega servicios
+        $servicioRepuestos = $this->obj_model->getRepuestos_ES($servicio->id);
+        $montoRepuestos = 0;
+        foreach ($servicioRepuestos as $key => $value) {
+            $montoRepuestos += (float)$value->monto;
+        }
+        $this->obj_clientes->update_saldo($entrega->idClientes,$montoRepuestos,2);
+
         redirect("admin/".$this->controller."/editar/".$idEntrega);
     }
 
@@ -204,6 +212,7 @@ class Entregas extends MX_Controller {
         $data["idServicios"] = $this->input->post("idServicios");
         $data["observacionesServicio"] = $this->input->post("observacionesServicio");
         $data["monto"] = $this->input->post("monto");
+        $data["montoTotal"] = $this->input->post("monto");
         $data["fechaRegistro"] = date("Y-m-d H:i:s");
         $data["fechaServicio"] = $this->input->post("fechaEntregaServicio");
         $data["idEntregas"] = $this->input->post("idModal");
@@ -229,6 +238,7 @@ class Entregas extends MX_Controller {
         $monto = $this->input->post("monto");
         $idEntregaServicios = $this->input->post("idEntregaServicios");
         $idEntrega = $this->input->post("idEntrega");
+        
 
         foreach ($idPiezas as $key => $value) {
             $data = array();
@@ -252,6 +262,11 @@ class Entregas extends MX_Controller {
         $data = array();
         $data["montoRepuestos"] = $montoRepuestos;
         $this->obj_model->updateServicio($data,$idEntregaServicios);
+
+        $entrega = $this->obj_model->get_id($idEntrega); 
+        $vehiculo = $this->obj_vehiculos->get_id($entrega->idVehiculos);
+
+        $this->obj_clientes->update_saldo($vehiculo->idClientes,$montoRepuestos);
 
         //actualizando monto Total
         $entregaServicio = $this->obj_model->get_idEntregasServicios($idEntregaServicios);
