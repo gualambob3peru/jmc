@@ -205,7 +205,7 @@ $(function() {
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos"
                                 value="<?php echo $model->idVehiculos ?>">
-                            <?php helper_form_text("fechaServicio","Fecha de Registro",$model->fechaServicio,"date") ?>
+                            <?php helper_form_text("fechaServicio","Fecha de Registro",substr($model->fechaServicio,0,10),"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
 
