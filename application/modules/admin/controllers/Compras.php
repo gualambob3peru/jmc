@@ -70,13 +70,16 @@ class Compras extends MX_Controller {
             //Ingresando Compras Repuestos
             $comprRespues = array();
             foreach ($idRepuestos as $key => $value) {
-                $row = array();
-                $row["idRepuestos"] = $idRepuestos[$key];
-                $row["cantidad"] = $cantidad[$key];
-                $row["costo"] = $costo[$key];
-                $row["idCompras"] = $idCompras;
+                if($cantidad[$key]!=""){
 
-                array_push($comprRespues,$row);
+                    $row = array();
+                    $row["idRepuestos"] = $idRepuestos[$key];
+                    $row["cantidad"] = $cantidad[$key];
+                    $row["costo"] = $costo[$key];
+                    $row["idCompras"] = $idCompras;
+    
+                    array_push($comprRespues,$row);
+                }
             }
 
             $this->obj_model->insert_batch_cr($comprRespues);
@@ -84,7 +87,10 @@ class Compras extends MX_Controller {
 
             // Cambiando Stock
             foreach ($idRepuestos as $key => $value) {
-                $this->obj_piezas->update_cantidad($idRepuestos[$key],$cantidad[$key]);
+                if($cantidad[$key]!=""){
+
+                    $this->obj_piezas->update_cantidad($idRepuestos[$key],$cantidad[$key]);
+                }
             }
 
             redirect("admin/".$this->controller);

@@ -16,7 +16,7 @@ $(function() {
 
         }else{
             alert('Debe llenar algun repuesto')
-            e.preventDefault();
+            e.preventDefault(); 
         }
     });
 });
