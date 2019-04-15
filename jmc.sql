@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-04-2019 a las 04:09:39
+-- Tiempo de generación: 15-04-2019 a las 20:46:55
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -48,14 +48,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `idTipoDocumentos`, `documento`, `direccion`, `correo`, `saldo`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'Franz Wilder', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz Wilder', 2, '12345678', 'Urb Prolima Los Olivos', 'sdfsdf@gmail.com', '2179.00', 1, '0000-00-00 00:00:00'),
-(2, 'afaefaef', 'efafe', 'aefaef', 'efafe aefaef afaefaef', 1, '', 'fsdssdf', 'afadf@fgasfadf.com', '0.00', 0, '0000-00-00 00:00:00'),
-(3, 'adf', 'adfad', 'adfa', 'adfad adfa adf', 1, '', '4dfsd', 'aasdsad@dffsdf.com', '844.23', 1, '0000-00-00 00:00:00'),
-(4, 'aaa', 'bb', 'cc', 'bb cc aaa', 1, '', 'dd', 'eee@gmai.com', '141.90', 1, '0000-00-00 00:00:00'),
-(5, 'aaaa', 'saaaaa', 'aaaa', 'saaaaa aaaa aaaa', 1, '', 'bbbb', 'ccc@cccc.com', '0.00', 0, '0000-00-00 00:00:00'),
-(6, 'bbb', 'bbb', 'bbb', 'bbb bbb bbb', 1, '', 'fff', 'fff@gmail.com', '0.00', 1, '2019-03-18 00:00:00'),
-(7, 'ererer', 'erer', 'erere', 'erer erere ererer', 1, '', 'erer', 'erererer@gmail.com', '0.00', 1, '2019-03-19 00:00:00'),
-(8, 'Renzo', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Renzo', 1, '', 'dksoginsn', 'dsgs@gamdigad.com', '0.00', 1, '2019-03-19 00:00:00');
+(1, 'Franz', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz', 1, '44556677', 'Pro', 'gualambo@gmail.com', '12150.00', 1, '2019-04-12 17:22:25');
 
 -- --------------------------------------------------------
 
@@ -77,9 +70,9 @@ CREATE TABLE `compras` (
 --
 
 INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idEstados`, `fechaRegistro`, `fechaCompras`) VALUES
-(1, '123123', 'proveedor 1', 1, '2019-04-06 14:35:37', '2019-04-06 14:35:00'),
-(2, '123123', 'sfgsfg', 1, '2019-04-06 14:38:51', '2019-04-06 14:38:00'),
-(3, '123123', 'sfgsfg', 1, '2019-04-06 16:47:53', '2019-04-06 16:47:00');
+(1, '123123', 'sgsfg', 1, '2019-04-15 12:27:33', '2019-04-15 12:27:00'),
+(2, '123123', 'sgsfg', 1, '2019-04-15 12:28:25', '2019-04-15 12:27:00'),
+(3, '123123', 'sgsfg', 1, '2019-04-15 13:28:33', '2019-04-15 13:28:00');
 
 -- --------------------------------------------------------
 
@@ -100,12 +93,9 @@ CREATE TABLE `comprasrepuestos` (
 --
 
 INSERT INTO `comprasrepuestos` (`id`, `idCompras`, `idRepuestos`, `cantidad`, `costo`) VALUES
-(1, 1, 1, 100, '500.00'),
-(2, 1, 2, 150, '600.00'),
-(3, 2, 1, 500, '123.00'),
-(4, 2, 2, 600, '123.00'),
-(5, 3, 2, 123, '123.00'),
-(6, 3, 1, 456, '123.00');
+(1, 1, 0, 0, '0.00'),
+(2, 2, 1, 10, '100.00'),
+(3, 3, 1, 10, '11.00');
 
 -- --------------------------------------------------------
 
@@ -146,29 +136,9 @@ CREATE TABLE `entregas` (
 --
 
 INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `idEstados`, `observaciones`) VALUES
-(1, 10, '0000-00-00 00:00:00', '2019-03-15 00:00:00', 1, 'aaa'),
-(2, 10, '2019-03-23 00:00:00', '2019-03-02 00:00:00', 0, ''),
-(3, 7, '0000-00-00 00:00:00', '2019-03-24 00:00:00', 0, ''),
-(4, 10, '2019-04-20 00:00:00', '0000-00-00 00:00:00', 0, 'daadf'),
-(5, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 0, 'daadf'),
-(6, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(7, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(8, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(9, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(10, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(11, 10, '2019-04-02 00:00:00', '2019-04-20 00:00:00', 1, 'daadf'),
-(12, 1, '2019-04-03 00:00:00', '2019-04-03 00:00:00', 1, 'ob'),
-(13, 3, '2019-04-03 00:00:00', '2019-04-03 00:00:00', 0, 'GGG'),
-(14, 5, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 0, 'hhhh'),
-(15, 1, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 1, 'ii'),
-(16, 1, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 1, 'iuiu gttgtgtg'),
-(17, 2, '2019-04-04 00:00:00', '2019-04-04 00:00:00', 1, 'kjnon'),
-(18, 3, '2019-04-04 10:57:41', '2019-04-04 00:00:00', 0, 'adfadf'),
-(19, 3, '2019-04-04 10:59:38', '0000-00-00 00:00:00', 1, 'hhhhhh'),
-(20, 3, '2019-04-05 11:55:14', '2019-04-05 00:00:00', 1, 'hch'),
-(21, 3, '2019-04-05 11:57:07', '2019-04-05 00:00:00', 1, 'wrvwrv'),
-(22, 6, '2019-04-05 11:57:38', '2019-04-09 00:00:00', 1, 'scc'),
-(23, 5, '2019-04-11 20:18:18', '2019-04-11 00:00:00', 1, 'nurvo');
+(1, 1, '2019-04-12 17:23:32', '2019-04-12 00:00:00', 0, 'mi Observacion'),
+(2, 1, '2019-04-15 10:47:46', '2019-04-15 00:00:00', 0, ''),
+(3, 1, '2019-04-15 10:51:32', '2019-04-15 00:00:00', 1, '');
 
 -- --------------------------------------------------------
 
@@ -195,29 +165,9 @@ CREATE TABLE `entregaservicios` (
 --
 
 INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`, `monto`, `observacionesServicio`, `idEstados`, `fechaRegistro`, `fechaServicio`, `montoTotal`, `montoRepuestos`) VALUES
-(1, 1, 1, 19, '123.45', 'kkkkk', 0, '2019-04-04 12:19:56', '2019-04-09 00:00:00', '0.00', '0.00'),
-(2, 3, 1, 19, '123.00', '234', 0, '2019-04-04 12:41:29', '2019-04-04 00:00:00', '0.00', '0.00'),
-(3, 3, 1, 19, '123.00', '234', 0, '2019-04-04 12:41:50', '2019-04-04 00:00:00', '0.00', '0.00'),
-(4, 1, 1, 19, '1234.00', 'sfgsfg', 0, '2019-04-04 12:42:29', '2019-04-04 00:00:00', '0.00', '0.00'),
-(5, 1, 1, 19, '1234.00', 'sfgsfg', 0, '2019-04-04 12:43:08', '2019-04-04 00:00:00', '0.00', '0.00'),
-(6, 1, 1, 19, '1234.00', 'sfgsfg', 0, '2019-04-04 12:43:20', '2019-04-04 00:00:00', '0.00', '0.00'),
-(7, 3, 1, 19, '345.00', 'qer', 0, '2019-04-04 12:43:55', '2019-04-04 00:00:00', '0.00', '0.00'),
-(8, 1, 1, 19, '345.00', 'sfgsfg', 0, '2019-04-04 12:45:06', '2019-04-04 00:00:00', '0.00', '0.00'),
-(9, 1, 1, 19, '345.00', 'sfgsfg', 0, '2019-04-04 12:45:49', '2019-04-04 00:00:00', '0.00', '0.00'),
-(10, 1, 1, 19, '345.00', 'sfgsfg', 0, '2019-04-04 12:46:00', '2019-04-04 00:00:00', '0.00', '0.00'),
-(11, 1, 1, 19, '345.00', 'sfgsfg', 0, '2019-04-04 12:46:24', '2019-04-04 00:00:00', '0.00', '0.00'),
-(12, 1, 1, 19, '456.00', 'asdasd', 0, '2019-04-04 12:49:01', '2019-04-04 00:00:00', '0.00', '0.00'),
-(13, 1, 1, 19, '1234.00', 'sads', 0, '2019-04-04 12:52:41', '2019-04-04 00:00:00', '0.00', '0.00'),
-(14, 3, 1, 19, '100.00', 'fgsfgsfg', 1, '2019-04-04 12:53:07', '2019-04-04 00:00:00', '0.00', '0.00'),
-(15, 1, 1, 19, '200.00', 'fsdfsdf', 0, '2019-04-04 12:53:18', '2019-04-04 00:00:00', '0.00', '0.00'),
-(16, 1, 1, 19, '300.00', 'etheth', 1, '2019-04-04 12:54:11', '2019-04-04 00:00:00', '0.00', '0.00'),
-(17, 1, 1, 20, '321.23', 'jyfuy', 1, '2019-04-05 11:55:27', '2019-04-05 00:00:00', '0.00', '0.00'),
-(18, 0, 0, 21, '0.00', '', 1, '2019-04-05 12:00:10', '2019-04-05 00:00:00', '0.00', '0.00'),
-(19, 0, 0, 20, '0.00', '', 1, '2019-04-05 12:02:27', '2019-04-05 00:00:00', '0.00', '0.00'),
-(20, 1, 1, 22, '123.00', 'wttwrtwrt', 0, '2019-04-05 12:21:22', '2019-04-05 00:00:00', '0.00', '0.00'),
-(21, 1, 1, 22, '1234.00', 'sdfsf', 1, '2019-04-06 16:48:41', '2019-04-06 00:00:00', '0.00', '0.00'),
-(22, 1, 1, 21, '123.00', 'sadasd', 1, '2019-04-06 18:39:42', '2019-04-06 00:00:00', '0.00', '0.00'),
-(23, 3, 1, 23, '5000.00', 'likhn', 1, '2019-04-11 20:18:28', '2019-04-11 00:00:00', '17915.00', '12915.00');
+(1, 1, 1, 1, '500.00', 'wdwd', 1, '2019-04-12 17:25:13', '2019-04-12 00:00:00', '500.00', '0.00'),
+(2, 1, 1, 2, '299.00', 'sdSD', 0, '2019-04-15 10:47:59', '2019-04-15 00:00:00', '299.00', '0.00'),
+(3, 1, 1, 3, '150.00', '', 1, '2019-04-15 10:51:40', '2019-04-15 00:00:00', '7150.00', '7000.00');
 
 -- --------------------------------------------------------
 
@@ -282,22 +232,6 @@ CREATE TABLE `pagoclientes` (
   `idEstados` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `pagoclientes`
---
-
-INSERT INTO `pagoclientes` (`id`, `idClientes`, `monto`, `tipoCambio`, `idTipoPago`, `documento`, `fechaRegistro`, `fechaPago`, `idTipoMoneda`, `idEstados`) VALUES
-(1, 1, '100.00', '3.21', 1, 121313, '2019-04-11 00:00:00', '2019-04-17 00:00:00', 1, 1),
-(2, 1, '1234.00', '3.21', 2, 1213131313, '2019-04-11 18:35:59', '2019-04-11 00:00:00', 1, 1),
-(3, 1, '777.00', '3.21', 2, 1213131313, '2019-04-11 18:36:38', '2019-04-11 00:00:00', 1, 1),
-(4, 1, '1234.00', '3.21', 1, 1213131313, '2019-04-11 18:39:08', '2019-04-12 00:00:00', 1, 0),
-(5, 1, '22222.00', '3.21', 2, 1213131313, '2019-04-11 18:40:01', '2019-04-28 00:00:00', 2, 0),
-(6, 4, '1000.00', '3.21', 1, 0, '2019-04-11 19:50:03', '2019-04-11 00:00:00', 1, 1),
-(7, 4, '160.50', '3.21', 1, 0, '2019-04-11 19:53:14', '2019-04-11 00:00:00', 2, 1),
-(8, 4, '32.10', '3.21', 1, 0, '2019-04-11 19:54:10', '2019-04-11 00:00:00', 2, 1),
-(9, 4, '32.10', '3.21', 1, 0, '2019-04-11 19:55:34', '2019-04-11 00:00:00', 2, 1),
-(10, 1, '321.00', '3.21', 1, 0, '2019-04-11 19:56:23', '2019-04-11 00:00:00', 2, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -324,9 +258,7 @@ CREATE TABLE `personas` (
 --
 
 INSERT INTO `personas` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `idTipoPersonas`, `idEstados`, `idTipoDocumentos`, `documento`, `correo`, `direccion`, `fechaRegistro`) VALUES
-(1, 'Franz Wilder', 'Gualambo', 'Giraldo', 'Franz Gualambo', 1, 1, 1, '44683254', 'gualambo@gmail.com', 'Urb Prolima', '2019-03-22 00:00:00'),
-(2, 'Renzo', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Renzo', 1, 0, 2, '123456789', 'renzo@gmail.com', 'PRo', '2019-03-22 00:00:00'),
-(3, 'Paul', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Paul', 1, 1, 2, '1213131313', 'paul@gmail.com', 'PRo2', '2019-03-22 00:00:00');
+(1, 'Mecanico 1', 'Mecanico', 'Mecanico', 'Mecanico Mecanico Mecanico', 1, 1, 1, '22334455', 'mecanico@gmail.com', 'San diego', '2019-04-12 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -349,8 +281,8 @@ CREATE TABLE `piezas` (
 --
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
-(1, 'P-001', 'Llantas', '123.00', 1, '2019-04-06 14:34:36', 933),
-(2, 'P-002', 'Motor', '150.00', 1, '2019-04-06 14:34:56', 0);
+(1, 'P001', 'Llantas', '300.00', 1, '2019-04-12 00:00:00', 44),
+(2, 'P002', 'Motor 001', '1500.00', 1, '2019-04-12 00:00:00', 45);
 
 -- --------------------------------------------------------
 
@@ -363,22 +295,39 @@ CREATE TABLE `serviciorepuestos` (
   `idEntregaServicios` int(11) NOT NULL,
   `idPiezas` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `monto` decimal(10,2) NOT NULL
+  `monto` decimal(10,2) NOT NULL,
+  `idEstados` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `serviciorepuestos`
 --
 
-INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idPiezas`, `cantidad`, `monto`) VALUES
-(1, 21, 1, 6, '100.50'),
-(2, 21, 1, 12, '1476.00'),
-(3, 23, 1, 2, '246.00'),
-(4, 23, 1, 100, '12300.00'),
-(5, 23, 2, 0, '0.00'),
-(6, 23, 1, 1, '123.00'),
-(7, 23, 1, 1, '123.00'),
-(8, 23, 1, 1, '123.00');
+INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idPiezas`, `cantidad`, `monto`, `idEstados`) VALUES
+(1, 1, 1, 4, '1200.00', 0),
+(2, 1, 1, 2, '600.00', 0),
+(3, 1, 1, 10, '3000.00', 0),
+(4, 1, 1, 50, '15000.00', 0),
+(5, 1, 1, 10, '3000.00', 0),
+(6, 1, 1, 10, '3000.00', 0),
+(7, 1, 0, 10, '3000.00', 1),
+(8, 1, 0, 10, '3000.00', 1),
+(9, 1, 0, 10, '3000.00', 1),
+(10, 1, 0, 10, '3000.00', 1),
+(11, 2, 1, 10, '3000.00', 0),
+(12, 3, 1, 5, '1500.00', 0),
+(13, 3, 1, 20, '6000.00', 0),
+(14, 3, 2, 5, '7500.00', 0),
+(15, 3, 1, 10, '3000.00', 0),
+(16, 3, 1, 10, '3000.00', 0),
+(17, 3, 1, 10, '3000.00', 0),
+(18, 3, 1, 5, '1500.00', 0),
+(19, 3, 2, 10, '15000.00', 0),
+(20, 3, 1, 10, '3000.00', 0),
+(21, 3, 1, 10, '3000.00', 0),
+(22, 3, 2, 10, '15000.00', 0),
+(23, 3, 2, 5, '5000.00', 1),
+(24, 3, 1, 10, '2000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -528,12 +477,7 @@ CREATE TABLE `vehiculos` (
 --
 
 INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`, `serie`, `imagen`, `idClientes`, `idEstados`, `fechaRegistro`) VALUES
-(3, 'aaaa', 1, 1, 'aefa', 1, 'aef', '1.jpg', 3, 1, '2019-04-04 10:50:00'),
-(4, 'bbbb', 1, 1, 'aefa', 3456, 'sadfsdf', '1.JPG', 3, 1, '2019-04-04 17:53:36'),
-(5, 'rrrrr', 1, 1, 'dfadf', 23234, 'sdfsg', '1.jpg', 1, 1, '2019-04-04 17:54:54'),
-(6, 'uuuuuuuuu', 1, 1, 'aefa', 23423, 'edsfdf', '1.jpg', 4, 1, '2019-04-04 10:56:07'),
-(7, 'aaaaa', 2, 1, 'aefa', 321, 'iugb', '1.JPG', 3, 1, '2019-04-05 11:53:31'),
-(8, 'asdferer', 1, 1, 'adfadf', 2345, 'dsf', '1.JPG', 1, 1, '2019-04-11 19:20:21');
+(1, 'AUU112', 1, 1, '12312', 2022, 'daf', '1.png', 1, 1, '2019-04-12 17:23:11');
 
 --
 -- Índices para tablas volcadas
@@ -661,7 +605,7 @@ ALTER TABLE `vehiculos`
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `compras`
@@ -673,7 +617,7 @@ ALTER TABLE `compras`
 -- AUTO_INCREMENT de la tabla `comprasrepuestos`
 --
 ALTER TABLE `comprasrepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `datosgenerales`
@@ -685,13 +629,13 @@ ALTER TABLE `datosgenerales`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -709,13 +653,13 @@ ALTER TABLE `modelos`
 -- AUTO_INCREMENT de la tabla `pagoclientes`
 --
 ALTER TABLE `pagoclientes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `personas`
 --
 ALTER TABLE `personas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `piezas`
@@ -727,7 +671,7 @@ ALTER TABLE `piezas`
 -- AUTO_INCREMENT de la tabla `serviciorepuestos`
 --
 ALTER TABLE `serviciorepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -769,7 +713,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
