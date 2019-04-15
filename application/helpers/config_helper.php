@@ -45,7 +45,7 @@
 			foreach ($data as $key => $value) {
 				$selected = ($ide==$value->id)?"selected":"";
 				//echo $ide. "  - ".$value->id;
-				$options.="<option ".$selected." value='".$value->id."'>".$value->$descripcion."</option>";
+				$options.="<option ".set_select($id, $value->id)." ".$selected." value='".$value->id."'>".$value->$descripcion."</option>";
 			}
 
 			echo "
@@ -54,7 +54,7 @@
 				<div class='col-sm-".$size2."'>
 					<select class='form-control' name='".$id."' id='".$id."'>
 						".$options."
-					</select>
+					</select>".form_error($id, '<div class="text-danger">', '</div>')."
 				</div>
 			</div>
 			";

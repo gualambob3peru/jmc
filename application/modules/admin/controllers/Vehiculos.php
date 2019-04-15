@@ -31,6 +31,9 @@ class Vehiculos extends MX_Controller {
         }
 
         date_default_timezone_set("America/Lima");
+
+        $this->load->library('form_validation');
+        $this->form_validation->CI =& $this;
        
     }
 	 
@@ -41,9 +44,19 @@ class Vehiculos extends MX_Controller {
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
 
+    public function placacheck($placa){
+        $vehiculo = $this->obj_model->get_campo("placa",$placa);
+
+        if(is_object($vehiculo)){
+            $this->form_validation->set_message('placacheck', 'Esta placa ya fue registrada');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
     
 	public function agregar(){ 
-         $this->form_validation->set_rules('placa', 'Placa', 'trim|required');
+        $this->form_validation->set_rules('placa', 'Placa', 'trim|required|callback_placacheck');
         $this->form_validation->set_rules('idMarcas', 'idMarca', 'trim|required');
         $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
 

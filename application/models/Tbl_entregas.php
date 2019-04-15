@@ -37,13 +37,26 @@ class Tbl_entregas extends CI_Model{
             return FALSE;   
         }
     }
+
+    public function get_idServicioRepuestos($idServicioRepuestos){
+        try {
+            
+            $this->db->where("id",$idServicioRepuestos);
+            $query = $this->db->get("servicioRepuestos");
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+
     public function getRepuestos_ES($idEntregasServicios){
         try {
             $this->db->from("servicioRepuestos sR");
-            $this->db->select("sR.id, sR.idEntregaServicios, sR.idPiezas, sR.cantidad, sR.monto, r.descripcion");
+            $this->db->select("sR.id,sR.monto, sR.idEntregaServicios, sR.idPiezas, sR.cantidad, sR.monto, r.descripcion");
 
             $this->db->join("piezas r","sR.idPiezas=r.id");
-
+            $this->db->where("sR.idEstados", "1");
             $this->db->where("sR.idEntregaServicios",$idEntregasServicios);
             $query = $this->db->get();
             return $query->result();
@@ -132,6 +145,29 @@ class Tbl_entregas extends CI_Model{
         }
     }
 
+    public function updateServicioRepuestos($data,$id){
+        try {
+            $this->db->where($this->id, $id);
+            $this->db->update("servicioRepuestos", $data);
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function update_monto_entregaServicio($id,$monto,$campo,$aumenta ="1"){
+        try {
+            if($aumenta=="1"){
+                $this->db->set($campo,$campo."+".$monto,FALSE);
+            }else{
+                $this->db->set($campo,$campo."-".$monto,FALSE);
+            }
+            $this->db->where($this->id, $id);
+            $this->db->update("entregaServicios");
+            return $this->db->last_query();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
     
 
 } 

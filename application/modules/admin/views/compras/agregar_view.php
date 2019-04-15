@@ -10,6 +10,15 @@ $(function() {
     $("body").on("click", '.btnDeleteItem', function() {
         $(this).parents(".filaRepuesto").eq(0).remove();
     });
+
+    $("#btnGuardar").click(function(e){
+        if($("#divItems select[name='idRepuestos[]']").length>0 && $("#divItems select[name='idRepuestos[]']").eq(0).val()!=""){
+
+        }else{
+            alert('Debe llenar algun repuesto')
+            e.preventDefault();
+        }
+    });
 });
 </script>
 
@@ -24,7 +33,7 @@ $(function() {
                             <?php helper_form_text("ruc","RUC") ?>
                             <?php helper_form_text("razonSocial","Razón Social") ?>
                             <?php helper_form_text("fechaCompras","Fecha de Compra",date("Y-m-d\TH:i"),"datetime-local") ?>
-                            <button type="submit" class="btn btn-outline-success"><i class="fas fa-save"></i>
+                            <button type="submit" id="btnGuardar" class="btn btn-outline-success"><i class="fas fa-save"></i>
                                 Guardar</button>
                         </div>
                     </div>

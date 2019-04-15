@@ -45,24 +45,7 @@ $(function() {
 
 
 
-    // $("#saveService").click(function() {
-    //     $("#modalAddServicio").modal("hide");
-    //     let idPersonas = $("#idPersonas").val();
-    //     idServicios = $("#idServicios").val(),
-    //         observacionesServicio = $("#observacionesServicio").val(),
-    //         monto = $("#monto").val(),
-    //         persona = $("#idPersonas").find(":selected").text(),
-    //         servicio = $("#idServicios").find(":selected").text();
 
-
-    //     let tr = '<tr><td>   <input type="hidden" name="idPersonas[]" value="' + idPersonas +
-    //         '"> <input type="hidden" name="idServicios[]" value="' + idServicios +
-    //         '"><input type="hidden" name="observacionesServicio[]" value="' + observacionesServicio +
-    //         '"><input type="hidden" name="monto[]" value="' + monto + '">    ' + servicio +
-    //         '</td><td>' + monto + '</td><td>' + persona +
-    //         '</td><td> <input type="button" class="btn btn-danger    btnEliminarServicio" value="Eliminar"> </td> </tr>';
-    //     $("#tbodyServicios").append(tr);
-    // });
 
     $("body").on("click", ".btnEliminarServicio", function() {
         $(this).parents("tr").eq(0).remove();
@@ -110,13 +93,15 @@ $(function() {
                 idEntregaServicios: idEntregaServicios
             },
             success: function(response) {
-                let rows = "<tr><th>Repuesto</th><th>Cantidad</th></tr>",
+                let rows = "<tr><th>Repuesto</th><th>Cantidad</th><th>Costo</th><th>Acciones</th></tr>",
                     repuestos = response.repuestos;
 
                 for (i in repuestos) {
-                    rows += "<tr>";
+                    rows += "<tr idServicioRepuestos = '"+repuestos[i].id+"' >";
                     rows += "<td>" + repuestos[i].descripcion + "</td>";
                     rows += "<td>" + repuestos[i].cantidad + "</td>";
+                    rows += "<td>" + repuestos[i].monto + "</td>";
+                    rows += "<td> <button type='button' class='btnAjaxRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td>";
                     rows += "</tr>";
                 }
 
@@ -131,9 +116,42 @@ $(function() {
 
     });
 
+    $("body").on("click",".btnAjaxRepuesEliminar",function(){
+        let idServicioRepuestos = $(this).parents("tr").eq(0).attr("idServicioRepuestos");
+        $this = $(this);
+        $.ajax({
+            url : "admin/entregas/btnAjaxServRepuesEliminar",
+            type : "post",
+            dataType: "json",
+            data : {idServicioRepuestos:idServicioRepuestos},
+            success : function(response){
+                $this.parents("tr").eq(0).remove();
+                
+            }
+        });
+    });
+
 
     $("#btnModalRepuestos").click(function() {
-        $("#modalAdd2").modal();
+        let $this = $("#idPiezas");
+        $.ajax({
+            url : "admin/piezas/getAjaxPiezas",
+            type : "post",
+            dataType : "json",
+            success : function(response){
+                let options = "<option value=''>Elegir</option>",
+                    piezas = response.respuesta;
+
+                for(i in piezas){
+                    options += "<option value='"+piezas[i].id+"' stock='"+piezas[i].stock+"' costo='"+piezas[i].costo+"'>"+piezas[i].descripcion+"</option>"
+                }
+                
+                $this.html(options);
+                $("#modalAdd2").modal();
+            }
+        });
+
+        
     });
 
     $("#idPiezas").change(function() {
@@ -167,13 +185,21 @@ $(function() {
         }
         row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza + "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
             desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
-            cantidad + "</td></tr>";
+            cantidad + "</td> <td> " + costoMonto + " </td> <td> <button type='button' class='btnRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td> </tr>";
 
 
         $("#trBorrar").remove();
         $("#tableAddRepuestos").append(row);
         $(".tablaRepuestosAgregados").css("display", "table");
     });
+
+
+    $("body").on("click",".btnRepuesEliminar",function(){
+        $(this).parents("tr").eq(0).remove();
+    });
+
+
+    
 })
 </script>
 
@@ -371,6 +397,8 @@ $(function() {
                                 <tr>
                                     <th>Repuesto</th>
                                     <th>Cantidad</th>
+                                    <th>Costo</th>
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tableAddRepuestos">
@@ -384,7 +412,7 @@ $(function() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submot" class="btn btn-outline-success">Guardar</button>
+                    <button type="submit" class="btn btn-outline-success">Guardar</button>
                 </div>
             </form>
         </div>
@@ -435,7 +463,7 @@ $(function() {
                     <div class="form-group row">
                         <label for="costoMonto" class="col-sm-4 col-form-label">Monto</label>
                         <div class="col-sm-8">
-                            <input disabled type="text" name="costoMonto" id="costoMonto" class="form-control">
+                            <input type="text" name="costoMonto" id="costoMonto" class="form-control">
                         </div>
                     </div>
                 </div>

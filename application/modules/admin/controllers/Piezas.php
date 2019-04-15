@@ -95,6 +95,13 @@ class Piezas extends MX_Controller {
         
         return $data;
     }
+
+    public function getAjaxPiezas(){
+        if ($this->input->is_ajax_request()) {
+            $piezas = $this->obj_model->get_all();
+            echo json_encode(array('respuesta' => $piezas ));
+        }
+    }
     
     public function logout(){                     
         $this->session->unset_userdata('logged');

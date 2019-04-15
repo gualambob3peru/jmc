@@ -150,6 +150,40 @@ class Entregas extends MX_Controller {
         redirect("admin/".$this->controller);
     }
 
+    public function btnAjaxServRepuesEliminar(){
+        $idServicioRepuestos = $this->input->post("idServicioRepuestos");
+        $data = array();
+        $data["idEstados"]  = 0;
+
+        $servicioRepuesto = $this->obj_model->get_idServicioRepuestos($idServicioRepuestos);
+
+        
+        $monto = $servicioRepuesto->monto;
+
+        //Actualizando montoTotal y montoRepuestos
+        $lat = $this->obj_model->update_monto_entregaServicio($servicioRepuesto->idEntregaServicios,$monto,"montoRepuestos",2);
+        $this->obj_model->update_monto_entregaServicio($servicioRepuesto->idEntregaServicios,$monto,"montoTotal",2);
+        
+
+        //Desabilitando el Repuesto a estado 0
+        $this->obj_model->updateServicioRepuestos($data,$idServicioRepuestos);
+
+
+        //Hallando el CLiente para modificar el saldo
+        $entregaServicios = $this->obj_model->get_idEntregasServicios($servicioRepuesto->idEntregaServicios); 
+        $entrega = $this->obj_model->get_id($entregaServicios->idEntregas); 
+        $vehiculo = $this->obj_vehiculos->get_id($entrega->idVehiculos);
+
+        $this->obj_clientes->update_saldo($vehiculo->idClientes,$monto,2);
+
+        // Modificando Stock
+        $idPiezas = $servicioRepuesto->idPiezas;
+        $this->obj_piezas->update_cantidad($idPiezas,$servicioRepuesto->cantidad);
+
+        
+        echo json_encode(array('respuesta' => "1" ));
+    }
+
     public function eliminarServicio($id,$idEntrega){ 
         $data = [
             "idEstados" => "0"

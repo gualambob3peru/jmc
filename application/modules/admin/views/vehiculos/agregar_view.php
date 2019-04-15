@@ -27,12 +27,12 @@ $(function(){
                         <?php $_SESSION["mensaje"] = "" ?>
                     <?php endif; ?>
                     <?php helper_form_select("idClientes","Cliente",$clientes,"nombresCompletos") ?>
-                    <?php helper_form_text("placa","Placa") ?>
+                    <?php helper_form_text("placa","Placa",set_value('placa')) ?>
                     <?php helper_form_select("idMarcas","Marca",$marcas) ?>
                     <?php helper_form_select("idModelos","Modelo",$modelos ) ?>
-                    <?php helper_form_text("motor","Motor") ?>
-                    <?php helper_form_text("anio","Año","","number") ?>
-                    <?php helper_form_text("serie","Serie") ?>
+                    <?php helper_form_text("motor","Motor",set_value('motor')) ?>
+                    <?php helper_form_text("anio","Año",set_value('anio'),"number") ?>
+                    <?php helper_form_text("serie","Serie",set_value('serie')) ?>
                     <?php helper_form_text("imagen","Imagen","","file") ?>
 
                     <button type="submit" class="btn btn-outline-success"><i class="fas fa-save"></i> Guardar</button>
