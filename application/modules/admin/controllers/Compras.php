@@ -53,6 +53,21 @@ class Compras extends MX_Controller {
         }
         else
         {   
+
+            $idRepuestos = $this->input->post("idRepuestos");
+            $cantidad = $this->input->post("cantidad");
+            $costo = $this->input->post("costo");
+
+            
+            //Ingresando Compras Repuestos
+            $montoTotal = 0;
+            foreach ($idRepuestos as $key => $value) {
+                if($cantidad[$key]!=""){
+                    $montoTotal += $costo[$key];
+                }
+            }
+
+
            //Ingresando Compra
             $dataCompras = array();
             $dataCompras["ruc"] = $this->input->post("ruc"); 
@@ -60,6 +75,7 @@ class Compras extends MX_Controller {
             $dataCompras["fechaCompras"] = $this->input->post("fechaCompras"); 
             $dataCompras["idEstados"] = "1"; 
             $dataCompras["fechaRegistro"] = date("Y-m-d H:i:s"); 
+            $dataCompras["montoTotal"] = $montoTotal; 
             $idCompras = $this->obj_model->insert($dataCompras);
 
             $idRepuestos = $this->input->post("idRepuestos");
@@ -73,7 +89,7 @@ class Compras extends MX_Controller {
                 if($cantidad[$key]!=""){
 
                     $row = array();
-                    $row["idRepuestos"] = $idRepuestos[$key];
+                    $row["idPiezas"] = $idRepuestos[$key];
                     $row["cantidad"] = $cantidad[$key];
                     $row["costo"] = $costo[$key];
                     $row["idCompras"] = $idCompras;
@@ -142,14 +158,12 @@ class Compras extends MX_Controller {
         ];
         $this->obj_model->update($data,$id);
 
-        $compra = $this->obj_model->get_id($id);
-        $idPiezas = $compra->idPiezas;
-        $cantidad = $compra->cantidad;
+        //Cambio el sotkc de  todas las piezas
+        $comprasRepuestos = $this->obj_model->get_repuestos_idCompras($id);
 
-        //disminuyendo stock
-        $this->obj_piezas->update_cantidad($idPiezas,$cantidad,2);    
-
-        
+        foreach ($comprasRepuestos as $key => $value) {
+            $this->obj_piezas->update_cantidad($value->idPiezas,$value->cantidad,2);  
+        }
 
         redirect("admin/".$this->controller);
     }

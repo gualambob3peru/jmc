@@ -9,6 +9,7 @@ class Entregas extends MX_Controller {
         "idPersonas" => "",
         "fechaRegistro" => "",
         "idServicios" => "",
+        "kilometraje" => "",
         "fechaServicio" => "",
         "idEstados" => "1"
     ];
@@ -50,6 +51,7 @@ class Entregas extends MX_Controller {
     
 	public function agregar(){ 
         $this->form_validation->set_rules('idVehiculos', 'Vehículo', 'trim|required');
+        $this->form_validation->set_rules('kilometraje', 'kilometraje', 'trim|required');
        
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
@@ -66,29 +68,89 @@ class Entregas extends MX_Controller {
         }
         else
         {   
+            
+
+          
+
+
             $data = array();
             $data["idVehiculos"] = $this->input->post("idVehiculos");
             $data["fechaRegistro"] = date("Y-m-d H:i:s");
             $data["fechaServicio"] = $this->input->post("fechaServicio");
+            $data["kilometraje"] = $this->input->post("kilometraje");
             $data["observaciones"] = $this->input->post("observaciones");
             $data["idEstados"] = "1";
 
             $id_last = $this->obj_model->insert($data);
 
 
-            $idPersonas = $this->input->post("idPersonas");
-            $idServicios = $this->input->post("idServicios");
-            $observacionesServicio = $this->input->post("observacionesServicio");
-            $monto = $this->input->post("monto");
+            // $idPersonas = $this->input->post("idPersonas");
+            // $idServicios = $this->input->post("idServicios");
+            // $observacionesServicio = $this->input->post("observacionesServicio");
+            // $monto = $this->input->post("monto");
             
-            for ($i=0; $i < count($idPersonas); $i++) { 
-                $dataServicio = array();
-                $dataServicio["idPersonas"] = $idPersonas[$i];
-                $dataServicio["idServicios"] = $idServicios[$i];
-                $dataServicio["observacionesServicio"] = $observacionesServicio[$i];
-                $dataServicio["monto"] = $monto[$i];
-                $this->obj_model->insert_entregaServicios($dataServicio);
+            // for ($i=0; $i < count($idPersonas); $i++) { 
+            //     $dataServicio = array();
+            //     $dataServicio["idPersonas"] = $idPersonas[$i];
+            //     $dataServicio["idServicios"] = $idServicios[$i];
+            //     $dataServicio["observacionesServicio"] = $observacionesServicio[$i];
+            //     $dataServicio["monto"] = $monto[$i];
+            //     $this->obj_model->insert_entregaServicios($dataServicio);
+            // }
+
+            /* agregando multiples imagenes */
+
+            /* agregando multiples imagenes */
+            
+            if(!empty($_FILES['imagen']['name'])) {
+                $files = $_FILES;
+                $filesCount = count($_FILES['imagen']['name']);
+        
+                for($i = 0; $i < $filesCount; $i++) {
+                    $carpeta = "static/images/".$this->controller."/".$id_last;
+                    if (!file_exists($carpeta)) {
+                        mkdir($carpeta, 0777, true);
+                    }
+        
+                    $_FILES['imagen']['name'] = $files['imagen']['name'][$i];
+                    $_FILES['imagen']['type'] = $files['imagen']['type'][$i];
+                    $_FILES['imagen']['tmp_name'] = $files['imagen']['tmp_name'][$i];
+                    $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
+                    $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
+                    
+                    $nombre = (string)$i;
+                    $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 50000;
+                    $config['max_width']            = 5048;
+                    $config['max_height']           = 5068;
+                    $config['file_name']           = $nombre;
+                    $config['overwrite']           = TRUE;
+                    echo "ff-".$i."-ff";
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+    
+                    //cargar archivo
+                    if ( ! $this->upload->do_upload('imagen'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
+                        
+                    }
+                    else
+                    {
+                        $result = array('upload_data' => $this->upload->data());
+                    
+                        $data = [
+                            "imagen" => $result["upload_data"]["file_name"],
+                            "idEntregas" => $id_last
+                        ];
+                        $this->obj_model->insert_imagen($data,$id_last); 
+                    }
+        
+                }
             }
+
+
 
             redirect("admin/entregas/editar/".$id_last);
         }

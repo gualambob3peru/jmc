@@ -69,6 +69,7 @@ $(function() {
                         <th>Fecha</th>
                         <th>RUC</th>
                         <th>Razon Social</th>
+                        <th>Total Costo</th>
 
                         <th></th>
                     </tr>
@@ -78,6 +79,7 @@ $(function() {
                         <td><?php echo $value->fechaCompras ?></td>
                         <td><?php echo $value->ruc ?></td>
                         <td><?php echo $value->razonSocial ?></td>
+                        <td><?php echo $value->montoTotal ?></td>
 
                         <td>
                             <div class="input-group">

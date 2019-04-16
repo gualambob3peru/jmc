@@ -12,7 +12,7 @@ class Tbl_entregas extends CI_Model{
     public function get_id($id){
         try {
             $this->db->from("entregas e");
-            $this->db->select("e.id, c.id idClientes, e.observaciones, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
+            $this->db->select("e.id, c.id idClientes,e.kilometraje, e.observaciones, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes");
             $this->db->join("vehiculos v","v.id=e.idVehiculos");
             $this->db->join("clientes c","c.id=v.idClientes");
 
@@ -83,7 +83,7 @@ class Tbl_entregas extends CI_Model{
     public function get_all(){
         try {
             $this->db->from("entregas e");
-            $this->db->select("e.id, e.idVehiculos,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes,c.saldo");
+            $this->db->select("e.id, e.idVehiculos,e.kilometraje,e.fechaRegistro,e.fechaServicio,e.idEstados,v.placa,c.nombresCompletos nombresClientes,c.saldo");
             $this->db->join("vehiculos v","v.id=e.idVehiculos");
             $this->db->join("clientes c","c.id=v.idClientes");
 
@@ -121,6 +121,16 @@ class Tbl_entregas extends CI_Model{
     public function insert($data){
         try {
             $this->db->insert($this->tabla, $data);
+
+            return $this->db->insert_id();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function insert_imagen($data){
+        try {
+            $this->db->insert("imagenEntregas", $data);
 
             return $this->db->insert_id();
         } catch (Exception $exc) {

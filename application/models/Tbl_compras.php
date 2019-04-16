@@ -34,8 +34,8 @@ class Tbl_compras extends CI_Model{
     public function get_repuestos_idCompras($idCompras){
         try {
             $this->db->from("comprasRepuestos c");
-            $this->db->select("c.id, c.idRepuestos, c.cantidad, c.costo, r.descripcion");
-            $this->db->join("piezas r","r.id=c.idRepuestos");
+            $this->db->select("c.id, c.idPiezas, c.cantidad, c.costo, r.descripcion");
+            $this->db->join("piezas r","r.id=c.idPiezas");
 
             $this->db->where("idCompras", $idCompras);
             $query = $this->db->get();

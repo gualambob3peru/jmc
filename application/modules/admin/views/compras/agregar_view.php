@@ -12,12 +12,28 @@ $(function() {
     });
 
     $("#btnGuardar").click(function(e){
-        if($("#divItems select[name='idRepuestos[]']").length>0 && $("#divItems select[name='idRepuestos[]']").eq(0).val()!=""){
+        $("#divItems select[name='idRepuestos[]']").each(function(index, value){
+            let idRepuestos = $("#divItems select[name='idRepuestos[]']").eq(index),
+                cantidad = $("#divItems [name='cantidad[]']").eq(index),
+                costo = $("#divItems [name='costo[]']").eq(index),
+                vacio = false;
 
-        }else{
-            alert('Debe llenar algun repuesto')
-            e.preventDefault(); 
-        }
+                if(idRepuestos.val()=="" || cantidad.val()=="" || costo.val()==""){
+                    vacio = true;
+                }
+            
+            if(vacio){
+                alert('Debe llenar correctamente los repuestos');
+                e.preventDefault(); 
+            }
+        });
+
+        // if($("#divItems select[name='idRepuestos[]']").length>0 && $("#divItems select[name='idRepuestos[]']").eq(0).val()!="" && $("#divItems [name='cantidad[]']").eq(0).val()!="" && $("#divItems [name='costo[]']").eq(0).val()!=""){
+
+        // }else{
+        //     alert('Debe llenar correctamente los repuestos');
+        //     e.preventDefault(); 
+        // }
     });
 });
 </script>

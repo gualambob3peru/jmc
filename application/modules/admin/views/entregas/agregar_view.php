@@ -67,7 +67,7 @@ $(function() {
         $(this).parents("tr").eq(0).remove();
     });
 
-    $("#btnGuardarEntrega").click(function(){
+    $("#btnGuardarEntrega").click(function() {
         let idVehiculos = $("#idVehiculos").val(),
             fechaServicio = $("#fechaServicio").val(),
             observaciones = $("#observaciones").val();
@@ -76,7 +76,7 @@ $(function() {
 })
 </script>
 
-<form action="" method="post">
+<form action="" method="post" enctype="multipart/form-data">
 
     <div class="row">
         <div class="col-md-12">
@@ -102,13 +102,22 @@ $(function() {
                                 </div>
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos">
+                            <?php helper_form_text("kilometraje","Kilometraje","","number") ?>
+
                             <?php helper_form_text("fechaServicio","Fecha de Servicio",date("Y-m-d"),"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones") ?>
 
+                            <div class="form-group row">
+                                <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
+                                <div class="col-sm-8">
+                                    <input multiple="multiple" type="file" name="imagen[]" class="form-control" id="imagen" value="">
+                                </div>
+                            </div>
+
                             <!-- <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i class="fas fa-save"></i> Guardar</button> -->
 
-                            <input type="submit" value="Guardar" class="btn btn-lg btn-success">    
+                            <input type="submit" value="Guardar" class="btn btn-lg btn-success">
                         </div>
 
                         <div class="col-md-4">

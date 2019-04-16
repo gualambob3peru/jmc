@@ -56,9 +56,17 @@ class Vehiculos extends MX_Controller {
     }
     
 	public function agregar(){ 
+        $this->form_validation->set_rules('idClientes', 'idClientes', 'trim|required');
         $this->form_validation->set_rules('placa', 'Placa', 'trim|required|callback_placacheck');
         $this->form_validation->set_rules('idMarcas', 'idMarca', 'trim|required');
         $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
+
+        if (empty($_FILES['imagen']['name']))
+        {
+            $this->form_validation->set_rules('imagen', 'imagen', 'trim|required');
+        }
+
+        
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
         //$this->form_validation->set_message('placa_check', 'Esta placa ya fue registrada');
@@ -76,61 +84,56 @@ class Vehiculos extends MX_Controller {
         {   
             $vehiculo = $this->obj_model->get_campo("placa",$this->input->post("placa"));
             
-            if($vehiculo!=NULL){
-                $_SESSION["mensaje"] = "La placa ya fue registrada";
-                redirect("admin/vehiculos/agregar");
-            }else{
-       
-                $data = $this->upPost($this->data);
-                $data["fechaRegistro"] = date("Y-m-d H:i:s");
-    
-                $id_last = $this->obj_model->insert($data);
-    
-            
-    
-                $carpeta = "static/images/".$this->controller."/".$id_last."/";
-                if (!file_exists($carpeta)) {
-                    mkdir($carpeta, 0777, true);
-                }
-                
-                $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
-                $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                $config['max_size']             = 50000;
-                $config['max_width']            = 5000;
-                $config['max_height']           = 5000;
-                $config['file_name']           = "1";
-    
-                $this->load->library('upload', $config);
-    
-                if ( ! $this->upload->do_upload('imagen'))
-                {
-                    $error = array('error' => $this->upload->display_errors());
-                    //print_r($error);
-                    redirect("admin/".$this->controller."/agregar");
-                }
-                else
-                {
-                    $result = array('upload_data' => $this->upload->data());
-                
-                    $data = [
-                        "imagen" => $result["upload_data"]["file_name"]
-                    ];
-                    $this->obj_model->update($data,$id_last);
-    
-                    redirect("admin/".$this->controller);
-                }
-            }
+            $data = $this->upPost($this->data);
+            $data["fechaRegistro"] = date("Y-m-d H:i:s");
 
-          
-           
-            //redirect("admin/".$this->controller);
+            $id_last = $this->obj_model->insert($data);
+
+            $carpeta = "static/images/".$this->controller."/".$id_last."/";
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta, 0777, true);
+            }
+            
+            $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
+            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['max_size']             = 50000;
+            $config['max_width']            = 5000;
+            $config['max_height']           = 5000;
+            $config['file_name']           = "1";
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('imagen'))
+            {
+                $error = array('error' => $this->upload->display_errors());
+                //print_r($error);
+                redirect("admin/".$this->controller."/agregar");
+            }
+            else
+            {
+                $result = array('upload_data' => $this->upload->data());
+            
+                $data = [
+                    "imagen" => $result["upload_data"]["file_name"]
+                ];
+                $this->obj_model->update($data,$id_last);
+
+                redirect("admin/".$this->controller);
+            }
+            
         }
     }
 
 	public function editar($id){ 
-        $this->form_validation->set_rules('placa', 'Placa', 'trim|required');
-        $this->form_validation->set_rules('idMarcas', 'idMarcas', 'trim|required');
-        $this->form_validation->set_rules('idModelos', 'idModelos', 'trim|required');
+        $this->form_validation->set_rules('idClientes', 'idClientes', 'trim|required');
+        // $this->form_validation->set_rules('placa', 'Placa', 'trim|required|callback_placacheck');
+        $this->form_validation->set_rules('idMarcas', 'idMarca', 'trim|required');
+        $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
+
+        if (empty($_FILES['imagen']['name']))
+        {
+            //$this->form_validation->set_rules('imagen', 'imagen', 'trim|required');
+        }
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
@@ -149,49 +152,49 @@ class Vehiculos extends MX_Controller {
             
             $data = $this->upPost($this->data);
             $this->obj_model->update($data,$id);
-            
-            $carpeta = "static/images/".$this->controller."/".$id;
-            if (!file_exists($carpeta)) {
-                mkdir($carpeta, 0777, true);
-            }
 
-           
-
-            
-            $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id.'/';
-            $config['allowed_types']        = 'gif|jpg|png|jpeg';
-            $config['max_size']             = 50000;
-            $config['max_width']            = 5048;
-            $config['max_height']           = 5068;
-            $config['file_name']           = "1";
-            $config['overwrite']           = TRUE;
-
-
-           
-
-
-            $this->load->library('upload', $config);
-
-
-            //cargar archivo
-            if ( ! $this->upload->do_upload('imagen'))
+            if (empty($_FILES['imagen']['name']))
             {
-                $error = array('error' => $this->upload->display_errors());
-                print_r($error);
-                redirect("admin/".$this->controller."/editar/".$id);
-            }
-            else
-            {
-                $result = array('upload_data' => $this->upload->data());
-              
-                $data = [
-                    "imagen" => $result["upload_data"]["file_name"]
-                ];
-                $this->obj_model->update($data,$id);
                 
-                redirect("admin/".$this->controller);
-                
+            }else{
+                $carpeta = "static/images/".$this->controller."/".$id;
+                if (!file_exists($carpeta)) {
+                    mkdir($carpeta, 0777, true);
+                }
+
+                $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id.'/';
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 50000;
+                $config['max_width']            = 5048;
+                $config['max_height']           = 5068;
+                $config['file_name']           = "1";
+                $config['overwrite']           = TRUE;
+
+                $this->load->library('upload', $config);
+    
+                //cargar archivo
+                if ( ! $this->upload->do_upload('imagen'))
+                {
+                    $error = array('error' => $this->upload->display_errors());
+                    print_r($error);
+                    redirect("admin/".$this->controller."/editar/".$id);
+                }
+                else
+                {
+                    $result = array('upload_data' => $this->upload->data());
+                  
+                    $data = [
+                        "imagen" => $result["upload_data"]["file_name"]
+                    ];
+                    $this->obj_model->update($data,$id);
+                    
+                    redirect("admin/".$this->controller);
+                    
+                }
             }
+
+            redirect("admin/".$this->controller);
+            
         }
     }
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2019 a las 20:46:55
+-- Tiempo de generación: 17-04-2019 a las 00:21:23
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -62,17 +62,23 @@ CREATE TABLE `compras` (
   `razonSocial` varchar(150) NOT NULL,
   `idEstados` int(11) NOT NULL,
   `fechaRegistro` datetime NOT NULL,
-  `fechaCompras` datetime NOT NULL
+  `fechaCompras` datetime NOT NULL,
+  `montoTotal` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `compras`
 --
 
-INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idEstados`, `fechaRegistro`, `fechaCompras`) VALUES
-(1, '123123', 'sgsfg', 1, '2019-04-15 12:27:33', '2019-04-15 12:27:00'),
-(2, '123123', 'sgsfg', 1, '2019-04-15 12:28:25', '2019-04-15 12:27:00'),
-(3, '123123', 'sgsfg', 1, '2019-04-15 13:28:33', '2019-04-15 13:28:00');
+INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idEstados`, `fechaRegistro`, `fechaCompras`, `montoTotal`) VALUES
+(1, '123123', 'sfgsfg', 0, '2019-04-16 07:57:59', '2019-04-16 07:56:00', '1000.00'),
+(2, '123123', 'sgsfg', 0, '2019-04-16 08:07:02', '2019-04-16 08:06:00', '450.00'),
+(3, '123123', 'sgsfg', 0, '2019-04-16 08:07:29', '2019-04-16 08:06:00', '450.00'),
+(4, '123123', 'sgsfg', 1, '2019-04-16 08:08:47', '2019-04-16 08:08:00', '1000.00'),
+(5, '123123', 'sgsfg', 1, '2019-04-16 08:10:37', '2019-04-16 08:10:00', '0.00'),
+(6, '123123', 'sgsfg', 1, '2019-04-16 08:11:06', '2019-04-16 08:10:00', '0.00'),
+(7, '123123', 'sfgsfg', 1, '2019-04-16 08:19:12', '2019-04-16 08:19:00', '0.00'),
+(8, '123123', 'sfgsfg', 1, '2019-04-16 08:19:49', '2019-04-16 08:19:00', '423.00');
 
 -- --------------------------------------------------------
 
@@ -83,7 +89,7 @@ INSERT INTO `compras` (`id`, `ruc`, `razonSocial`, `idEstados`, `fechaRegistro`,
 CREATE TABLE `comprasrepuestos` (
   `id` int(11) NOT NULL,
   `idCompras` int(11) NOT NULL,
-  `idRepuestos` int(11) NOT NULL,
+  `idPiezas` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `costo` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -92,10 +98,13 @@ CREATE TABLE `comprasrepuestos` (
 -- Volcado de datos para la tabla `comprasrepuestos`
 --
 
-INSERT INTO `comprasrepuestos` (`id`, `idCompras`, `idRepuestos`, `cantidad`, `costo`) VALUES
-(1, 1, 0, 0, '0.00'),
-(2, 2, 1, 10, '100.00'),
-(3, 3, 1, 10, '11.00');
+INSERT INTO `comprasrepuestos` (`id`, `idCompras`, `idPiezas`, `cantidad`, `costo`) VALUES
+(1, 1, 1, 100, '1000.00'),
+(2, 3, 1, 100, '150.00'),
+(3, 3, 2, 200, '300.00'),
+(4, 4, 1, 1000, '1000.00'),
+(5, 8, 1, 122, '123.00'),
+(6, 8, 2, 100, '300.00');
 
 -- --------------------------------------------------------
 
@@ -128,17 +137,17 @@ CREATE TABLE `entregas` (
   `fechaRegistro` datetime NOT NULL,
   `fechaServicio` datetime NOT NULL,
   `idEstados` int(11) NOT NULL,
-  `observaciones` text NOT NULL
+  `observaciones` text NOT NULL,
+  `kilometraje` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `entregas`
 --
 
-INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `idEstados`, `observaciones`) VALUES
-(1, 1, '2019-04-12 17:23:32', '2019-04-12 00:00:00', 0, 'mi Observacion'),
-(2, 1, '2019-04-15 10:47:46', '2019-04-15 00:00:00', 0, ''),
-(3, 1, '2019-04-15 10:51:32', '2019-04-15 00:00:00', 1, '');
+INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `idEstados`, `observaciones`, `kilometraje`) VALUES
+(1, 1, '2019-04-16 12:15:50', '2019-04-16 00:00:00', 1, '', 1234),
+(2, 1, '2019-04-16 12:16:48', '2019-04-16 00:00:00', 1, '', 1234);
 
 -- --------------------------------------------------------
 
@@ -160,14 +169,40 @@ CREATE TABLE `entregaservicios` (
   `montoRepuestos` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `entregaservicios`
+-- Estructura de tabla para la tabla `imagenentregas`
 --
 
-INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`, `monto`, `observacionesServicio`, `idEstados`, `fechaRegistro`, `fechaServicio`, `montoTotal`, `montoRepuestos`) VALUES
-(1, 1, 1, 1, '500.00', 'wdwd', 1, '2019-04-12 17:25:13', '2019-04-12 00:00:00', '500.00', '0.00'),
-(2, 1, 1, 2, '299.00', 'sdSD', 0, '2019-04-15 10:47:59', '2019-04-15 00:00:00', '299.00', '0.00'),
-(3, 1, 1, 3, '150.00', '', 1, '2019-04-15 10:51:40', '2019-04-15 00:00:00', '7150.00', '7000.00');
+CREATE TABLE `imagenentregas` (
+  `id` int(11) NOT NULL,
+  `imagen` varchar(50) NOT NULL,
+  `idEntregas` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `imagenentregas`
+--
+
+INSERT INTO `imagenentregas` (`id`, `imagen`, `idEntregas`) VALUES
+(36, '0.jpg', 0),
+(37, '0.png', 0),
+(38, '0.jpg', 0),
+(39, '0.jpg', 0),
+(40, '1.jpg', 1),
+(41, '2.jpg', 2),
+(42, '3.jpg', 3),
+(43, '0.jpg', 0),
+(44, '1.jpg', 1),
+(45, '2.jpg', 2),
+(46, '3.jpg', 3),
+(47, '0.jpg', 0),
+(48, '1.jpg', 1),
+(49, '2.jpg', 2),
+(50, '0.jpg', 2),
+(51, '1.JPG', 2),
+(52, '2.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -281,8 +316,8 @@ CREATE TABLE `piezas` (
 --
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
-(1, 'P001', 'Llantas', '300.00', 1, '2019-04-12 00:00:00', 44),
-(2, 'P002', 'Motor 001', '1500.00', 1, '2019-04-12 00:00:00', 45);
+(1, 'P001', 'Llantas', '300.00', 1, '2019-04-12 00:00:00', 1371),
+(2, 'P002', 'Motor 001', '1500.00', 1, '2019-04-12 00:00:00', 145);
 
 -- --------------------------------------------------------
 
@@ -298,36 +333,6 @@ CREATE TABLE `serviciorepuestos` (
   `monto` decimal(10,2) NOT NULL,
   `idEstados` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `serviciorepuestos`
---
-
-INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idPiezas`, `cantidad`, `monto`, `idEstados`) VALUES
-(1, 1, 1, 4, '1200.00', 0),
-(2, 1, 1, 2, '600.00', 0),
-(3, 1, 1, 10, '3000.00', 0),
-(4, 1, 1, 50, '15000.00', 0),
-(5, 1, 1, 10, '3000.00', 0),
-(6, 1, 1, 10, '3000.00', 0),
-(7, 1, 0, 10, '3000.00', 1),
-(8, 1, 0, 10, '3000.00', 1),
-(9, 1, 0, 10, '3000.00', 1),
-(10, 1, 0, 10, '3000.00', 1),
-(11, 2, 1, 10, '3000.00', 0),
-(12, 3, 1, 5, '1500.00', 0),
-(13, 3, 1, 20, '6000.00', 0),
-(14, 3, 2, 5, '7500.00', 0),
-(15, 3, 1, 10, '3000.00', 0),
-(16, 3, 1, 10, '3000.00', 0),
-(17, 3, 1, 10, '3000.00', 0),
-(18, 3, 1, 5, '1500.00', 0),
-(19, 3, 2, 10, '15000.00', 0),
-(20, 3, 1, 10, '3000.00', 0),
-(21, 3, 1, 10, '3000.00', 0),
-(22, 3, 2, 10, '15000.00', 0),
-(23, 3, 2, 5, '5000.00', 1),
-(24, 3, 1, 10, '2000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -477,7 +482,16 @@ CREATE TABLE `vehiculos` (
 --
 
 INSERT INTO `vehiculos` (`id`, `placa`, `idMarcas`, `idModelos`, `motor`, `anio`, `serie`, `imagen`, `idClientes`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'AUU112', 1, 1, '12312', 2022, 'daf', '1.png', 1, 1, '2019-04-12 17:23:11');
+(1, 'AUU112', 1, 1, '12312', 2022, 'daf', '1.png', 1, 1, '2019-04-12 17:23:11'),
+(2, 'aaaaa', 1, 1, '', 0, '', '', 0, 1, '2019-04-15 14:00:38'),
+(3, 'aaaaa', 1, 1, 'aefa', 456, 'grfgrg', '', 0, 1, '2019-04-15 14:00:57'),
+(4, 'afaef', 1, 2, '', 0, '', '', 1, 0, '2019-04-15 14:01:37'),
+(5, 'aaaaaaaa', 1, 1, '', 0, '', '', 1, 0, '2019-04-15 14:01:51'),
+(6, 'aaaaa', 2, 1, 'fadafdadf', 12312, '3123', '1.jpg', 1, 0, '2019-04-15 14:02:04'),
+(7, 'bbb', 1, 1, '', 0, '', '', 0, 1, '2019-04-16 08:20:38'),
+(8, 'franz', 1, 1, '', 0, '', '', 1, 0, '2019-04-16 08:32:02'),
+(9, 'kkk', 1, 1, '122', 2013, '', '1.jpg', 1, 0, '2019-04-16 08:40:16'),
+(10, 'hh', 1, 1, '', 0, '', '1.jpg', 1, 0, '2019-04-16 08:50:59');
 
 --
 -- Índices para tablas volcadas
@@ -517,6 +531,12 @@ ALTER TABLE `entregas`
 -- Indices de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `imagenentregas`
+--
+ALTER TABLE `imagenentregas`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -611,13 +631,13 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `compras`
 --
 ALTER TABLE `compras`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `comprasrepuestos`
 --
 ALTER TABLE `comprasrepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `datosgenerales`
@@ -629,13 +649,19 @@ ALTER TABLE `datosgenerales`
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `imagenentregas`
+--
+ALTER TABLE `imagenentregas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -671,7 +697,7 @@ ALTER TABLE `piezas`
 -- AUTO_INCREMENT de la tabla `serviciorepuestos`
 --
 ALTER TABLE `serviciorepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
@@ -713,7 +739,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `vehiculos`
 --
 ALTER TABLE `vehiculos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
