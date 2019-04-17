@@ -380,6 +380,79 @@ class Entregas extends MX_Controller {
         $this->session->unset_userdata('logged');
         redirect('admin');
     }
+
+    public function subeAjaxImages(){
+      
+        $idEntregaServicios = $this->input->post("idEntregaServicios");
+        $idEntregas = $this->input->post("imagenIdEntregas");
+        if(!empty($_FILES['imagen']['name'])) {
+                $files = $_FILES;
+                $filesCount = count($_FILES['imagen']['name']);
+        
+                for($i = 0; $i < $filesCount; $i++) {
+                    $carpeta = 'static/images/'.$this->controller.'/'.$idEntregas.'/'.$idEntregaServicios.'/';
+                    if (!file_exists($carpeta)) {
+                        mkdir($carpeta, 0777, true);
+                    }
+        
+                    $_FILES['imagen']['name'] = $files['imagen']['name'][$i];
+                    $_FILES['imagen']['type'] = $files['imagen']['type'][$i];
+                    $_FILES['imagen']['tmp_name'] = $files['imagen']['tmp_name'][$i];
+                    $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
+                    $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
+                    
+                    $nombre = (string)$i;
+                    $config['upload_path']          = 'static/images/'.$this->controller.'/'.$idEntregas.'/'.$idEntregaServicios.'/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 50000;
+                    $config['max_width']            = 5048;
+                    $config['max_height']           = 5068;
+                    $config['file_name']           = $nombre;
+                    $config['overwrite']           = TRUE;
+                    echo "ff-".$i."-ff";
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+    
+                    //cargar archivo
+                    if ( ! $this->upload->do_upload('imagen'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
+                        
+                    }
+                    else
+                    {
+                        $result = array('upload_data' => $this->upload->data());
+                    
+                        $data = [
+                            "imagen" => $result["upload_data"]["file_name"],
+                            "idEntregaServicios" => $idEntregaServicios,
+                            "idEntregas" => $idEntregas,
+                        ];
+                        $this->obj_model->insert_imagen($data,$idEntregas); 
+                    }
+        
+                }
+            }
+    }
+
+    public function getAjaxImagenes(){
+        $idEntregaServicios = $this->input->post("idEntregaServicios");
+
+        $imagenes = $this->obj_model->getImagenes($idEntregaServicios);
+        echo json_encode(array('imagenes' => $imagenes ));
+    }
+
+
+    public function ajaxDeleteImagen(){
+        $idImagenEntregas = $this->input->post("idImagenEntregas");
+
+        $data = [
+            "idEstados" => "0"
+        ];
+
+        $imagenes = $this->obj_model->updateImagenEntregas($data,$idImagenEntregas);
+        echo json_encode(array('respuesta' => "1" ));
+    }
 }
 
 /* End of file admin.php */

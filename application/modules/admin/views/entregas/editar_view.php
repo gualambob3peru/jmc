@@ -2,6 +2,80 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script>
 $(function() {
+    $("#formuploadajax").on("submit", function(e) {
+        e.preventDefault();
+        var f = $(this);
+        var formData = new FormData(document.getElementById("formuploadajax"));
+        formData.append("idEntregaServicios", $("#imagenIdEntregaServicios").val());
+        formData.append("imagenIdEntregas", $("#imagenIdEntregas").val());
+        //formData.append(f.attr("name"), $(this)[0].files[0]);
+        $.ajax({
+                url: "admin/entregas/subeAjaxImages",
+                type: "post",
+                dataType: "html",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false
+            })
+            .done(function(res) {
+                $("#imagen").val("")
+                $("#modalImagen").modal("hide");
+            });
+    });
+
+
+
+    $("body").on("click",".btnDeleteImagen",function() {
+        let idImagenEntregas = $(this).parents("tr").eq(0).attr("idImagenEntregas");
+        let $this = $(this);
+        $.ajax({
+            url : 'admin/entregas/ajaxDeleteImagen',
+            type: 'post',
+            dataType : 'json',
+            error : function(e){
+                console.log(e);
+            },
+            data : {idImagenEntregas:idImagenEntregas},
+            success : function(response){
+                $this.parents("tr").eq(0).remove();
+            }
+        });
+    });
+
+
+    $("body").on("click", ".btnAddImagen", function() {
+        $("#imagenIdEntregaServicios").val($(this).attr("idEntregaServicios"));
+        //Creando Imagenes
+        let idEntregaServicios = $("#imagenIdEntregaServicios").val(),
+            idEntregas = $("#imagenIdEntregas").val();
+        
+        $.ajax({
+            url : 'admin/entregas/getAjaxImagenes',
+            type: 'post',
+            dataType : 'json',
+            error : function(e){
+                console.log(e);
+            },
+            data : {idEntregaServicios:idEntregaServicios},
+            success : function(response){
+                let imagenes = response.imagenes,
+                    divImagenes = "<table class='table table-bordered'>";
+
+                for(ind in imagenes){
+                    divImagenes += "<tr idImagenEntregas='"+imagenes[ind].id+"'><td><img src='static/images/entregas/"+idEntregas+"/"+idEntregaServicios+"/"+imagenes[ind].imagen+"' style='height: 100px;'></td><td><button type='button' class='btn btn-danger btnDeleteImagen'><i class='far fa-trash-alt'></i></button></td></tr>";
+                }
+                divImagenes+="</table>";
+                $("#divImagenes").html(divImagenes);
+                $("#modalImagen").modal();
+            }
+        });
+
+      //  $("#imagenIdEntregas").val($(this).attr("imagenIdEntregas"));
+        
+    });
+
+
     let vehiculos = <?php echo json_encode($vehiculos) ?>;
     vehiculos = $.map(vehiculos, function(item) {
         return {
@@ -93,15 +167,17 @@ $(function() {
                 idEntregaServicios: idEntregaServicios
             },
             success: function(response) {
-                let rows = "<tr><th>Repuesto</th><th>Cantidad</th><th>Costo</th><th>Acciones</th></tr>",
+                let rows =
+                    "<tr><th>Repuesto</th><th>Cantidad</th><th>Costo</th><th>Acciones</th></tr>",
                     repuestos = response.repuestos;
 
                 for (i in repuestos) {
-                    rows += "<tr idServicioRepuestos = '"+repuestos[i].id+"' >";
+                    rows += "<tr idServicioRepuestos = '" + repuestos[i].id + "' >";
                     rows += "<td>" + repuestos[i].descripcion + "</td>";
                     rows += "<td>" + repuestos[i].cantidad + "</td>";
                     rows += "<td>" + repuestos[i].monto + "</td>";
-                    rows += "<td> <button type='button' class='btnAjaxRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td>";
+                    rows +=
+                        "<td> <button type='button' class='btnAjaxRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td>";
                     rows += "</tr>";
                 }
 
@@ -116,17 +192,19 @@ $(function() {
 
     });
 
-    $("body").on("click",".btnAjaxRepuesEliminar",function(){
+    $("body").on("click", ".btnAjaxRepuesEliminar", function() {
         let idServicioRepuestos = $(this).parents("tr").eq(0).attr("idServicioRepuestos");
         $this = $(this);
         $.ajax({
-            url : "admin/entregas/btnAjaxServRepuesEliminar",
-            type : "post",
+            url: "admin/entregas/btnAjaxServRepuesEliminar",
+            type: "post",
             dataType: "json",
-            data : {idServicioRepuestos:idServicioRepuestos},
-            success : function(response){
+            data: {
+                idServicioRepuestos: idServicioRepuestos
+            },
+            success: function(response) {
                 $this.parents("tr").eq(0).remove();
-                
+
             }
         });
     });
@@ -135,23 +213,25 @@ $(function() {
     $("#btnModalRepuestos").click(function() {
         let $this = $("#idPiezas");
         $.ajax({
-            url : "admin/piezas/getAjaxPiezas",
-            type : "post",
-            dataType : "json",
-            success : function(response){
+            url: "admin/piezas/getAjaxPiezas",
+            type: "post",
+            dataType: "json",
+            success: function(response) {
                 let options = "<option value=''>Elegir</option>",
                     piezas = response.respuesta;
 
-                for(i in piezas){
-                    options += "<option value='"+piezas[i].id+"' stock='"+piezas[i].stock+"' costo='"+piezas[i].costo+"'>"+piezas[i].descripcion+"</option>"
+                for (i in piezas) {
+                    options += "<option value='" + piezas[i].id + "' stock='" + piezas[i]
+                        .stock + "' costo='" + piezas[i].costo + "'>" + piezas[i]
+                        .descripcion + "</option>"
                 }
-                
+
                 $this.html(options);
                 $("#modalAdd2").modal();
             }
         });
 
-        
+
     });
 
     $("#idPiezas").change(function() {
@@ -163,12 +243,12 @@ $(function() {
 
         if (parseInt($(this).val()) > parseInt($("#stock").val())) {
             $(this).val($("#stock").val());
-            
+
         }
 
-        console.log($("#cantidad").val(),$("#idPiezas").find(":selected").attr("costo"));
-            
-            $("#costoMonto").val( $("#cantidad").val() * $("#idPiezas").find(":selected").attr("costo"));
+        console.log($("#cantidad").val(), $("#idPiezas").find(":selected").attr("costo"));
+
+        $("#costoMonto").val($("#cantidad").val() * $("#idPiezas").find(":selected").attr("costo"));
     });
 
     $("#btnAddModal2").click(function() {
@@ -183,9 +263,11 @@ $(function() {
             alert("Debe llenar todos los campos")
             return;
         }
-        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza + "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
+        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza +
+            "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
             desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
-            cantidad + "</td> <td> " + costoMonto + " </td> <td> <button type='button' class='btnRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td> </tr>";
+            cantidad + "</td> <td> " + costoMonto +
+            " </td> <td> <button type='button' class='btnRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td> </tr>";
 
 
         $("#trBorrar").remove();
@@ -194,16 +276,18 @@ $(function() {
     });
 
 
-    $("body").on("click",".btnRepuesEliminar",function(){
+    $("body").on("click", ".btnRepuesEliminar", function() {
         $(this).parents("tr").eq(0).remove();
     });
 
 
-    
+
 })
 </script>
 
-
+<!-- <pre>
+    <?php print_r($model)?>
+</pre> -->
 <form action="" method="post">
     <input type="hidden" id="ide" value="<?php echo $id; ?>">
     <div class="row">
@@ -232,7 +316,7 @@ $(function() {
                             <input type="hidden" name="idVehiculos" id="idVehiculos"
                                 value="<?php echo $model->idVehiculos ?>">
 
-                                <?php helper_form_text("kilometraje","Kilometraje",$model->kilometraje,"number") ?>
+                            <?php helper_form_text("kilometraje","Kilometraje",$model->kilometraje,"number") ?>
                             <?php helper_form_text("fechaServicio","Fecha de Registro",substr($model->fechaServicio,0,10),"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
@@ -314,7 +398,7 @@ $(function() {
                                             echo "<td>".$value->montoTotal."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
                                             echo "<td>".($value->monto + $value->montoTotal)."</td>";
-                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
+                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-success btnAddImagen' type='button'><i class='fas fa-plus'></i> Fotos</button>    <a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
                                             echo "</tr>";
                                         }
 
@@ -387,7 +471,8 @@ $(function() {
 
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-outline-info" id="btnModalRepuestos"> <i class="fas fa-plus"></i> </button>
+                            <button type="button" class="btn btn-outline-info" id="btnModalRepuestos"> <i
+                                    class="fas fa-plus"></i> </button>
                         </div>
                     </div>
 
@@ -443,7 +528,8 @@ $(function() {
                             <select class="form-control" name="" id="idPiezas">
                                 <option value="">Elegir</option>
                                 <?php foreach($piezas as $key=>$value): ?>
-                                <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>" costo="<?php echo $value->costo ?>">
+                                <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>"
+                                    costo="<?php echo $value->costo ?>">
                                     <?php echo $value->descripcion ?></option>
                                 <?php endforeach; ?>
                             </select>
@@ -451,7 +537,7 @@ $(function() {
                     </div>
 
 
-                    
+
 
                     <div class="form-group row">
                         <label for="cantidad" class="col-sm-4 col-form-label">Stock</label>
@@ -475,6 +561,47 @@ $(function() {
                         class="btn btn-outline-success">Agregar</button>
                 </div>
             </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal" id="modalImagen" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Fotos del Servicio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="divImagenes">
+
+                </div>
+
+                <form action="" methdo="post" id="formuploadajax">
+                    <div class="form-group row">
+                        <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
+                        <div class="col-sm-8">
+
+                            <input type="hidden" id="imagenIdEntregaServicios" value="">
+                            <input type="hidden" id="imagenIdEntregas" value="<?php echo $model->id ?>">
+                            <input multiple="multiple" type="file" name="imagen[]" class="form-control" id="imagen"
+                                value="">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline-info btnSaveImagen">Guardar</button>
+                </form>
+
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary btnGuardarImagen">Guardar</button>
+            </div> -->
         </div>
     </div>
 </div>

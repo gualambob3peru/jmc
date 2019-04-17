@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-04-2019 a las 00:21:23
+-- Tiempo de generación: 18-04-2019 a las 00:26:36
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -48,7 +48,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `idTipoDocumentos`, `documento`, `direccion`, `correo`, `saldo`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'Franz', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz', 1, '44556677', 'Pro', 'gualambo@gmail.com', '12150.00', 1, '2019-04-12 17:22:25');
+(1, 'Franz', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz', 1, '44556677', 'Pro', 'gualambo@gmail.com', '13384.00', 1, '2019-04-12 17:22:25');
 
 -- --------------------------------------------------------
 
@@ -169,6 +169,13 @@ CREATE TABLE `entregaservicios` (
   `montoRepuestos` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Volcado de datos para la tabla `entregaservicios`
+--
+
+INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`, `monto`, `observacionesServicio`, `idEstados`, `fechaRegistro`, `fechaServicio`, `montoTotal`, `montoRepuestos`) VALUES
+(1, 1, 1, 2, '1234.00', 'fefqe', 1, '2019-04-17 13:44:39', '2019-04-17 00:00:00', '1234.00', '0.00');
+
 -- --------------------------------------------------------
 
 --
@@ -177,32 +184,34 @@ CREATE TABLE `entregaservicios` (
 
 CREATE TABLE `imagenentregas` (
   `id` int(11) NOT NULL,
-  `imagen` varchar(50) NOT NULL,
-  `idEntregas` int(11) NOT NULL
+  `imagen` varchar(20) NOT NULL,
+  `idEntregas` int(11) NOT NULL,
+  `idEntregaServicios` int(11) NOT NULL,
+  `idEstados` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `imagenentregas`
 --
 
-INSERT INTO `imagenentregas` (`id`, `imagen`, `idEntregas`) VALUES
-(36, '0.jpg', 0),
-(37, '0.png', 0),
-(38, '0.jpg', 0),
-(39, '0.jpg', 0),
-(40, '1.jpg', 1),
-(41, '2.jpg', 2),
-(42, '3.jpg', 3),
-(43, '0.jpg', 0),
-(44, '1.jpg', 1),
-(45, '2.jpg', 2),
-(46, '3.jpg', 3),
-(47, '0.jpg', 0),
-(48, '1.jpg', 1),
-(49, '2.jpg', 2),
-(50, '0.jpg', 2),
-(51, '1.JPG', 2),
-(52, '2.jpg', 2);
+INSERT INTO `imagenentregas` (`id`, `imagen`, `idEntregas`, `idEntregaServicios`, `idEstados`) VALUES
+(1, '0.PNG', 2, 1, 0),
+(2, '1.PNG', 2, 1, 0),
+(3, '0.PNG', 2, 1, 0),
+(4, '1.PNG', 2, 1, 0),
+(5, '0.PNG', 2, 1, 0),
+(6, '0.PNG', 2, 1, 0),
+(7, '0.PNG', 2, 1, 0),
+(8, '1.PNG', 2, 1, 0),
+(9, '0.PNG', 2, 1, 0),
+(10, '1.PNG', 2, 1, 0),
+(11, '0.PNG', 2, 1, 0),
+(12, '1.PNG', 2, 1, 0),
+(13, '2.PNG', 2, 1, 0),
+(14, '3.PNG', 2, 1, 0),
+(15, '0.PNG', 2, 1, 0),
+(16, '1.PNG', 2, 1, 0),
+(17, '0.PNG', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -224,7 +233,9 @@ CREATE TABLE `marcas` (
 INSERT INTO `marcas` (`id`, `descripcion`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'Toyota', 1, '0000-00-00 00:00:00'),
 (2, 'Audi', 1, '0000-00-00 00:00:00'),
-(3, 'Kia', 1, '0000-00-00 00:00:00');
+(3, 'Kia', 1, '0000-00-00 00:00:00'),
+(4, 'Nuevo', 0, '2019-04-17 14:55:57'),
+(5, 'Nuevo 2', 0, '2019-04-17 14:57:20');
 
 -- --------------------------------------------------------
 
@@ -246,7 +257,8 @@ CREATE TABLE `modelos` (
 
 INSERT INTO `modelos` (`id`, `descripcion`, `idMarcas`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'Yaris', 1, 1, '0000-00-00 00:00:00'),
-(2, 'Tucson', 1, 1, '0000-00-00 00:00:00');
+(2, 'Tucson', 1, 1, '0000-00-00 00:00:00'),
+(3, 'AudiModelo2', 2, 0, '2019-04-17 15:06:16');
 
 -- --------------------------------------------------------
 
@@ -354,7 +366,8 @@ CREATE TABLE `servicios` (
 
 INSERT INTO `servicios` (`id`, `descripcion`, `detalle`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'servicio 112', 'descripcion...1212', 1, '0000-00-00 00:00:00'),
-(2, 'qer', 'qereqr', 0, '0000-00-00 00:00:00');
+(2, 'qer', 'qereqr', 0, '0000-00-00 00:00:00'),
+(3, 'servicio nuevo', 'Detalle del servicio nuevo2', 0, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -655,25 +668,25 @@ ALTER TABLE `entregas`
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenentregas`
 --
 ALTER TABLE `imagenentregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
 --
 ALTER TABLE `marcas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `pagoclientes`
@@ -703,7 +716,7 @@ ALTER TABLE `serviciorepuestos`
 -- AUTO_INCREMENT de la tabla `servicios`
 --
 ALTER TABLE `servicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `tipodocumentos`

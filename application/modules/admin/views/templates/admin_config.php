@@ -149,6 +149,19 @@
                         </div>
                      
                     </div>
+
+                    <div class="barraEnlace barraPadre" style="position:relative">
+                        <i class="fas fa-car"></i> Tablas Varios 
+                    
+                        <div class="subMenu">
+                            <a href="admin/marcas" class="barraEnlace">Marcas</a>
+                            <a href="admin/modelos" class="barraEnlace">Modelos</a>
+                            <a href="admin/personas" class="barraEnlace">Mecánicos</a>
+                            <a href="admin/servicios" class="barraEnlace">Servicios</a>
+                        </div>
+                     
+                    </div>
+
                     <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>
                 </div>
             </div>
