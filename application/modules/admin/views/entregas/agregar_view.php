@@ -108,12 +108,12 @@ $(function() {
 
                             <?php helper_form_textarea("observaciones","Observaciones") ?>
 
-                            <!-- <div class="form-group row">
+                            <div class="form-group row">
                                 <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
                                 <div class="col-sm-8">
                                     <input multiple="multiple" type="file" name="imagen[]" class="form-control" id="imagen" value="">
                                 </div>
-                            </div> -->
+                            </div>
 
                             <!-- <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i class="fas fa-save"></i> Guardar</button> -->
 

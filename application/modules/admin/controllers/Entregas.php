@@ -102,53 +102,53 @@ class Entregas extends MX_Controller {
 
             /* agregando multiples imagenes */
             
-            // if(!empty($_FILES['imagen']['name'])) {
-            //     $files = $_FILES;
-            //     $filesCount = count($_FILES['imagen']['name']);
+            if(!empty($_FILES['imagen']['name'])) {
+                $files = $_FILES;
+                $filesCount = count($_FILES['imagen']['name']);
         
-            //     for($i = 0; $i < $filesCount; $i++) {
-            //         $carpeta = "static/images/".$this->controller."/".$id_last;
-            //         if (!file_exists($carpeta)) {
-            //             mkdir($carpeta, 0777, true);
-            //         }
+                for($i = 0; $i < $filesCount; $i++) {
+                    $carpeta = "static/images/".$this->controller."/".$id_last;
+                    if (!file_exists($carpeta)) {
+                        mkdir($carpeta, 0777, true);
+                    }
         
-            //         $_FILES['imagen']['name'] = $files['imagen']['name'][$i];
-            //         $_FILES['imagen']['type'] = $files['imagen']['type'][$i];
-            //         $_FILES['imagen']['tmp_name'] = $files['imagen']['tmp_name'][$i];
-            //         $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
-            //         $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
+                    $_FILES['imagen']['name'] = $files['imagen']['name'][$i];
+                    $_FILES['imagen']['type'] = $files['imagen']['type'][$i];
+                    $_FILES['imagen']['tmp_name'] = $files['imagen']['tmp_name'][$i];
+                    $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
+                    $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
                     
-            //         $nombre = (string)$i;
-            //         $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
-            //         $config['allowed_types']        = 'gif|jpg|png|jpeg';
-            //         $config['max_size']             = 50000;
-            //         $config['max_width']            = 5048;
-            //         $config['max_height']           = 5068;
-            //         $config['file_name']           = $nombre;
-            //         $config['overwrite']           = TRUE;
-            //         echo "ff-".$i."-ff";
-            //         $this->load->library('upload', $config);
-            //         $this->upload->initialize($config);
+                    $nombre = (string)$i;
+                    $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 50000;
+                    $config['max_width']            = 5048;
+                    $config['max_height']           = 5068;
+                    $config['file_name']           = uniqid();
+                    $config['overwrite']           = TRUE;
+                    echo "ff-".$i."-ff";
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
     
-            //         //cargar archivo
-            //         if ( ! $this->upload->do_upload('imagen'))
-            //         {
-            //             $error = array('error' => $this->upload->display_errors());
+                    //cargar archivo
+                    if ( ! $this->upload->do_upload('imagen'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
                         
-            //         }
-            //         else
-            //         {
-            //             $result = array('upload_data' => $this->upload->data());
+                    }
+                    else
+                    {
+                        $result = array('upload_data' => $this->upload->data());
                     
-            //             $data = [
-            //                 "imagen" => $result["upload_data"]["file_name"],
-            //                 "idEntregas" => $id_last
-            //             ];
-            //             $this->obj_model->insert_imagen($data,$id_last); 
-            //         }
+                        $data = [
+                            "imagen" => $result["upload_data"]["file_name"],
+                            "idEntregas" => $id_last
+                        ];
+                        $this->obj_model->insert_imagen_entrega($data,$id_last); 
+                    }
         
-            //     }
-            // }
+                }
+            }
 
 
 
@@ -180,7 +180,8 @@ class Entregas extends MX_Controller {
 
             $piezas = $this->obj_piezas->get_all();
             $this->tmp_admin->set("piezas",$piezas);
-
+            $imagen = $this->obj_model->getIdImagenesEntregas($id);
+            $this->tmp_admin->set("imagen",$imagen->imagen);
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());

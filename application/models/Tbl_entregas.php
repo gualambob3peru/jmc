@@ -38,6 +38,17 @@ class Tbl_entregas extends CI_Model{
         }
     }
 
+    public function getIdImagenesEntregas($idEntregas){
+        try {
+            $this->db->where("idEntregas",$idEntregas);
+
+            $query = $this->db->get("entregaImagen");
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function getImagenes($valor,$campo="idEntregaServicios"){
         try {
             $this->db->where($campo, $valor);
@@ -153,6 +164,15 @@ class Tbl_entregas extends CI_Model{
     public function insert_imagen($data){
         try {
             $this->db->insert("imagenEntregas", $data);
+
+            return $this->db->insert_id();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+    public function insert_imagen_entrega($data){
+        try {
+            $this->db->insert("entregaImagen", $data);
 
             return $this->db->insert_id();
         } catch (Exception $exc) {

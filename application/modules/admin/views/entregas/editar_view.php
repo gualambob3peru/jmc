@@ -26,18 +26,20 @@ $(function() {
 
 
 
-    $("body").on("click",".btnDeleteImagen",function() {
+    $("body").on("click", ".btnDeleteImagen", function() {
         let idImagenEntregas = $(this).parents("tr").eq(0).attr("idImagenEntregas");
         let $this = $(this);
         $.ajax({
-            url : 'admin/entregas/ajaxDeleteImagen',
+            url: 'admin/entregas/ajaxDeleteImagen',
             type: 'post',
-            dataType : 'json',
-            error : function(e){
+            dataType: 'json',
+            error: function(e) {
                 console.log(e);
             },
-            data : {idImagenEntregas:idImagenEntregas},
-            success : function(response){
+            data: {
+                idImagenEntregas: idImagenEntregas
+            },
+            success: function(response) {
                 $this.parents("tr").eq(0).remove();
             }
         });
@@ -49,30 +51,35 @@ $(function() {
         //Creando Imagenes
         let idEntregaServicios = $("#imagenIdEntregaServicios").val(),
             idEntregas = $("#imagenIdEntregas").val();
-        
+
         $.ajax({
-            url : 'admin/entregas/getAjaxImagenes',
+            url: 'admin/entregas/getAjaxImagenes',
             type: 'post',
-            dataType : 'json',
-            error : function(e){
+            dataType: 'json',
+            error: function(e) {
                 console.log(e);
             },
-            data : {idEntregaServicios:idEntregaServicios},
-            success : function(response){
+            data: {
+                idEntregaServicios: idEntregaServicios
+            },
+            success: function(response) {
                 let imagenes = response.imagenes,
                     divImagenes = "<table class='table table-bordered'>";
 
-                for(ind in imagenes){
-                    divImagenes += "<tr idImagenEntregas='"+imagenes[ind].id+"'><td><img src='static/images/entregas/"+idEntregas+"/"+idEntregaServicios+"/"+imagenes[ind].imagen+"' style='height: 100px;'></td><td><button type='button' class='btn btn-danger btnDeleteImagen'><i class='far fa-trash-alt'></i></button></td></tr>";
+                for (ind in imagenes) {
+                    divImagenes += "<tr idImagenEntregas='" + imagenes[ind].id +
+                        "'><td><img src='static/images/entregas/" + idEntregas + "/" +
+                        idEntregaServicios + "/" + imagenes[ind].imagen +
+                        "' style='height: 100px;'></td><td><button type='button' class='btn btn-danger btnDeleteImagen'><i class='far fa-trash-alt'></i></button></td></tr>";
                 }
-                divImagenes+="</table>";
+                divImagenes += "</table>";
                 $("#divImagenes").html(divImagenes);
                 $("#modalImagen").modal();
             }
         });
 
-      //  $("#imagenIdEntregas").val($(this).attr("imagenIdEntregas"));
-        
+        //  $("#imagenIdEntregas").val($(this).attr("imagenIdEntregas"));
+
     });
 
 
@@ -280,13 +287,14 @@ $(function() {
         $(this).parents("tr").eq(0).remove();
     });
 
-    $(".btnOkDeleteEntregaServicio").click(function(){
-        window.location.href = "<?php echo base_url() ?>" + $("#modalDeleteEntregaServicio").attr("ruta");
+    $(".btnOkDeleteEntregaServicio").click(function() {
+        window.location.href = "<?php echo base_url() ?>" + $("#modalDeleteEntregaServicio").attr(
+            "ruta");
     });
 
-    $("body").on("click",".btnDeleteEntregaServicio",function(){
+    $("body").on("click", ".btnDeleteEntregaServicio", function() {
         $("#modalDeleteEntregaServicio").modal();
-        $("#modalDeleteEntregaServicio").attr("ruta",$(this).attr("ruta"));
+        $("#modalDeleteEntregaServicio").attr("ruta", $(this).attr("ruta"));
 
     });
 
@@ -323,11 +331,19 @@ $(function() {
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos"
                                 value="<?php echo $model->idVehiculos ?>">
-
+                    
                             <?php helper_form_text("kilometraje","Kilometraje",$model->kilometraje,"number") ?>
                             <?php helper_form_text("fechaServicio","Fecha de Registro",substr($model->fechaServicio,0,10),"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
+
+
+                            <div class="form-group row">
+                                <label for="observaciones" class="col-sm-4 col-form-label">Foto</label>
+                                <div class="col-sm-8">
+                                    <img style="width:100%" src="static/images/entregas/<?php echo $model->id?>/<?php echo $imagen;?>">
+                                </div>
+                            </div>
 
                             <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i
                                     class="fas fa-save"></i> Guardar</button>
@@ -617,21 +633,21 @@ $(function() {
 
 
 <div class="modal" id="modalDeleteEntregaServicio" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Eliminar Servicio</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>¿Desea eliminar el servicio?</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-danger btnOkDeleteEntregaServicio">Aceptar</button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Eliminar Servicio</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea eliminar el servicio?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger btnOkDeleteEntregaServicio">Aceptar</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
