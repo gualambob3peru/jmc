@@ -26,10 +26,22 @@ class Tbl_entregas extends CI_Model{
             return FALSE;   
         }
     }
-    public function getImagenes($idEntregasServicios){
+
+    public function getIdImagenes($idImagenServicios){
         try {
-            $this->db->where("idEntregaServicios",$idEntregasServicios);
-            $this->db->where("idEstados", "1");
+            $this->db->where("id",$idImagenServicios);
+
+            $query = $this->db->get("imagenEntregas");
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function getImagenes($valor,$campo="idEntregaServicios"){
+        try {
+            $this->db->where($campo, $valor);
+            //$this->db->where("idEstados", "1");
             $query = $this->db->get("imagenEntregas");
             return $query->result();
         } catch (Exception $exc) {
@@ -164,9 +176,9 @@ class Tbl_entregas extends CI_Model{
             return FALSE;   
         }
     }
-    public function updateImagenEntregas($data,$id){
+    public function updateImagenEntregas($data,$id,$campo="id"){
         try {
-            $this->db->where("id", $id);
+            $this->db->where($campo, $id);
             $this->db->update("imagenEntregas", $data);
         } catch (Exception $exc) {
             return FALSE;   

@@ -29,6 +29,17 @@ class Tbl_modelos extends CI_Model{
         }
     }
 
+    public function get_campo($valor,$campo){
+        try {
+            $this->db->where($campo, $valor);
+            $this->db->where("idEstados", "1");
+            $query = $this->db->get($this->tabla);
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function insert($data){
         try {
             $this->db->insert($this->tabla, $data);

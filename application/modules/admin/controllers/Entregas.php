@@ -247,21 +247,34 @@ class Entregas extends MX_Controller {
     }
 
     public function eliminarServicio($id,$idEntrega){ 
+
+        //hallando servicio y poniendo en estado 0
         $data = [
             "idEstados" => "0"
         ];
 
-        //hallando servicio
         $servicio = $this->obj_model->get_idEntregasServicios($id);
-
         $this->obj_model->updateServicio($data,$id);
 
+        //borrando imagenes del servicio
+        $data = ["idEstados" => "0"];
+        $this->obj_model->updateImagenEntregas($data,$id,"idEntregaServicios");
+        $imagenesServicio = $this->obj_model->getImagenes($id,"idEntregaServicios");
+        
+        foreach ($imagenesServicio as $key => $value) {
+            $ruta = "static/images/entregas/".$idEntrega."/".$id."/".$value->imagen;
+            if (file_exists($ruta)){
+                unlink($ruta);
+            }
+        }
+
+
+
+        //actualizando saldo de clientes
         $entrega = $this->obj_model->get_id($idEntrega);
-
         $this->obj_clientes->update_saldo($entrega->idClientes,$servicio->monto,2);
-
-
-        //SUmando monto de repuestos para actualizar entrega servicios
+        
+        //Sumando monto de repuestos para actualizar entrega servicios
         $servicioRepuestos = $this->obj_model->getRepuestos_ES($servicio->id);
         $montoRepuestos = 0;
         foreach ($servicioRepuestos as $key => $value) {
@@ -401,13 +414,13 @@ class Entregas extends MX_Controller {
                     $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
                     $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
                     
-                    $nombre = (string)$i;
+                   
                     $config['upload_path']          = 'static/images/'.$this->controller.'/'.$idEntregas.'/'.$idEntregaServicios.'/';
                     $config['allowed_types']        = 'gif|jpg|png|jpeg';
                     $config['max_size']             = 50000;
                     $config['max_width']            = 5048;
                     $config['max_height']           = 5068;
-                    $config['file_name']           = $nombre;
+                    $config['file_name']           = uniqid();
                     $config['overwrite']           = TRUE;
                     echo "ff-".$i."-ff";
                     $this->load->library('upload', $config);
@@ -446,13 +459,27 @@ class Entregas extends MX_Controller {
     public function ajaxDeleteImagen(){
         $idImagenEntregas = $this->input->post("idImagenEntregas");
 
+        $this->deleteImagen($idImagenEntregas);
+
+        echo json_encode(array('respuesta' => "1" ));
+    }
+
+    public function deleteImagen($idImagenEntregas){
+        $imagenServicios = $this->obj_model->getIdImagenes($idImagenEntregas);
+        $nombreImagen = $imagenServicios->imagen;
+        $idEntregas = $imagenServicios->idEntregas;
+        $idEntregaServicios = $imagenServicios->idEntregaServicios;
+
+        unlink('static/images/entregas/'.$idEntregas.'/'.$idEntregaServicios.'/'.$nombreImagen);
+
         $data = [
             "idEstados" => "0"
         ];
 
         $imagenes = $this->obj_model->updateImagenEntregas($data,$idImagenEntregas);
-        echo json_encode(array('respuesta' => "1" ));
     }
+
+
 }
 
 /* End of file admin.php */

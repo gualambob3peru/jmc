@@ -139,11 +139,12 @@ class Vehiculos extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
+            $model = $this->obj_model->get_id($id);
             $this->tmp_admin->set("clientes",$this->obj_clientes->get_all());
             $this->tmp_admin->set("marcas",$this->obj_marcas->get_all());
-            $this->tmp_admin->set("modelos",$this->obj_modelos->get_all());
+            $this->tmp_admin->set("modelos",$this->obj_modelos->get_campo($model->idMarcas,"idMarcas"));
             $this->tmp_admin->set("controller",$this->controller);
-            $this->tmp_admin->set("model",$this->obj_model->get_id($id));
+            $this->tmp_admin->set("model",$model);
             $this->load->tmp_admin->setLayout($this->template);
             $this->load->tmp_admin->render($this->cview.'/editar_view.php');
         }
@@ -219,6 +220,13 @@ class Vehiculos extends MX_Controller {
     public function ajax_cargar_vehiculo($placa){
         $vehiculo = $this->obj_model->get_campo("placa",$placa);
         echo json_encode(array('respuesta' => $vehiculo ));
+    }
+
+    public function getAjaxModelos(){
+        $idMarcas = $this->input->post('idMarcas');
+        $modelos = $this->obj_modelos->get_campo($idMarcas,"idMarcas");
+     
+        echo json_encode(array("respuesta" => $modelos));
     }
     
     public function logout(){                     

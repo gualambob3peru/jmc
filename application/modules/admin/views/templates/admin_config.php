@@ -20,9 +20,10 @@
     <script type="text/javascript" src="static/main/bootstrap/js/bootstrap.min.js"></script>
     <link rel="icon" href="osinerg.ico" type="image/ico">
 
-    <style> 
+    <style>
     body {
         font-family: Exo;
+        background: #f0f4f7;
     }
 
     #cabecera {
@@ -51,21 +52,23 @@
         background: #f0f4f7;
         margin-top: 10px;
     }
-    a.barraEnlace{
+
+    a.barraEnlace {
         text-decoration: none;
     }
+
     .barraEnlace {
-        
+
         border-style: solid;
         border-width: 0 1px 1px 1px;
         color: #4b4b4b;
-        text-align: center;
+        /* text-align: center; */
         vertical-align: middle;
         display: block;
         width: 100%;
         height: 50px;
         padding-top: 13px;
-        /* padding-left: 20px; */
+        padding-left: 30px;
         border-color: black;
     }
 
@@ -74,28 +77,44 @@
         color: #181818;
     }
 
-    .barraEnlace:hover i{
-       
+    .barraEnlace:hover i {
+
         color: #181818;
     }
-    .subMenu{
+
+    .subMenu {
         background: #EBE9E9;
         top: -1px;
         z-index: 1000;
         width: 200px;
         right: -200px;
         border: 1px solid black;
+        border-width: 1px 0 0 0;
         position: absolute;
-        display:none;
+        display: none;
     }
 
-    .barraPadre:hover .subMenu{
-        display:block;
+    .barraPadre:hover .subMenu {
+        display: block;
+    }
+
+    .table {
+        color: #434345;
+    }
+
+    .table td,
+    .table th {
+        vertical-align: middle;
+        border-top: 1px solid #bababa;
+    }
+
+    .table th {
+        border-top: 1px solid #fff;
     }
     </style>
 </head>
 
-<body style="background:#eee;">
+<body>
     <nav class="navbar navbar-expand-lg" id="cabecera">
         <a class="navbar-brand" href="#">JMC Racing</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -105,7 +124,7 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-            <!-- <li class="nav-item active">
+                <!-- <li class="nav-item active">
                     <a class="nav-link" href="admin/entregas">Entrega <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
@@ -138,28 +157,28 @@
             <div class="col-md-2 barraLateral">
                 <div class="row">
                     <a class="barraEnlace" href="admin/clientes"><i class="fas fa-male"></i> Clientes</a>
-                    <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-male"></i> Vehiculos</a>
-                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car"></i> Registros</a>
+                    <a class="barraEnlace" href="admin/vehiculos"><i class="fas fa-car"></i> Vehiculos</a>
+                    <a class="barraEnlace" href="admin/entregas"><i class="fas fa-car-crash"></i> Registros</a>
                     <div class="barraEnlace barraPadre" style="position:relative">
-                        <i class="fas fa-car"></i> Almacen 
-                    
+                        <i class="fas fa-cubes"></i>Almacen
+
                         <div class="subMenu">
                             <a href="admin/piezas" class="barraEnlace">Repuestos</a>
                             <a href="admin/compras" class="barraEnlace">Compras</a>
                         </div>
-                     
+
                     </div>
 
                     <div class="barraEnlace barraPadre" style="position:relative">
-                        <i class="fas fa-car"></i> Tablas Varios 
-                    
+                        <i class="fas fa-cogs"></i> Tablas Varios
+
                         <div class="subMenu">
                             <a href="admin/marcas" class="barraEnlace">Marcas</a>
                             <a href="admin/modelos" class="barraEnlace">Modelos</a>
                             <a href="admin/personas" class="barraEnlace">Mecánicos</a>
                             <a href="admin/servicios" class="barraEnlace">Servicios</a>
                         </div>
-                     
+
                     </div>
 
                     <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>

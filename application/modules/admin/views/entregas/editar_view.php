@@ -280,7 +280,15 @@ $(function() {
         $(this).parents("tr").eq(0).remove();
     });
 
+    $(".btnOkDeleteEntregaServicio").click(function(){
+        window.location.href = "<?php echo base_url() ?>" + $("#modalDeleteEntregaServicio").attr("ruta");
+    });
 
+    $("body").on("click",".btnDeleteEntregaServicio",function(){
+        $("#modalDeleteEntregaServicio").modal();
+        $("#modalDeleteEntregaServicio").attr("ruta",$(this).attr("ruta"));
+
+    });
 
 })
 </script>
@@ -398,7 +406,7 @@ $(function() {
                                             echo "<td>".$value->montoTotal."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
                                             echo "<td>".($value->monto + $value->montoTotal)."</td>";
-                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-success btnAddImagen' type='button'><i class='fas fa-plus'></i> Fotos</button>    <a href='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger' ><i class='fas fa-trash-alt'></i> Eliminar</a></td>";
+                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-success btnAddImagen' type='button'><i class='fas fa-plus'></i> Fotos</button>    <button type='button' ruta='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger btnDeleteEntregaServicio' ><i class='fas fa-trash-alt'></i> Eliminar</button></td>";
                                             echo "</tr>";
                                         }
 
@@ -604,4 +612,26 @@ $(function() {
             </div> -->
         </div>
     </div>
+</div>
+
+
+
+<div class="modal" id="modalDeleteEntregaServicio" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminar Servicio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>¿Desea eliminar el servicio?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger btnOkDeleteEntregaServicio">Aceptar</button>
+      </div>
+    </div>
+  </div>
 </div>
