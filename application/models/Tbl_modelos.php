@@ -21,8 +21,12 @@ class Tbl_modelos extends CI_Model{
 
     public function get_all(){
         try {
-            $this->db->where("idEstados", "1");
-            $query = $this->db->get($this->tabla);
+            $this->db->from("modelos m");
+            $this->db->select("m.id, m.descripcion, m.idEstados, m.idMarcas, ma.descripcion descripcion_marca");
+            $this->db->join("marcas ma","ma.id=m.idMarcas");
+
+            $this->db->where("m.idEstados", "1");
+            $query = $this->db->get();
             return $query->result();
         } catch (Exception $exc) {
             return FALSE;   

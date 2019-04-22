@@ -382,7 +382,7 @@ $(function() {
 
                             <br>
                             <br>
-                            <table class="table table-bordered">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th>Fecha</th>
@@ -406,7 +406,7 @@ $(function() {
                                             echo "<td>".$value->montoTotal."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
                                             echo "<td>".($value->monto + $value->montoTotal)."</td>";
-                                            echo "<td> <button idEntregaServicios='".$value->id."' class='btn btn-info btnAddRepuesto' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-success btnAddImagen' type='button'><i class='fas fa-plus'></i> Fotos</button>    <button type='button' ruta='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-danger btnDeleteEntregaServicio' ><i class='fas fa-trash-alt'></i> Eliminar</button></td>";
+                                            echo "<td><div class='input-group'> <button idEntregaServicios='".$value->id."' class='btn btn-outline-info btnAddRepuesto form-control' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-outline-success btnAddImagen form-control' type='button'><i class='fas fa-plus'></i> Fotos</button>    <button type='button' ruta='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-outline-danger btnDeleteEntregaServicio form-control' ><i class='fas fa-trash-alt'></i> Eliminar</button></div></td>";
                                             echo "</tr>";
                                         }
 

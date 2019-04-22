@@ -470,7 +470,11 @@ class Entregas extends MX_Controller {
         $idEntregas = $imagenServicios->idEntregas;
         $idEntregaServicios = $imagenServicios->idEntregaServicios;
 
-        unlink('static/images/entregas/'.$idEntregas.'/'.$idEntregaServicios.'/'.$nombreImagen);
+        $rutImagen = 'static/images/entregas/'.$idEntregas.'/'.$idEntregaServicios.'/'.$nombreImagen;
+        if(file_exists($rutImagen)){
+            unlink('static/images/entregas/'.$idEntregas.'/'.$idEntregaServicios.'/'.$nombreImagen);
+        }
+        
 
         $data = [
             "idEstados" => "0"

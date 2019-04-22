@@ -32,15 +32,18 @@ $(function() {
                 <table class="table">
                     <tr>
                         
-                        <th>Descripción</th>
+                        <th>Modelo</th>
+                        <th>Marca</th>
                         
-                        <th></th>
+                        
+                        <th>Acciones</th>
                     </tr>
 
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
                         
                         <td><?php echo $value->descripcion ?></td>
+                        <td><?php echo $value->descripcion_marca ?></td>
                         
                         <td>
                             <div class="input-group">
