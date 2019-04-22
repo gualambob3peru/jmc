@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-04-2019 a las 00:26:36
+-- Tiempo de generación: 22-04-2019 a las 23:46:48
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 7.3.3
 
@@ -48,7 +48,7 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id`, `nombres`, `apellidoPaterno`, `apellidoMaterno`, `nombresCompletos`, `idTipoDocumentos`, `documento`, `direccion`, `correo`, `saldo`, `idEstados`, `fechaRegistro`) VALUES
-(1, 'Franz', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz', 1, '44556677', 'Pro', 'gualambo@gmail.com', '13384.00', 1, '2019-04-12 17:22:25');
+(1, 'Franz', 'Gualambo', 'Giraldo', 'Gualambo Giraldo Franz', 1, '44556677', 'Pro', 'gualambo@gmail.com', '166729.00', 1, '2019-04-12 17:22:25');
 
 -- --------------------------------------------------------
 
@@ -128,6 +128,25 @@ INSERT INTO `datosgenerales` (`id`, `descripcion`, `valor`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `entregaimagen`
+--
+
+CREATE TABLE `entregaimagen` (
+  `id` int(11) NOT NULL,
+  `idEntregas` int(11) NOT NULL,
+  `imagen` varchar(120) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `entregaimagen`
+--
+
+INSERT INTO `entregaimagen` (`id`, `idEntregas`, `imagen`) VALUES
+(1, 3, '5cbe31bb4098c.jpg');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `entregas`
 --
 
@@ -147,7 +166,8 @@ CREATE TABLE `entregas` (
 
 INSERT INTO `entregas` (`id`, `idVehiculos`, `fechaRegistro`, `fechaServicio`, `idEstados`, `observaciones`, `kilometraje`) VALUES
 (1, 1, '2019-04-16 12:15:50', '2019-04-16 00:00:00', 1, '', 1234),
-(2, 1, '2019-04-16 12:16:48', '2019-04-16 00:00:00', 1, '', 1234);
+(2, 1, '2019-04-16 12:16:48', '2019-04-16 00:00:00', 1, '', 1234),
+(3, 1, '2019-04-22 16:27:23', '2019-04-22 00:00:00', 1, 'fafadf', 1234);
 
 -- --------------------------------------------------------
 
@@ -174,7 +194,8 @@ CREATE TABLE `entregaservicios` (
 --
 
 INSERT INTO `entregaservicios` (`id`, `idPersonas`, `idServicios`, `idEntregas`, `monto`, `observacionesServicio`, `idEstados`, `fechaRegistro`, `fechaServicio`, `montoTotal`, `montoRepuestos`) VALUES
-(1, 1, 1, 2, '1234.00', 'fefqe', 1, '2019-04-17 13:44:39', '2019-04-17 00:00:00', '1234.00', '0.00');
+(1, 1, 1, 2, '1234.00', 'fefqe', 1, '2019-04-17 13:44:39', '2019-04-17 00:00:00', '154234.00', '153000.00'),
+(2, 1, 1, 2, '345.00', '', 1, '2019-04-22 16:17:48', '2019-04-22 00:00:00', '345.00', '0.00');
 
 -- --------------------------------------------------------
 
@@ -211,7 +232,19 @@ INSERT INTO `imagenentregas` (`id`, `imagen`, `idEntregas`, `idEntregaServicios`
 (14, '3.PNG', 2, 1, 0),
 (15, '0.PNG', 2, 1, 0),
 (16, '1.PNG', 2, 1, 0),
-(17, '0.PNG', 2, 1, 1);
+(17, '0.PNG', 2, 1, 0),
+(18, '5cbe202814119.PNG', 2, 1, 0),
+(19, '5cbe28431741a.PNG', 2, 1, 0),
+(20, '5cbe2ed681444.PNG', 2, 1, 0),
+(21, '5cbe2ed68c8bd.PNG', 2, 1, 0),
+(22, '5cbe2ed6a4216.PNG', 2, 1, 0),
+(23, '5cbe2ee2e7656.PNG', 2, 1, 0),
+(24, '5cbe2ee30bea3.PNG', 2, 1, 0),
+(25, '5cbe2ee3206c8.PNG', 2, 1, 0),
+(26, '5cbe2ee33106c.PNG', 2, 1, 0),
+(27, '5cbe2f1ab3694.PNG', 2, 1, 1),
+(28, '5cbe2f1ad53fe.PNG', 2, 1, 1),
+(29, '5cbe2f87dba38.jpg', 2, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +291,8 @@ CREATE TABLE `modelos` (
 INSERT INTO `modelos` (`id`, `descripcion`, `idMarcas`, `idEstados`, `fechaRegistro`) VALUES
 (1, 'Yaris', 1, 1, '0000-00-00 00:00:00'),
 (2, 'Tucson', 1, 1, '0000-00-00 00:00:00'),
-(3, 'AudiModelo2', 2, 0, '2019-04-17 15:06:16');
+(3, 'AudiModelo2', 2, 0, '2019-04-17 15:06:16'),
+(4, 'rio', 3, 1, '2019-04-22 16:14:17');
 
 -- --------------------------------------------------------
 
@@ -328,7 +362,7 @@ CREATE TABLE `piezas` (
 --
 
 INSERT INTO `piezas` (`id`, `codigo`, `descripcion`, `costo`, `idEstados`, `fechaRegistro`, `stock`) VALUES
-(1, 'P001', 'Llantas', '300.00', 1, '2019-04-12 00:00:00', 1371),
+(1, 'P001', 'Llantas', '300.00', 1, '2019-04-12 00:00:00', 861),
 (2, 'P002', 'Motor 001', '1500.00', 1, '2019-04-12 00:00:00', 145);
 
 -- --------------------------------------------------------
@@ -345,6 +379,13 @@ CREATE TABLE `serviciorepuestos` (
   `monto` decimal(10,2) NOT NULL,
   `idEstados` int(11) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `serviciorepuestos`
+--
+
+INSERT INTO `serviciorepuestos` (`id`, `idEntregaServicios`, `idPiezas`, `cantidad`, `monto`, `idEstados`) VALUES
+(1, 1, 1, 510, '153000.00', 1);
 
 -- --------------------------------------------------------
 
@@ -535,6 +576,12 @@ ALTER TABLE `datosgenerales`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `entregaimagen`
+--
+ALTER TABLE `entregaimagen`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `entregas`
 --
 ALTER TABLE `entregas`
@@ -659,22 +706,28 @@ ALTER TABLE `datosgenerales`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de la tabla `entregaimagen`
+--
+ALTER TABLE `entregaimagen`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT de la tabla `entregas`
 --
 ALTER TABLE `entregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `entregaservicios`
 --
 ALTER TABLE `entregaservicios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `imagenentregas`
 --
 ALTER TABLE `imagenentregas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `marcas`
@@ -686,7 +739,7 @@ ALTER TABLE `marcas`
 -- AUTO_INCREMENT de la tabla `modelos`
 --
 ALTER TABLE `modelos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pagoclientes`
@@ -710,7 +763,7 @@ ALTER TABLE `piezas`
 -- AUTO_INCREMENT de la tabla `serviciorepuestos`
 --
 ALTER TABLE `serviciorepuestos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `servicios`
