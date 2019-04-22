@@ -41,7 +41,7 @@ class Tbl_entregas extends CI_Model{
     public function getImagenes($valor,$campo="idEntregaServicios"){
         try {
             $this->db->where($campo, $valor);
-            //$this->db->where("idEstados", "1");
+            $this->db->where("idEstados", "1");
             $query = $this->db->get("imagenEntregas");
             return $query->result();
         } catch (Exception $exc) {

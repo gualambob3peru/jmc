@@ -336,23 +336,23 @@ $(function() {
                         <div class="col-md-4">
                             <table class="table table-bordered">
                                 <tr>
-                                    <th>Cliente</th>
+                                    <td>Cliente</td>
                                     <td id="ajax_cliente"></td>
                                 </tr>
                                 <tr>
-                                    <th>Marca</th>
+                                    <td>Marca</td>
                                     <td id="ajax_marca"></td>
                                 </tr>
                                 <tr>
-                                    <th>Modelo</th>
+                                    <td>Modelo</td>
                                     <td id="ajax_modelo"></td>
                                 </tr>
                                 <tr>
-                                    <th>Placa</th>
+                                    <td>Placa</td>
                                     <td id="ajax_placa"></td>
                                 </tr>
                                 <tr>
-                                    <th>Año</th>
+                                    <td>Año</td>
                                     <td id="ajax_anio"></td>
                                 </tr>
                             </table>
@@ -472,7 +472,7 @@ $(function() {
                     <div class="misRepuestos">
 
 
-                        <table class="table table-bordered tableRepuestos">
+                        <table class="table tableRepuestos">
 
                         </table>
                     </div>
