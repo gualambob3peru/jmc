@@ -698,7 +698,7 @@ $(function() {
 </div>
 
 <div class="modal" id="modalCarrusel" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Imagen</h5>
@@ -710,7 +710,7 @@ $(function() {
                 <img id="imagenModalCarrusel" src="" style="width:100%">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
+                <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
