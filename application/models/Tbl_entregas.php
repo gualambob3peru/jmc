@@ -43,7 +43,7 @@ class Tbl_entregas extends CI_Model{
             $this->db->where("idEntregas",$idEntregas);
 
             $query = $this->db->get("entregaImagen");
-            return $query->row();
+            return $query->result();
         } catch (Exception $exc) {
             return FALSE;   
         }

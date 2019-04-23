@@ -304,7 +304,7 @@ $(function() {
 <!-- <pre>
     <?php print_r($model)?>
 </pre> -->
-<form action="" method="post">
+
     <input type="hidden" id="ide" value="<?php echo $id; ?>">
     <div class="row">
         <div class="col-md-12">
@@ -314,7 +314,7 @@ $(function() {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-
+                        <form action="" method="post" enctype="multipart/form-data">
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
                                 <div class='col-sm-8'>
@@ -331,22 +331,23 @@ $(function() {
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos"
                                 value="<?php echo $model->idVehiculos ?>">
-                    
+
                             <?php helper_form_text("kilometraje","Kilometraje",$model->kilometraje,"number") ?>
                             <?php helper_form_text("fechaServicio","Fecha de Registro",substr($model->fechaServicio,0,10),"date") ?>
 
                             <?php helper_form_textarea("observaciones","Observaciones",$model->observaciones) ?>
 
-
                             <div class="form-group row">
-                                <label for="observaciones" class="col-sm-4 col-form-label">Foto</label>
+                                <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
                                 <div class="col-sm-8">
-                                    <img style="width:100%" src="static/images/entregas/<?php echo $model->id?>/<?php echo $imagen;?>">
+                                    <input multiple="multiple" type="file" name="imagen[]" class="form-control" value="">
                                 </div>
                             </div>
+                            
 
-                            <button id="btnGuardarEntrega" type="button" class="btn btn-lg btn-success"><i
+                            <button type="submit" class="btn btn-lg btn-success"><i
                                     class="fas fa-save"></i> Guardar</button>
+                        </form>
                         </div>
 
                         <div class="col-md-4">
@@ -372,6 +373,45 @@ $(function() {
                                     <td id="ajax_anio"></td>
                                 </tr>
                             </table>
+
+                            <div>
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
+                                      
+
+                                        <?php foreach($imagenes as $key=>$value): ?>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key ?>">
+                                        <?php endforeach; ?>
+
+
+                                        <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                                        </li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <?php foreach($imagenes as $key=>$value): ?>
+                                            <?php $active = ($key==0)?'active':'' ?>
+                                            <div class="carousel-item <?php echo $active?>">
+                                                <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100" alt="...">
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                        
+                                     
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                        data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                        data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -439,7 +479,7 @@ $(function() {
 
 
     </div>
-</form>
+
 
 <div class="modal fade" id="modalAddServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
