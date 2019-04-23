@@ -298,6 +298,11 @@ $(function() {
 
     });
 
+    $("body").on("click",".imagenCarrusel",function(){
+        $("#modalCarrusel").modal();
+        $("#imagenModalCarrusel").attr("src",$(this).attr("src"));
+    })
+
 })
 </script>
 
@@ -393,7 +398,7 @@ $(function() {
                                         <?php foreach($imagenes as $key=>$value): ?>
                                             <?php $active = ($key==0)?'active':'' ?>
                                             <div class="carousel-item <?php echo $active?>">
-                                                <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100" alt="...">
+                                                <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100 imagenCarrusel" alt="...">
                                             </div>
                                         <?php endforeach; ?>
 
@@ -687,6 +692,25 @@ $(function() {
             <div class="modal-footer">
                 <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-danger btnOkDeleteEntregaServicio">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modalCarrusel" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="imagenModalCarrusel" src="" style="width:100%">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Aceptar</button>
             </div>
         </div>
     </div>
