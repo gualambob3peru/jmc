@@ -10,6 +10,8 @@ $(function() {
     $("#btnAceptar").click(function() {
         window.location = "admin/" + controller + "/eliminar/" + $("#modalEliminar").attr("elId");
     });
+
+    $('[data-toggle="tooltip"]').tooltip()
 });
 </script>
 
