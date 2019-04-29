@@ -6,9 +6,7 @@ class Entregas extends MX_Controller {
     public $template = 'templates/admin_config';
     public $data =[
         "idVehiculos" => "",
-        "idPersonas" => "",
         "fechaRegistro" => "",
-        "idServicios" => "",
         "kilometraje" => "",
         "fechaServicio" => "",
         "idEstados" => "1"
@@ -158,13 +156,15 @@ class Entregas extends MX_Controller {
 
 	public function editar($id){ 
         $this->form_validation->set_rules('idVehiculos', 'Vehículo', 'trim|required');
-        $this->form_validation->set_rules('idPersonas', 'Mecánico', 'trim|required');
-        $this->form_validation->set_rules('idServicios', 'Servicio', 'trim|required');
+        
+        //$this->form_validation->set_rules('idServicios', 'Servicio', 'trim|required');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
         if ($this->form_validation->run($this) == FALSE)
         {
+           
+            
             $entregaServicios = $this->obj_model->get_entregaServicios($id);
             
             foreach ($entregaServicios as $key => $value) {
@@ -180,8 +180,8 @@ class Entregas extends MX_Controller {
 
             $piezas = $this->obj_piezas->get_all();
             $this->tmp_admin->set("piezas",$piezas);
-            $imagen = $this->obj_model->getIdImagenesEntregas($id);
-            $this->tmp_admin->set("imagen",$imagen->imagen);
+            $imagenes = $this->obj_model->getIdImagenesEntregas($id);
+            $this->tmp_admin->set("imagenes",$imagenes);
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
@@ -197,10 +197,61 @@ class Entregas extends MX_Controller {
         }
         else
         {
+            
             $data = $this->upPost($this->data);
 
            
             $this->obj_model->update($data,$id);
+
+            if(!empty($_FILES['imagen']['name'])) {
+                $files = $_FILES;
+                $filesCount = count($_FILES['imagen']['name']);
+        
+                for($i = 0; $i < $filesCount; $i++) {
+                    $carpeta = "static/images/".$this->controller."/".$id;
+                    if (!file_exists($carpeta)) {
+                        mkdir($carpeta, 0777, true);
+                    }
+        
+                    $_FILES['imagen']['name'] = $files['imagen']['name'][$i];
+                    $_FILES['imagen']['type'] = $files['imagen']['type'][$i];
+                    $_FILES['imagen']['tmp_name'] = $files['imagen']['tmp_name'][$i];
+                    $_FILES['imagen']['error'] = $files['imagen']['error'][$i];
+                    $_FILES['imagen']['size'] = $files['imagen']['size'][$i];
+                    
+                    $nombre = (string)$i;
+                    $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id.'/';
+                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['max_size']             = 50000;
+                    $config['max_width']            = 5048;
+                    $config['max_height']           = 5068;
+                    $config['file_name']           = uniqid();
+                    $config['overwrite']           = TRUE;
+                    echo "ff-".$i."-ff";
+                    $this->load->library('upload', $config);
+                    $this->upload->initialize($config);
+    
+                    //cargar archivo
+                    if ( ! $this->upload->do_upload('imagen'))
+                    {
+                        $error = array('error' => $this->upload->display_errors());
+                        
+                    }
+                    else
+                    {
+                        $result = array('upload_data' => $this->upload->data());
+                    
+                        $data = [
+                            "imagen" => $result["upload_data"]["file_name"],
+                            "idEntregas" => $id
+                        ];
+                        $this->obj_model->insert_imagen_entrega($data,$id); 
+                    }
+        
+                }
+            }
+
+
             redirect("admin/".$this->controller);
         }
     }
