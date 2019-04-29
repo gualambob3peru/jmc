@@ -30,13 +30,11 @@ class Tbl_usuario extends CI_Model{
             $query = $this->db->get($this->tabla);
 
             if($query->num_rows() > 0){
-                echo "<pre>";
-                print_r($_SESSION);
+         
                 $this->session->set_userdata('logged','true');
                 $row = $query->row_array();
                 $this->session->set_userdata($row);
-                print_r($_SESSION);
-                echo "</pre>";
+            
             }
             return $query->row();
         } catch (Exception $exc) {

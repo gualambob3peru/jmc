@@ -1,5 +1,3 @@
-
-
 <?php
 
 class Tbl_tipoMonedas extends CI_Model{

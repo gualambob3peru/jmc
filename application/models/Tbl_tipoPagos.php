@@ -1,5 +1,3 @@
-
-
 <?php
 
 class Tbl_tipoPagos extends CI_Model{

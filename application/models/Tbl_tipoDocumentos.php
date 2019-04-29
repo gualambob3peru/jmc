@@ -1,6 +1,4 @@
-
 <?php
-
 class Tbl_tipoDocumentos extends CI_Model{
     private $tabla = 'tipoDocumentos';
     private $id = 'id';

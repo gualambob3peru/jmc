@@ -1,5 +1,4 @@
 <?php
-
 class Tbl_compras extends CI_Model{
     private $tabla = 'compras';
     private $id = 'id';

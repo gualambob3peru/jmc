@@ -1,4 +1,3 @@
-
 <?php
 
 class Tbl_vehiculos extends CI_Model{

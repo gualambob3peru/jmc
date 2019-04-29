@@ -1,5 +1,3 @@
-
-
 <?php
 
 class Tbl_marcas extends CI_Model{
