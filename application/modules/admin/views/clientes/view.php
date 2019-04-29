@@ -22,8 +22,8 @@ $(function() {
 
         <div class="row">
             <div class="col-md-12">
-                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info"> <i
-                        class="fas fa-plus"></i> Agregar <?php echo ucwords($controller) ?></a>
+                <a href="admin/<?php echo $controller ?>/agregar" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Agregar Clientes"> <i
+                        class="fas fa-plus"></i></a>
             </div>
         </div>
         <br>
@@ -52,9 +52,9 @@ $(function() {
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
-                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>" class="btn btn-outline-info"><i class="far fa-edit"></i> Editar</a>
-                                    <a href="admin/<?php echo $controller ?>/pagos/<?php echo $value->id ?>" class="btn btn-outline-success"><i class="far fa-edit"></i> Pagos</a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="far fa-trash-alt"></i> Eliminar</button>
+                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
+                                    <a href="admin/<?php echo $controller ?>/pagos/<?php echo $value->id ?>" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Pagos"><i class="far fa-edit"></i></a>
+                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </td>
