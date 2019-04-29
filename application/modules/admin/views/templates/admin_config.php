@@ -20,7 +20,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script type="text/javascript" src="static/main/bootstrap/js/bootstrap.min.js"></script>
     <link rel="icon" href="osinerg.ico" type="image/ico">
-
+    <script>
+        $(function(){
+            $('[data-toggle="tooltip"]').tooltip()
+        });
+    </script>
     <style>
     body {
         font-family: Exo;

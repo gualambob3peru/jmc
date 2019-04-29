@@ -23,7 +23,7 @@ $(function() {
         <div class="row">
             <div class="col-md-12">
                 <a href="admin/<?php echo $controller ?>/agregarPagos/<?php echo $idClientes ?>" class="btn btn-outline-info"> <i
-                        class="fas fa-plus"></i> Agregar Pago</a>
+                        class="fas fa-plus"  data-toggle="tooltip" data-placement="top" title="Agregar Pago"></i></a>
             </div>
         </div>
         <br>
@@ -48,7 +48,7 @@ $(function() {
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
                                     
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="far fa-trash-alt"></i> Anular</button>
+                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"  data-toggle="tooltip" data-placement="top" title="Anular Pago"><i class="far fa-trash-alt"></i></button>
                                 </div>
                             </div>
                         </td>
