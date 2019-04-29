@@ -306,9 +306,6 @@ $(function() {
 })
 </script>
 
-<!-- <pre>
-    <?php print_r($model)?>
-</pre> -->
 
     <input type="hidden" id="ide" value="<?php echo $id; ?>">
     <div class="row">
@@ -437,9 +434,8 @@ $(function() {
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-outline-info" id="btnAddServicio"><i
-                                    class="fas fa-plus"></i>
-                                Agregar Servicio</button>
+                            <button type="button" class="btn btn-outline-info" id="btnAddServicio" data-toggle="tooltip" data-placement="top" title="Agregar Servicio"><i
+                                    class="fas fa-plus"></i></button>
 
                             <br>
                             <br>
@@ -467,7 +463,7 @@ $(function() {
                                             echo "<td>".$value->montoTotal."</td>";
                                             echo "<td>".$value->nombresCompletos."</td>";
                                             echo "<td>".($value->monto + $value->montoTotal)."</td>";
-                                            echo "<td><div class='input-group'> <button idEntregaServicios='".$value->id."' class='btn btn-outline-info btnAddRepuesto form-control' type='button'><i class='fas fa-plus'></i> Repuestos</button> <button idEntregaServicios='".$value->id."' class='btn btn-outline-success btnAddImagen form-control' type='button'><i class='fas fa-plus'></i> Fotos</button>    <button type='button' ruta='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-outline-danger btnDeleteEntregaServicio form-control' ><i class='fas fa-trash-alt'></i> Eliminar</button></div></td>";
+                                            echo "<td><div class='input-group'> <button idEntregaServicios='".$value->id."' class='btn btn-outline-info btnAddRepuesto form-control' type='button' data-toggle='tooltip' data-placement='top' title='Repuestos'><i class='fas fa-plus'></i></button> <button idEntregaServicios='".$value->id."' class='btn btn-outline-success btnAddImagen form-control' type='button' data-toggle='tooltip' data-placement='top' title='Imagenes'><i class='fas fa-plus'></i></button>    <button type='button' ruta='admin/entregas/eliminarServicio/".$value->id."/".$id."' class='btn btn-outline-danger btnDeleteEntregaServicio form-control' data-toggle='tooltip' data-placement='top' title='Eliminar'><i class='fas fa-trash-alt'></i></button></div></td>";
                                             echo "</tr>";
                                         }
 

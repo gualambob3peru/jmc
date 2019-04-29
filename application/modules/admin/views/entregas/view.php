@@ -49,12 +49,10 @@ $(function() {
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">
                                     <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
-                                        class="btn btn-outline-info"><i class="far fa-edit"></i> Editar</a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-success BtnCorreo"><i class="far fa-envelope"></i>
-                                        Correo</button>
+                                        class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
+                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-success BtnCorreo"><i class="far fa-envelope" data-toggle="tooltip" data-placement="top" title="Email"></i></button>
                                     <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i
-                                            class="far fa-trash-alt"></i>
-                                        Eliminar</button>
+                                            class="far fa-trash-alt" data-toggle="tooltip" data-placement="top" title="Eliminar"></i></button>
                                 </div>
                             </div>
                         </td>
