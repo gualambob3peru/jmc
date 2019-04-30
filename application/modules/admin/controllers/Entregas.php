@@ -124,7 +124,7 @@ class Entregas extends MX_Controller {
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
                     $config['overwrite']           = TRUE;
-                    echo "ff-".$i."-ff";
+                    
                     $this->load->library('upload', $config);
                     $this->upload->initialize($config);
     
@@ -227,7 +227,7 @@ class Entregas extends MX_Controller {
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
                     $config['overwrite']           = TRUE;
-                    echo "ff-".$i."-ff";
+                    
                     $this->load->library('upload', $config);
                     $this->upload->initialize($config);
     
@@ -474,7 +474,7 @@ class Entregas extends MX_Controller {
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
                     $config['overwrite']           = TRUE;
-                    echo "ff-".$i."-ff";
+                    
                     $this->load->library('upload', $config);
                     $this->upload->initialize($config);
     
