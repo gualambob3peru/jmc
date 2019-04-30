@@ -119,7 +119,7 @@ class Entregas extends MX_Controller {
                     $nombre = (string)$i;
                     $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id_last.'/';
                     $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                    $config['max_size']             = 50000;
+                    $config['max_size']             = 700;
                     $config['max_width']            = 5048;
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
@@ -222,7 +222,7 @@ class Entregas extends MX_Controller {
                     $nombre = (string)$i;
                     $config['upload_path']          = 'static/images/'.$this->controller.'/'.$id.'/';
                     $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                    $config['max_size']             = 50000;
+                    $config['max_size']             = 700;
                     $config['max_width']            = 5048;
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
@@ -469,7 +469,7 @@ class Entregas extends MX_Controller {
                    
                     $config['upload_path']          = 'static/images/'.$this->controller.'/'.$idEntregas.'/'.$idEntregaServicios.'/';
                     $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                    $config['max_size']             = 50000;
+                    $config['max_size']             = 700;
                     $config['max_width']            = 5048;
                     $config['max_height']           = 5068;
                     $config['file_name']           = uniqid();
