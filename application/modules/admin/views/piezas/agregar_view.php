@@ -16,7 +16,8 @@
                 <form method="post">
                     <?php helper_form_text("codigo","Codigo") ?>
                     <?php helper_form_text("descripcion","Descripción") ?>
-                    <?php helper_form_text("costo","Costo") ?>
+                    <?php helper_form_text("costo","Precio de Venta") ?>
+                    <?php helper_form_text("precioCosto","Precio de Costo") ?>
                     <?php helper_form_text("stock","Stock") ?>
 
 

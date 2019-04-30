@@ -33,7 +33,8 @@ $(function() {
                     <tr>
                         <th>Código</th>
                         <th>Descripción</th>
-                        <th>Costo</th>
+                        <th>Precio Venta</th>
+                        <th>Precio Costo</th>
                         <th>Stock</th>
                         <th></th>
                     </tr>
@@ -43,6 +44,7 @@ $(function() {
                         <td><?php echo $value->codigo ?></td>
                         <td><?php echo $value->descripcion ?></td>
                         <td><?php echo $value->costo ?></td>
+                        <td><?php echo $value->precioCosto ?></td>
                         <td><?php echo $value->stock ?></td>
                         <td>
                             <div class="input-group">

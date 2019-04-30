@@ -8,6 +8,7 @@ class Piezas extends MX_Controller {
         "codigo" => "",
         "descripcion" => "",
         "costo" => "",
+        "precioCosto" => "",
         "stock" => "",
         "idEstados" => "1"
     ];
@@ -35,7 +36,8 @@ class Piezas extends MX_Controller {
 	public function agregar(){ 
         $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required');
         $this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required');
-        $this->form_validation->set_rules('costo', 'Costo', 'trim|required');
+        $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
+        $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
 
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
@@ -58,7 +60,8 @@ class Piezas extends MX_Controller {
 	public function editar($id){ 
         $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required');
         $this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required');
-        $this->form_validation->set_rules('costo', 'Costo', 'trim|required');
+        $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
+        $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
