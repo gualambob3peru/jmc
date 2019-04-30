@@ -444,7 +444,7 @@ $(function() {
                                     <tr>
                                         <th>Fecha</th>
                                         <th>Nombre</th>
-                                        <th>Costo</th>
+                                        <th>Mano de Obra</th>
                                         <th>Repuestos</th>
                                         <th>Mecánico</th>
                                         <th>Total</th>

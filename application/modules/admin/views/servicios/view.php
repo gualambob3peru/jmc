@@ -34,7 +34,8 @@ $(function() {
                         <th>#</th>
                         <th>Nombre del Servicio</th>
                         <th>Descripción</th>    
-                        <th></th>
+                        <th>Costo</th>    
+                        <th>Acciones</th>
                     </tr>
 
                     <?php foreach($model as $key=>$value): ?>
@@ -42,6 +43,7 @@ $(function() {
                         <td><?php echo ($key+1) ?></td>
                         <td><?php echo $value->descripcion ?></td>
                         <td><?php echo $value->detalle ?></td>
+                        <td><?php echo $value->costo ?></td>
                         <td>
                             <div class="input-group">
                                 <div class="input-group-prepend" id="button-addon3">

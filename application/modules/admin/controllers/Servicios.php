@@ -7,6 +7,7 @@ class Servicios extends MX_Controller {
     public $data =[
         "descripcion" => "",
         "detalle" => "",
+        "costo" => "",
         "fechaRegistro" => "",
         "idEstados" => "1"
     ];
@@ -34,6 +35,7 @@ class Servicios extends MX_Controller {
 	public function agregar(){ 
         $this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|required');
         $this->form_validation->set_rules('detalle', 'Detalle', 'trim|required');
+        $this->form_validation->set_rules('costo', 'Costo', 'trim|required');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
@@ -56,6 +58,7 @@ class Servicios extends MX_Controller {
 	public function editar($id){ 
         $this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|required');
         $this->form_validation->set_rules('detalle', 'Detalle', 'trim|required');
+        $this->form_validation->set_rules('costo', 'Costo', 'trim|required');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
