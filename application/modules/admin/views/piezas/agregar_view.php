@@ -16,9 +16,9 @@
                 <form method="post">
                     <?php helper_form_text("codigo","Codigo") ?>
                     <?php helper_form_text("descripcion","Descripción") ?>
-                    <?php helper_form_text("costo","Precio de Venta") ?>
-                    <?php helper_form_text("precioCosto","Precio de Costo") ?>
-                    <?php helper_form_text("stock","Stock") ?>
+                    <?php helper_form_text("costo","Precio de Venta","","number") ?>
+                    <?php helper_form_text("precioCosto","Precio de Costo","","number") ?>
+                    <?php helper_form_text("stock","Stock","","number") ?>
 
 
                     <button type="submit" class="btn btn-outline-success"><i class="fas fa-save"></i> Guardar</button>
