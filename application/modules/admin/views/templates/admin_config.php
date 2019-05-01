@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="static/modules/admin/estilo.css">
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Exo">
     <link href="static/main/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <!--[if IE]>
 		<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
@@ -19,6 +20,10 @@
     <script type="text/javascript" src="static/main/jquery.js"> </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script type="text/javascript" src="static/main/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js" ></script>
+
     <link rel="icon" href="osinerg.ico" type="image/ico">
     <script>
         $(function(){
