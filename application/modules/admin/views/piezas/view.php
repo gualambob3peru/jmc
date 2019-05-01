@@ -11,7 +11,15 @@ $(function() {
         window.location = "admin/"+controller+"/eliminar/"+$("#modalEliminar").attr("elId");
     });
 
-    $('#miTable').DataTable();
+    $('#miTable').DataTable( {
+        "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por pagina",
+            "zeroRecords": "No se encontro",
+            "info": "Mostrando pagina _PAGE_ de _PAGES_",
+            "infoEmpty": "No se encontraron",
+            "infoFiltered": "(Buscando de _MAX_ total registros)"
+        }
+    } );
 });
 </script>
 
