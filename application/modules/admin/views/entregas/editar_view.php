@@ -129,7 +129,7 @@ $(function() {
     });
 
     $("#idServicios").change(function() {
-        $("#monto").val($(this).attr("monto"));
+        $("#monto").val($(this).find(":selected").attr("monto"));
     });
 
 
@@ -207,6 +207,15 @@ $(function() {
 
     $("body").on("click", ".btnAjaxRepuesEliminar", function() {
         let idServicioRepuestos = $(this).parents("tr").eq(0).attr("idServicioRepuestos");
+        $(this).parents("tr").eq(0).attr("id","servicio"+idServicioRepuestos);
+
+        $("#modalQuitarRepuesto").modal();
+        $("#modalQuitarRepuesto").attr("idServicioRepuestos",idServicioRepuestos);
+    });
+
+
+    $("body").on("click", ".btnQuitarRepuestoAceptar", function() {
+        let idServicioRepuestos = $("#modalQuitarRepuesto").attr("idServicioRepuestos");
         $this = $(this);
         $.ajax({
             url: "admin/entregas/btnAjaxServRepuesEliminar",
@@ -216,15 +225,21 @@ $(function() {
                 idServicioRepuestos: idServicioRepuestos
             },
             success: function(response) {
-                $this.parents("tr").eq(0).remove();
+                $("#servicio"+idServicioRepuestos).remove();
 
             }
         });
     });
 
 
+
+
     $("#btnModalRepuestos").click(function() {
         let $this = $("#idPiezas");
+        $("#stock").val("");
+        $("#cantidad").val("");
+        $("#costoMonto").val("");
+
         $.ajax({
             url: "admin/piezas/getAjaxPiezas",
             type: "post",
@@ -734,6 +749,28 @@ $(function() {
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" data-dismiss="modal">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" id="modalQuitarRepuesto" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Quitar repuesto</h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>¿Desea quitar el repuesto?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger btnQuitarRepuestoAceptar">Aceptar</button>
             </div>
         </div>
     </div>

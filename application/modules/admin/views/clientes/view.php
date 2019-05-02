@@ -35,8 +35,8 @@ $(function() {
                 <table class="table">
                     <tr>
                         <th>Nombres</th>
-                        <th>Tipo de Documento</th>
                         <th>Documento</th>
+                        <th>Número</th>
                         <th>Dirección</th>
                         <th>Correo</th>
                         <th>Saldo</th>
