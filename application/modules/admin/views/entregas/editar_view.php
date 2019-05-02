@@ -128,7 +128,11 @@ $(function() {
         $("#monto").val("");
     });
 
-   
+
+    $("#idServicios").change(function() {
+     
+        $("#monto").val($(this).find(":selected").attr("monto"));
+    });
 
 
 
@@ -262,7 +266,7 @@ $(function() {
 
     $("#idPiezas").change(function() {
         $("#stock").val($(this).find(":selected").attr("stock"));
-        $("#monto").val($(this).find(":selected").attr("costo"));
+
     });
 
     $("#cantidad").keyup(function() {
@@ -522,7 +526,7 @@ $(function() {
 
 
                     <div class="form-group row">
-                        <label for="idPersonas" class="col-sm-4 col-form-label">Mecánico</label>
+                        <label for="idPersonas" class="col-sm-4 col-form-label">Servicio</label>
                         <div class="col-sm-8">
                             <select class="form-control" name="idServicios" id="idServicios">
                                 <option value="">Elegir...</option>
