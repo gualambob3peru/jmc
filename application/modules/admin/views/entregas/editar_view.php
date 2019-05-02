@@ -128,9 +128,7 @@ $(function() {
         $("#monto").val("");
     });
 
-    $("#idServicios").change(function() {
-        $("#monto").val($(this).find(":selected").attr("monto"));
-    });
+   
 
 
 
@@ -226,7 +224,7 @@ $(function() {
             },
             success: function(response) {
                 $("#servicio"+idServicioRepuestos).remove();
-
+                $("#modalQuitarRepuesto").modal("hide");
             }
         });
     });
@@ -264,6 +262,7 @@ $(function() {
 
     $("#idPiezas").change(function() {
         $("#stock").val($(this).find(":selected").attr("stock"));
+        $("#monto").val($(this).find(":selected").attr("costo"));
     });
 
     $("#cantidad").keyup(function() {
