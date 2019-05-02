@@ -128,7 +128,7 @@ $(function() {
         $("#monto").val("");
     });
 
-    $("#btnAddServicio").change(function() {
+    $("#idServicios").change(function() {
         $("#monto").val($(this).attr("monto"));
     });
 
@@ -304,24 +304,24 @@ $(function() {
 
     });
 
-    $("body").on("click",".imagenCarrusel",function(){
+    $("body").on("click", ".imagenCarrusel", function() {
         $("#modalCarrusel").modal();
-        $("#imagenModalCarrusel").attr("src",$(this).attr("src"));
+        $("#imagenModalCarrusel").attr("src", $(this).attr("src"));
     })
 
 })
 </script>
 
 
-    <input type="hidden" id="ide" value="<?php echo $id; ?>">
-    <div class="row">
-        <div class="col-md-12">
+<input type="hidden" id="ide" value="<?php echo $id; ?>">
+<div class="row">
+    <div class="col-md-12">
 
-            <div class="card">
-                <h5 class="card-header">Editar Registros de Vehículos</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-8">
+        <div class="card">
+            <h5 class="card-header">Editar Registros de Vehículos</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
                         <form action="" method="post" enctype="multipart/form-data">
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
@@ -348,47 +348,48 @@ $(function() {
                             <div class="form-group row">
                                 <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
                                 <div class="col-sm-8">
-                                    <input multiple="multiple" type="file" name="imagen[]" class="form-control" value="">
+                                    <input multiple="multiple" type="file" name="imagen[]" class="form-control"
+                                        value="">
                                 </div>
                             </div>
-                            
 
-                            <button type="submit" class="btn btn-lg btn-success"><i
-                                    class="fas fa-save"></i> Guardar</button>
+
+                            <button type="submit" class="btn btn-lg btn-success"><i class="fas fa-save"></i>
+                                Guardar</button>
                         </form>
-                        </div>
+                    </div>
 
-                        <div class="col-md-4">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <td>Cliente</td>
-                                    <td id="ajax_cliente"></td>
-                                </tr>
-                                <tr>
-                                    <td>Marca</td>
-                                    <td id="ajax_marca"></td>
-                                </tr>
-                                <tr>
-                                    <td>Modelo</td>
-                                    <td id="ajax_modelo"></td>
-                                </tr>
-                                <tr>
-                                    <td>Placa</td>
-                                    <td id="ajax_placa"></td>
-                                </tr>
-                                <tr>
-                                    <td>Año</td>
-                                    <td id="ajax_anio"></td>
-                                </tr>
-                            </table>
+                    <div class="col-md-4">
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>Cliente</td>
+                                <td id="ajax_cliente"></td>
+                            </tr>
+                            <tr>
+                                <td>Marca</td>
+                                <td id="ajax_marca"></td>
+                            </tr>
+                            <tr>
+                                <td>Modelo</td>
+                                <td id="ajax_modelo"></td>
+                            </tr>
+                            <tr>
+                                <td>Placa</td>
+                                <td id="ajax_placa"></td>
+                            </tr>
+                            <tr>
+                                <td>Año</td>
+                                <td id="ajax_anio"></td>
+                            </tr>
+                        </table>
 
-                            <div>
-                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                    <ol class="carousel-indicators">
-                                      
+                        <div>
+                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
 
-                                        <?php foreach($imagenes as $key=>$value): ?>
-                                            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key ?>">
+
+                                    <?php foreach($imagenes as $key=>$value): ?>
+                                    <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key ?>">
                                         <?php endforeach; ?>
 
 
@@ -396,71 +397,72 @@ $(function() {
                                         </li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
-                                    </ol>
-                                    <div class="carousel-inner">
-                                        <?php foreach($imagenes as $key=>$value): ?>
-                                            <?php $active = ($key==0)?'active':'' ?>
-                                            <div class="carousel-item <?php echo $active?>">
-                                                <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100 imagenCarrusel" alt="...">
-                                            </div>
-                                        <?php endforeach; ?>
-
-                                        
-                                     
+                                </ol>
+                                <div class="carousel-inner">
+                                    <?php foreach($imagenes as $key=>$value): ?>
+                                    <?php $active = ($key==0)?'active':'' ?>
+                                    <div class="carousel-item <?php echo $active?>">
+                                        <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>"
+                                            class="d-block w-100 imagenCarrusel" alt="...">
                                     </div>
-                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
-                                        data-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Previous</span>
-                                    </a>
-                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
-                                        data-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="sr-only">Next</span>
-                                    </a>
+                                    <?php endforeach; ?>
+
+
+
                                 </div>
+                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button"
+                                    data-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button"
+                                    data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
                             </div>
                         </div>
                     </div>
-
                 </div>
 
             </div>
 
-
         </div>
+
+
     </div>
+</div>
 
-    <br>
+<br>
 
-    <div class="row">
-        <div class="col-md-12   ">
-            <div class="card">
-                <h5 class="card-header">Catálogo de servicios</h5>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-outline-info" id="btnAddServicio" data-toggle="tooltip" data-placement="top" title="Agregar Servicio"><i
-                                    class="fas fa-plus"></i></button>
+<div class="row">
+    <div class="col-md-12   ">
+        <div class="card">
+            <h5 class="card-header">Catálogo de servicios</h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-outline-info" id="btnAddServicio" data-toggle="tooltip"
+                            data-placement="top" title="Agregar Servicio"><i class="fas fa-plus"></i></button>
 
-                            <br>
-                            <br>
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Fecha</th>
-                                        <th>Nombre</th>
-                                        <th>Mano de Obra</th>
-                                        <th>Repuestos</th>
-                                        <th>Mecánico</th>
-                                        <th>Total</th>
-                                        <th>Acciones</th>
-                                    </tr>
+                        <br>
+                        <br>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Nombre</th>
+                                    <th>Mano de Obra</th>
+                                    <th>Repuestos</th>
+                                    <th>Mecánico</th>
+                                    <th>Total</th>
+                                    <th>Acciones</th>
+                                </tr>
 
-                                </thead>
+                            </thead>
 
-                                <tbody id="tbodyServicios">
-                                    <?php
+                            <tbody id="tbodyServicios">
+                                <?php
                                         foreach ($entregaServicios as $key => $value) {
                                             echo "<tr>";
                                             echo "<td>".substr($value->fechaServicio,0,10)."</td>";
@@ -474,18 +476,18 @@ $(function() {
                                         }
 
                                     ?>
-                                </tbody>
-                            </table>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
-
                 </div>
 
             </div>
+
         </div>
-
-
     </div>
+
+
+</div>
 
 
 <div class="modal fade" id="modalAddServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
@@ -504,12 +506,21 @@ $(function() {
 
                     <?php helper_form_select("idPersonas","Mecánico",$personas,"nombresCompletos" ) ?>
 
-                    <select class="form-control" name="idServicios" id="idServicios">
-						<option value="">Elegir...</option>
-                        <?php foreach($servicios as $key=>$value): ?>
-                            <option value="<?php echo $value->id ?>" monto="<?php echo $value->costo ?>"><?php echo $value->descripcion ?></option>
-                        <?php endforeach; ?>
-					</select>
+
+                    <div class="form-group row">
+                        <label for="idPersonas" class="col-sm-4 col-form-label">Mecánico</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" name="idServicios" id="idServicios">
+                                <option value="">Elegir...</option>
+                                <?php foreach($servicios as $key=>$value): ?>
+                                <option value="<?php echo $value->id ?>" monto="<?php echo $value->costo ?>">
+                                    <?php echo $value->descripcion ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+
+
 
                     <!-- <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?> -->
 
