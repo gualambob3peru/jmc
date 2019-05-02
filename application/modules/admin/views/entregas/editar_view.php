@@ -330,6 +330,7 @@ $(function() {
     $("#formSaveRepuestos").submit(function(e){
         if($("[name='idRepuestos[]'").length == 0){
             e.preventDefault();
+            $("#modalAddRepuestos").modal("hide");
             return false;
         }
     });
