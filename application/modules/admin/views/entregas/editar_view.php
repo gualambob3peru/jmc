@@ -122,9 +122,15 @@ $(function() {
 
     $("#btnAddServicio").click(function() {
         $("#modalAddServicio").modal();
+        $("#idPersonas").val("");
+        $("#idServicios").val("");
+        $("#observacionesServicio").val("");
+        $("#monto").val("");
     });
 
-
+    $("#btnAddServicio").change(function() {
+        $("#monto").val($(this).attr("monto"));
+    });
 
 
 
@@ -497,7 +503,17 @@ $(function() {
                 <div class="modal-body">
 
                     <?php helper_form_select("idPersonas","Mecánico",$personas,"nombresCompletos" ) ?>
-                    <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?>
+
+                    <select class="form-control" name="idServicios" id="idServicios">
+						<option value="">Elegir...</option>
+                        <?php foreach($servicios as $key=>$value): ?>
+                            <option value="<?php echo $value->id ?>" monto="<?php echo $value->costo ?>"><?php echo $value->descripcion ?></option>
+                        <?php endforeach; ?>
+					</select>
+
+                    <!-- <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?> -->
+
+
                     <?php helper_form_textarea("observacionesServicio","Observaciones") ?>
                     <?php helper_form_text("fechaEntregaServicio","Fecha de Servicio",date("Y-m-d"),"date") ?>
                     <?php helper_form_text("monto","Monto","","number") ?>
