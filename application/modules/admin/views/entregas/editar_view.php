@@ -327,6 +327,13 @@ $(function() {
         $("#imagenModalCarrusel").attr("src", $(this).attr("src"));
     })
 
+    $("#formSaveRepuestos").submit(function(e){
+        if($("[name='idRepuestos[]'").length == 0){
+            e.preventDefault();
+            return false;
+        }
+    });
+
 })
 </script>
 
@@ -528,7 +535,7 @@ $(function() {
                     <div class="form-group row">
                         <label for="idPersonas" class="col-sm-4 col-form-label">Servicio</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="idServicios" id="idServicios">
+                            <select required class="form-control" name="idServicios" id="idServicios">
                                 <option value="">Elegir...</option>
                                 <?php foreach($servicios as $key=>$value): ?>
                                 <option value="<?php echo $value->id ?>" monto="<?php echo $value->costo ?>">
@@ -540,7 +547,7 @@ $(function() {
 
 
 
-                    <!-- <?php helper_form_select("idServicios","Catálogo",$servicios,"descripcion" ) ?> -->
+                    
 
 
                     <?php helper_form_textarea("observacionesServicio","Observaciones") ?>
@@ -561,7 +568,7 @@ $(function() {
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="admin/entregas/postSavePiezas" method="post">
+            <form id="formSaveRepuestos" action="admin/entregas/postSavePiezas" method="post">
                 <input type="hidden" name="idEntregaServicios" id="modalIdEntregaServicios">
                 <input type="hidden" name="idEntrega" value="<?php echo $model->id ?>">
                 <div class="modal-header">
@@ -609,7 +616,7 @@ $(function() {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-outline-success">Guardar</button>
+                    <button type="submit" class="btn btn-outline-success" id="saveRepuestos">Guardar</button>
                 </div>
             </form>
         </div>
