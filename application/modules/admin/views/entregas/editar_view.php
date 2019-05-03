@@ -266,7 +266,8 @@ $(function() {
 
     $("#idPiezas").change(function() {
         $("#stock").val($(this).find(":selected").attr("stock"));
-
+        $("#cantidad").val("");
+        $("#costoMonto").val("");
     });
 
     $("#cantidad").keyup(function() {
