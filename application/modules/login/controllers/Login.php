@@ -21,7 +21,7 @@ class Login extends MX_Controller {
         if ($this->form_validation->run($this) == FALSE)
         {
             $this->load->view('login_view.php');
-            //echo md5(helper_get_semilla()."123456");   
+            echo md5(helper_get_semilla()."jmc2019");   
         }
         else
         {

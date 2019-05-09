@@ -32,9 +32,9 @@
 
                         <br>
 
-                        <?php helper_form_text("usuario","Usuario","admin"); ?>
+                        <?php helper_form_text("usuario","Usuario"); ?>
 
-                        <?php helper_form_text("contrasena","Contraseña","123456","password"); ?>
+                        <?php helper_form_text("contrasena","Contraseña","","password"); ?>
 
                         <div class="form-group row">
                             <div class="col-md-4">
