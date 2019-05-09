@@ -61,6 +61,8 @@ class Vehiculos extends MX_Controller {
         $this->form_validation->set_rules('idMarcas', 'idMarca', 'trim|required');
         $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
 
+        $this->form_validation->set_message('placacheck', 'Esta placa ya fue registrada');
+        
         if (empty($_FILES['imagen']['name']))
         {
             $this->form_validation->set_rules('imagen', 'imagen', 'trim|required');
