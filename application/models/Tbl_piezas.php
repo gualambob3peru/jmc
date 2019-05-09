@@ -19,6 +19,18 @@ class Tbl_piezas extends CI_Model{
         }
     }
 
+    public function get_campo($campo,$valor){
+        try {
+            
+            $this->db->where($campo,$valor);
+
+            $query = $this->db->get($this->tabla);
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function get_all(){
         try {
             $this->db->where("idEstados", "1");

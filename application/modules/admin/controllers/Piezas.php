@@ -33,8 +33,19 @@ class Piezas extends MX_Controller {
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
     
+    public function codigocheck($codigo){
+        $pieza = $this->obj_model->get_campo("codigo",$codigo);
+
+        if(is_object($pieza)){
+            $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
+
 	public function agregar(){ 
-        $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required');
+        $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required|callback_codigocheck');
         $this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required');
         $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
         $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
