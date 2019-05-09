@@ -1,4 +1,4 @@
-application/config/*
+
 
 application/cache/*
 !application/cache/index.html
