@@ -289,7 +289,14 @@ $(function() {
             desIdPieza = $("#idPiezas").find(":selected").text().trim(),
             cantidad = $("#cantidad").val(),
             costoMonto = $("#costoMonto").val(),
+            factura =  $("#factura").is(":checked")
             row = "";
+
+        if(factura){
+            factura = 1;
+        }else{
+            factura = 0;
+        }
 
         if (idPieza == "" || cantidad == "") {
             alert("Debe llenar todos los campos")
@@ -673,6 +680,14 @@ $(function() {
                             <input type="text" name="costoMonto" id="costoMonto" class="form-control">
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="factura" class="col-sm-4 col-form-label">Factura</label>
+                        <div class="col-sm-8">
+                            <input type="checkbox" name="factura" id="factura" class="form-control">
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
