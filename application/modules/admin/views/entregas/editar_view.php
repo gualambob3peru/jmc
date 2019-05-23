@@ -302,7 +302,7 @@ $(function() {
             alert("Debe llenar todos los campos")
             return;
         }
-        row = "<tr><td><input type='hidden' name='idRepuestos[]' value='" + idPieza +
+        row = "<tr><td><input type='hidden' name='factura[]' value='"+factura+"'><input type='hidden' name='idRepuestos[]' value='" + idPieza +
             "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
             desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
             cantidad + "</td> <td> " + costoMonto +
