@@ -183,7 +183,7 @@ $(function() {
             },
             success: function(response) {
                 let rows =
-                    "<tr><th>Repuesto</th><th>Cantidad</th><th>Costo</th><th>Acciones</th></tr>",
+                    "<tr><th>Repuesto</th><th>Cantidad</th><th>Costo</th><th>Factura</th><th>Acciones</th></tr>",
                     repuestos = response.repuestos;
 
                 for (i in repuestos) {
