@@ -191,6 +191,7 @@ $(function() {
                     rows += "<td>" + repuestos[i].descripcion + "</td>";
                     rows += "<td>" + repuestos[i].cantidad + "</td>";
                     rows += "<td>" + repuestos[i].monto + "</td>";
+                    rows += "<td>" + ((repuestos[i].factura==1)?"<i class='fas fa-check'></i>":"") + "</td>";
                     rows +=
                         "<td> <button type='button' class='btnAjaxRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td>";
                     rows += "</tr>";
@@ -611,6 +612,7 @@ $(function() {
                                     <th>Repuesto</th>
                                     <th>Cantidad</th>
                                     <th>Costo</th>
+                                    <th>Factura</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>

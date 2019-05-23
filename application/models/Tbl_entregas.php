@@ -85,7 +85,7 @@ class Tbl_entregas extends CI_Model{
     public function getRepuestos_ES($idEntregasServicios){
         try {
             $this->db->from("servicioRepuestos sR");
-            $this->db->select("sR.id,sR.monto, sR.idEntregaServicios, sR.idPiezas, sR.cantidad, sR.monto, r.descripcion");
+            $this->db->select("sR.id,sR.monto, sR.idEntregaServicios, sR.idPiezas, sR.cantidad,sR.factura, sR.monto, r.descripcion");
 
             $this->db->join("piezas r","sR.idPiezas=r.id");
             $this->db->where("sR.idEstados", "1");
