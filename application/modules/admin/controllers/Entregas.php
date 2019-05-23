@@ -394,6 +394,7 @@ class Entregas extends MX_Controller {
     public function postSavePiezas(){
         
 
+        $factura = $this->input->post("factura");
         $idPiezas = $this->input->post("idRepuestos");
         $cantidad = $this->input->post("cantidad");
         $monto = $this->input->post("monto");
@@ -407,6 +408,7 @@ class Entregas extends MX_Controller {
             $data["idPiezas"] = $idPiezas[$key];
             $data["cantidad"] = $cantidad[$key];
             $data["monto"] = $monto[$key];
+            $data["factura"] = $factura[$key];
             $this->obj_model->insert_servicioRepuestos($data);
 
             //actualizando stock de piezas
