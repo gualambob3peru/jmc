@@ -23,6 +23,7 @@ class Tbl_piezas extends CI_Model{
         try {
             
             $this->db->where($campo,$valor);
+            $this->db->where("idEstados","1");
 
             $query = $this->db->get($this->tabla);
             return $query->row();
