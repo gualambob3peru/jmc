@@ -71,10 +71,32 @@ class Piezas extends MX_Controller {
     }
 
 	public function editar($id){ 
-        $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required');
+        $this->form_validation->set_rules('codigo', 'Codigo', array(
+            'required',
+            array(
+                    'codigo_callable',
+                    function($codigo)
+                    {
+                            if($id==$codigo){
+                                return TRUE;
+                            }else{
+                                $pieza = $this->obj_model->get_campo("codigo",$codigo);
+ 
+                                if(is_object($pieza)){
+                                    $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado');
+                                    return FALSE;
+                                }else{
+                                    return TRUE;
+                                }
+                            }
+                    }
+                )
+            ));
         $this->form_validation->set_rules('descripcion', 'Descripción', 'trim|required');
         $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
         $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
+
+        $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado.');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
