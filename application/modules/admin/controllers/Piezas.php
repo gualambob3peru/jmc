@@ -35,7 +35,7 @@ class Piezas extends MX_Controller {
     
     public function codigocheck($codigo){
         $pieza = $this->obj_model->get_campo("codigo",$codigo);
-        echo "Hola";
+       
         echo "<pre>";
         print_r($pieza);
         echo "</pre>";
@@ -54,7 +54,7 @@ class Piezas extends MX_Controller {
         $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
         $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
 
-        $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado');
+        $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado.');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
         
