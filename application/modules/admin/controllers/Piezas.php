@@ -74,7 +74,7 @@ class Piezas extends MX_Controller {
         $this->form_validation->set_rules('codigo', 'Codigo', array(
             'required',
             array(
-                    'codigo_callable',
+                    'codigocheck',
                     function ($codigo) use (&$id)
                     {
                             if($id==$codigo){
