@@ -71,13 +71,17 @@ class Piezas extends MX_Controller {
     }
 
 	public function editar($id){ 
+
+        $pieza = $this->obj_model->get_id($id);
+        $mismoCodigo = $pieza->codigo;
+
         $this->form_validation->set_rules('codigo', 'Codigo', array(
             'required',
             array(
                     'codigocheck',
-                    function ($codigo) use (&$id)
+                    function ($codigo) use (&$mismoCodigo)
                     {
-                            if($id==$codigo){
+                            if($codigo==$mismoCodigo){
                                 return TRUE;
                             }else{
                                 $pieza = $this->obj_model->get_campo("codigo",$codigo);
