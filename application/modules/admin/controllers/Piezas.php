@@ -75,7 +75,7 @@ class Piezas extends MX_Controller {
             'required',
             array(
                     'codigo_callable',
-                    function($codigo,$id)
+                    function ($codigo) use (&$id)
                     {
                             if($id==$codigo){
                                 return TRUE;
