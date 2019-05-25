@@ -35,6 +35,10 @@ class Piezas extends MX_Controller {
     
     public function codigocheck($codigo){
         $pieza = $this->obj_model->get_campo("codigo",$codigo);
+        echo "Hola";
+        echo "<pre>";
+        print_r($pieza);
+        echo "</pre>";
 
         if(is_object($pieza)){
             $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado');
