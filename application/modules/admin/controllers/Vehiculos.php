@@ -33,7 +33,7 @@ class Vehiculos extends MX_Controller {
         date_default_timezone_set("America/Lima");
 
         $this->load->library('form_validation');
-        $this->form_validation->CI =&$this;
+       
        
     }
 	 
