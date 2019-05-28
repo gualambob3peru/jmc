@@ -263,7 +263,7 @@ class Entregas extends MX_Controller {
         $entregasServicios = $this->obj_model->get_entregaServicios($id);
 
         foreach ($entregasServicios as $key => $value) {
-            $this->eliminarServicio($value->id,$id);
+            $this->eliminarEspecial($value->id,$id);
         }
 
         $data = [
@@ -344,6 +344,45 @@ class Entregas extends MX_Controller {
         $this->obj_clientes->update_saldo($entrega->idClientes,$montoRepuestos,2);
 
         redirect("admin/".$this->controller."/editar/".$idEntrega);
+    }
+
+    public function eliminarEspecial($id,$idEntrega){ 
+
+        //hallando servicio y poniendo en estado 0
+        $data = [
+            "idEstados" => "0"
+        ];
+
+        $servicio = $this->obj_model->get_idEntregasServicios($id);
+        $this->obj_model->updateServicio($data,$id);
+
+        //borrando imagenes del servicio
+        $data = ["idEstados" => "0"];
+        $this->obj_model->updateImagenEntregas($data,$id,"idEntregaServicios");
+        $imagenesServicio = $this->obj_model->getImagenes($id,"idEntregaServicios");
+        
+        foreach ($imagenesServicio as $key => $value) {
+            $ruta = "static/images/entregas/".$idEntrega."/".$id."/".$value->imagen;
+            if (file_exists($ruta)){
+                unlink($ruta);
+            }
+        }
+
+
+
+        //actualizando saldo de clientes
+        $entrega = $this->obj_model->get_id($idEntrega);
+        $this->obj_clientes->update_saldo($entrega->idClientes,$servicio->monto,2);
+        
+        //Sumando monto de repuestos para actualizar entrega servicios
+        $servicioRepuestos = $this->obj_model->getRepuestos_ES($servicio->id);
+        $montoRepuestos = 0;
+        foreach ($servicioRepuestos as $key => $value) {
+            $montoRepuestos += (float)$value->monto;
+        }
+        $this->obj_clientes->update_saldo($entrega->idClientes,$montoRepuestos,2);
+
+        //redirect("admin/".$this->controller."/editar/".$idEntrega);
     }
 
     public function upPost($data){
