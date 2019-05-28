@@ -257,6 +257,14 @@ class Entregas extends MX_Controller {
     }
 
 	public function eliminar($id){ 
+
+        //listando entregaservicios de la entrega
+        $entregasServicios = $this->obj_entregaServicios->get_entregaServicios($id);
+
+        foreach ($entregaServicios as $key => $value) {
+            eliminarServicio($value->id,$id);
+        }
+
         $data = [
             "idEstados" => "0"
         ];
