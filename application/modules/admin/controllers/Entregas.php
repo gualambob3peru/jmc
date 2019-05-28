@@ -56,7 +56,7 @@ class Entregas extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
-            echo "-";
+            
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());
@@ -260,7 +260,7 @@ class Entregas extends MX_Controller {
 	public function eliminar($id){ 
 
         //listando entregaservicios de la entrega
-        $entregasServicios = $this->obj_entregaServicios->get_entregaServicios($id);
+        $entregasServicios = $this->obj_model->get_entregaServicios($id);
 
         foreach ($entregaServicios as $key => $value) {
             eliminarServicio($value->id,$id);
