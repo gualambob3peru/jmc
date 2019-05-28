@@ -263,7 +263,7 @@ class Entregas extends MX_Controller {
         $entregasServicios = $this->obj_model->get_entregaServicios($id);
 
         foreach ($entregasServicios as $key => $value) {
-            eliminarServicio($value->id,$id);
+            $this->eliminarServicio($value->id,$id);
         }
 
         $data = [
