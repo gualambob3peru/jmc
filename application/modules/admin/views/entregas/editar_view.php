@@ -498,7 +498,9 @@ $(function() {
 
                             <tbody id="tbodyServicios">
                                 <?php
+                                        $total = 0;
                                         foreach ($entregaServicios as $key => $value) {
+                                            $total+=$value->monto + $value->montoTotal;
                                             echo "<tr>";
                                             echo "<td>".substr($value->fechaServicio,0,10)."</td>";
                                             echo "<td>".$value->descripcion."</td>";
@@ -511,6 +513,12 @@ $(function() {
                                         }
 
                                     ?>
+                                <tr>
+                                    
+                                    <th colspan="4"></th>
+                                    <th>Total</th>
+                                    <th><?php echo $total ?></th>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

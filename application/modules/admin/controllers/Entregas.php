@@ -449,7 +449,8 @@ class Entregas extends MX_Controller {
         $idEntregaServicios = $this->input->post("idEntregaServicios");
         $idEntrega = $this->input->post("idEntrega");
         
-
+        
+        $montoTotalRepuestos = 0;
         foreach ($idPiezas as $key => $value) {
             $data = array();
             $data["idEntregaServicios"] = $idEntregaServicios;
@@ -457,27 +458,30 @@ class Entregas extends MX_Controller {
             $data["cantidad"] = $cantidad[$key];
             $data["monto"] = $monto[$key];
             $data["factura"] = $factura[$key];
+            $montoTotalRepuestos+=(float)$monto[$key];
+           
+            
             $this->obj_model->insert_servicioRepuestos($data);
 
             //actualizando stock de piezas
             $this->obj_piezas->update_cantidad($idPiezas[$key],$cantidad[$key],2);
         }
-
+        
         //SUmando monto de repuestos para actualizar entrega servicios
-        $servicioRepuestos = $this->obj_model->getRepuestos_ES($idEntregaServicios);
-        $montoRepuestos = 0;
-        foreach ($servicioRepuestos as $key => $value) {
-            $montoRepuestos += (float)$value->monto;
-        }
+        // $servicioRepuestos = $this->obj_model->getRepuestos_ES($idEntregaServicios);
+        // $montoRepuestos = 0;
+        // foreach ($servicioRepuestos as $key => $value) {
+        //     $montoRepuestos += (float)$value->monto;
+        // }
 
         $data = array();
-        $data["montoRepuestos"] = $montoRepuestos;
+        $data["montoRepuestos"] = $montoTotalRepuestos;
         $this->obj_model->updateServicio($data,$idEntregaServicios);
 
         $entrega = $this->obj_model->get_id($idEntrega); 
         $vehiculo = $this->obj_vehiculos->get_id($entrega->idVehiculos);
 
-        $this->obj_clientes->update_saldo($vehiculo->idClientes,$montoRepuestos);
+        $this->obj_clientes->update_saldo($vehiculo->idClientes,$montoTotalRepuestos);
 
         //actualizando monto Total
         $entregaServicio = $this->obj_model->get_idEntregasServicios($idEntregaServicios);

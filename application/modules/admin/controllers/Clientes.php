@@ -32,6 +32,8 @@ class Clientes extends MX_Controller {
     }
 	 
 	public function index(){ 
+        //Calculando Saldo
+
         $this->tmp_admin->set("controller",$this->controller);
         $this->tmp_admin->set("model",$this->obj_model->get_all());
         $this->load->tmp_admin->setLayout($this->template);
