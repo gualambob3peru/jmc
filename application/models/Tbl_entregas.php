@@ -97,6 +97,42 @@ class Tbl_entregas extends CI_Model{
         }
     }
 
+    public function getServicioRepuesto_all($fechaInicio="",$fechaFin="",$factura=0){
+        try {
+            $this->db->from("servicioRepuestos sR");
+            $this->db->select("sR.id,sR.monto,es.fechaServicio, sR.idEntregaServicios, sR.idPiezas, sR.cantidad,sR.factura, sR.monto, r.descripcion,v.placa,c.nombresCompletos");
+
+            $this->db->join("piezas r","sR.idPiezas=r.id");
+            $this->db->join("entregaServicios es","es.id=sR.idEntregaServicios");
+            $this->db->join("entregas e","e.id=es.idEntregas");
+            $this->db->join("vehiculos v","v.id=e.idVehiculos");
+            $this->db->join("clientes c","c.id=v.idClientes");
+
+            $this->db->where("sR.idEstados", "1");
+
+            if($fechaInicio!=""){
+                $this->db->where("es.fechaServicio >= ", $fechaInicio);
+            }
+
+            if($fechaFin!=""){
+                $this->db->where("es.fechaServicio < ", $fechaFin);
+            }
+
+            $this->db->where("sR.idEstados", "1");
+
+            if($factura==1){
+                $this->db->where("sR.factura", "1");
+            }
+   
+            $query = $this->db->get();
+
+            // echo $this->db->last_query();
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function get_entregaServicios($idEntregas){
         $this->db->from("entregaServicios eS");
             $this->db->select("eS.id,eS.montoTotal,eS.idPersonas, eS.idServicios,eS.idEntregas, eS.monto,eS.observacionesServicio,p.nombresCompletos,s.descripcion,eS.fechaServicio");

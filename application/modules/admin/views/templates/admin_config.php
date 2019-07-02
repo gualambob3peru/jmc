@@ -191,7 +191,15 @@
 
                     </div>
 
-                    <a class="barraEnlace" href="admin/reportes"><i class="fas fa-car"></i> Reportes</a>
+                    <div class="barraEnlace barraPadre" style="position:relative">
+                        <i class="fas fa-cogs"></i> Reportes
+
+                        <div class="subMenu">
+                            <a href="admin/reportes/repuestos" class="barraEnlace">Repuestos</a>
+                    
+                        </div>
+
+                    </div>
                 </div>
             </div>
             <div class="col-md-10 cuerpo">
