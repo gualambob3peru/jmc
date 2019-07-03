@@ -119,6 +119,8 @@ class Tbl_entregas extends CI_Model{
             }
 
             $this->db->where("sR.idEstados", "1");
+            $this->db->where("es.idEstados", "1");
+            $this->db->where("e.idEstados", "1");
 
             if($factura==1){
                 $this->db->where("sR.factura", "1");
