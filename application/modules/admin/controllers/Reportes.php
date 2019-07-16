@@ -51,6 +51,19 @@ class Reportes extends MX_Controller {
         $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/repuestos.php');
     }
+    public function repuestosPendientes(){ 
+        
+        $repuestos = $this->obj_entregas->getServicioRepuesto_all("", "", 0);
+
+        $this->tmp_admin->set("repuestos",$repuestos);
+
+        $this->tmp_admin->set("controller",$this->controller);
+        $this->tmp_admin->set("model",$this->obj_model->get_all());
+        $this->load->tmp_admin->setLayout($this->template);
+        $this->load->tmp_admin->render($this->cview.'/repuestos_pendientes.php');
+    }
+
+    
     
 	public function agregar(){ 
         $this->form_validation->set_rules('descripcion', 'descripcion', 'trim|required');
@@ -113,6 +126,26 @@ class Reportes extends MX_Controller {
         return $data;
     }
 
+
+    public function ajaxSaveFacturacion(){
+        if($this->input->is_ajax_request()){
+            $fechaFacturacion = $this->input->post("fechaFacturacion"); 
+            $id = $this->input->post("id"); 
+         
+         
+            $this->saveFacturacion($id, $fechaFacturacion);
+            echo json_encode(array("respuesta" => 1));
+        }
+    }
+
+    public function saveFacturacion($id, $fechaFacturacion){
+        $data = array(
+            "fechaFacturacion" => $fechaFacturacion,
+            "factura" => 1
+        );
+   
+        $this->obj_entregas->updateServicioRepuestos($data,$id);
+    }
     
     public function logout(){                     
         $this->session->unset_userdata('logged');

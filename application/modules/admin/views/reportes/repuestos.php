@@ -34,7 +34,7 @@ $(function() {
 
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <input type="checkbox" aria-label="Factura" id="factura" <?php echo (($factura=="true")?"checked":" ") ?>  >
+                            <input type="checkbox" aria-label="Factura" id="factura" <?php echo (($factura=="false")?"":"checked") ?>  >
                         </div>
                     </div>
                     <div class="input-group-append">

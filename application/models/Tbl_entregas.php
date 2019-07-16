@@ -122,9 +122,9 @@ class Tbl_entregas extends CI_Model{
             $this->db->where("es.idEstados", "1");
             $this->db->where("e.idEstados", "1");
 
-            if($factura==1){
-                $this->db->where("sR.factura", "1");
-            }
+           
+                $this->db->where("sR.factura", $factura);
+            
    
             $query = $this->db->get();
 
@@ -246,6 +246,7 @@ class Tbl_entregas extends CI_Model{
         try {
             $this->db->where($this->id, $id);
             $this->db->update("servicioRepuestos", $data);
+           // echo $this->db->last_query();
         } catch (Exception $exc) {
             return FALSE;   
         }

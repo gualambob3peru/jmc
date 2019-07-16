@@ -196,6 +196,7 @@
 
                         <div class="subMenu">
                             <a href="admin/reportes/repuestos" class="barraEnlace">Repuestos</a>
+                            <a href="admin/reportes/repuestosPendientes" class="barraEnlace">Repuestos Pendientes</a>
                     
                         </div>
 
