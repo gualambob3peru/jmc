@@ -56,7 +56,7 @@ class Entregas extends MX_Controller {
         
         if ($this->form_validation->run($this) == FALSE)
         {
-            echo "--";
+            
             $this->tmp_admin->set("vehiculos",$this->obj_vehiculos->get_all());
             $this->tmp_admin->set("personas",$this->obj_personas->get_all());
             $this->tmp_admin->set("servicios",$this->obj_servicios->get_all());

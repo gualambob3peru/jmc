@@ -34,6 +34,7 @@ $(function() {
                 $("#ajax_modelo").text(vehiculo.descripcion_modelos);
                 $("#ajax_placa").text(vehiculo.placa);
                 $("#ajax_anio").text(vehiculo.anio);
+                $("#idVehiculos").val(vehiculo.id);
             }
         })
     });
@@ -84,6 +85,7 @@ $(function() {
             <div class="card">
                 <h5 class="card-header">Agregar Registros de Vehículos</h5>
                 <div class="card-body">
+               
                     <div class="row">
                         <div class="col-md-8">
 
@@ -97,6 +99,7 @@ $(function() {
                                             <input type="button" value="Cargar" class="btn btn-outline-info"
                                                 id="cargarPlaca">
                                         </div>
+                                        <?php echo form_error('idVehiculos', '<div class="text-danger">', '</div>') ?>
                                     </div>
 
                                 </div>
