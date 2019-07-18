@@ -121,10 +121,9 @@ class Tbl_entregas extends CI_Model{
             $this->db->where("sR.idEstados", "1");
             $this->db->where("es.idEstados", "1");
             $this->db->where("e.idEstados", "1");
-
-           
-                $this->db->where("sR.factura", $factura);
+            $this->db->where("sR.factura", $factura);
             
+            $this->db->order_by("es.fechaServicio", "desc");
    
             $query = $this->db->get();
 
@@ -160,7 +159,7 @@ class Tbl_entregas extends CI_Model{
 
             
             $this->db->where("e.idEstados", "1");
-            $this->db->order_by("e.fechaRegistro", "desc");
+            $this->db->order_by("e.fechaServicio", "desc");
             $query = $this->db->get();
             return $query->result();
         } catch (Exception $exc) {
