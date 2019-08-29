@@ -84,6 +84,8 @@ $(function() {
 
 
     let vehiculos = <?php echo json_encode($vehiculos) ?>;
+    let piezas = <?php echo json_encode($piezas) ?>;
+
     vehiculos = $.map(vehiculos, function(item) {
         return {
             label: item
@@ -91,6 +93,40 @@ $(function() {
             value: item.id // Set the raw value of each shown items.
         }
     })
+
+    piezas = $.map(piezas, function(item) {
+        return {
+            label: item
+                .descripcion, // Set the display lebel for the searched list of company names which we're getting from server side coding.
+            value: item.id, // Set the raw value of each shown items.
+            stock : item.stock,
+            costo : item.costo,
+            imagen : item.imagen 
+        }
+    })
+
+    console.log(piezas);
+    
+    $("#autoPieza").autocomplete({
+        source: piezas,
+        select: function(event, ui) {
+            $("#autoPieza").val(ui.item.label)
+            $("#idPiezas").val(ui.item.value)
+
+            //Hallando stock de pieza
+
+            $("#stock").val(ui.item.stock);
+            $("#costoPieza").val(ui.item.costo);
+            $("#cantidad").val("");
+            $("#costoMonto").val("");
+
+            return false;
+        }
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+        console.log(item);
+        
+        return $( "<li><div><img onError='this.onerror=null;this.src=\"static/images/image-not-found.png\";' style='max-height:40px' src='static/images/repuestos/"+item.value+"/"+item.imagen+"'><span>"+item.label+"</span></div></li>" ).appendTo( ul );
+    };
 
     $("#autoVehiculo").autocomplete({
         source: vehiculos,
@@ -100,6 +136,8 @@ $(function() {
             return false;
         }
     })
+
+    
 
     $("#cargarPlaca").click(function() {
         $.ajax({
@@ -242,6 +280,7 @@ $(function() {
         $("#stock").val("");
         $("#cantidad").val("");
         $("#costoMonto").val("");
+        $("#autoPieza").val("");
 
         $.ajax({
             url: "admin/piezas/getAjaxPiezas",
@@ -265,11 +304,11 @@ $(function() {
 
     });
 
-    $("#idPiezas").change(function() {
-        $("#stock").val($(this).find(":selected").attr("stock"));
-        $("#cantidad").val("");
-        $("#costoMonto").val("");
-    });
+    // $("#idPiezas").change(function() {
+    //     $("#stock").val($(this).find(":selected").attr("stock"));
+    //     $("#cantidad").val("");
+    //     $("#costoMonto").val("");
+    // });
 
     $("#cantidad").keyup(function() {
         console.log($(this).val(), $("#stock").val());
@@ -279,15 +318,15 @@ $(function() {
 
         }
 
-        console.log($("#cantidad").val(), $("#idPiezas").find(":selected").attr("costo"));
+        console.log($("#cantidad").val(), $("#costoPieza").val());
 
-        $("#costoMonto").val($("#cantidad").val() * $("#idPiezas").find(":selected").attr("costo"));
+        $("#costoMonto").val($("#cantidad").val() * $("#costoPieza").val());
     });
 
     $("#btnAddModal2").click(function() {
 
         let idPieza = $("#idPiezas").val(),
-            desIdPieza = $("#idPiezas").find(":selected").text().trim(),
+            desIdPieza = $("#autoPieza").val(),
             cantidad = $("#cantidad").val(),
             costoMonto = $("#costoMonto").val(),
             factura =  $("#factura").is(":checked")
@@ -295,9 +334,13 @@ $(function() {
 
         if(factura){
             factura = 1;
+            tdFactura = "<i class='fas fa-check'></i>";
         }else{
             factura = 0;
+            tdFactura = "";
         }
+
+        
 
         if (idPieza == "" || cantidad == "") {
             alert("Debe llenar todos los campos")
@@ -307,7 +350,7 @@ $(function() {
             "'> <input type='hidden' name='monto[]' value='" + costoMonto + "'>" +
             desIdPieza + "</td><td><input type='hidden' name='cantidad[]' value='" + cantidad + "'>" +
             cantidad + "</td> <td> " + costoMonto +
-            " </td> <td> <button type='button' class='btnRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td> </tr>";
+            " </td> <td> " + tdFactura + " </td>   <td> <button type='button' class='btnRepuesEliminar btn btn-danger'><i class='fas fa-trash-alt'></i></button> </td> </tr>";
 
 
         $("#trBorrar").remove();
@@ -347,6 +390,15 @@ $(function() {
 })
 </script>
 
+<style>
+.ui-autocomplete{
+    z-index:10000;
+    max-height: 300px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
+</style>
 
 <input type="hidden" id="ide" value="<?php echo $id; ?>">
 <div class="row">
@@ -661,14 +713,20 @@ $(function() {
                     <div class="form-group row">
                         <label for="cantidad" class="col-sm-4 col-form-label">Repuesto</label>
                         <div class="col-sm-8">
-                            <select class="form-control" name="" id="idPiezas">
+                        <input type='text' name='autoPieza' class='form-control' id='autoPieza'>
+                        <input type="hidden" name="idPiezas" id="idPiezas"
+                                value="">
+                        <input type="hidden" name="costoPieza" id="costoPieza"
+                                value="">
+                            <!-- <select class="form-control" name="" id="autoPieza">
                                 <option value="">Elegir</option>
                                 <?php foreach($piezas as $key=>$value): ?>
                                 <option value="<?php echo $value->id ?>" stock="<?php echo $value->stock ?>"
                                     costo="<?php echo $value->costo ?>">
                                     <?php echo $value->descripcion ?></option>
                                 <?php endforeach; ?>
-                            </select>
+                            </select> -->
+                            
                         </div>
                     </div>
 

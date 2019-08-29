@@ -46,6 +46,7 @@ class Tbl_piezas extends CI_Model{
     public function insert($data){
         try {
             $this->db->insert($this->tabla, $data);
+            return $this->db->insert_id();
         } catch (Exception $exc) {
             return FALSE;   
         }

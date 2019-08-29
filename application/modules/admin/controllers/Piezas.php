@@ -50,6 +50,11 @@ class Piezas extends MX_Controller {
         $this->form_validation->set_rules('costo', 'Precio Venta', 'trim|required');
         $this->form_validation->set_rules('precioCosto', 'Precio Costo', 'trim|required');
 
+        if (empty($_FILES['imagen']['name']))
+        {
+            $this->form_validation->set_rules('imagen', 'imagen', 'trim|required');
+        }
+
         $this->form_validation->set_message('codigocheck', 'Este Código ya fue registrado.');
         
         $this->form_validation->set_message('required', 'Este campo es requerido');
@@ -65,8 +70,56 @@ class Piezas extends MX_Controller {
             $data = $this->upPost($this->data);
             $data["fechaRegistro"] = date("Y-m-d H:i:s");
 
-            $this->obj_model->insert($data);
-            redirect("admin/".$this->controller);
+            $id_last = $this->obj_model->insert($data);
+
+            
+
+            $carpeta = "static/images/repuestos/".$id_last."/";
+            if (!file_exists($carpeta)) {
+                mkdir($carpeta, 0777, true);
+            }
+            
+            $config['upload_path']          = $carpeta;
+            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['max_size']             = 1025;
+            $config['max_width']            = 5000;
+            $config['max_height']           = 5000;
+            $config['file_name']           = "1";
+
+            $this->load->library('upload', $config);
+
+            if ( ! $this->upload->do_upload('imagen'))
+            {
+                $error = "Imagen sobrepaso el límite de tamaño de un 1 Mb o el formato de la imagen no es válida";
+                
+               
+              
+               
+
+                $this->tmp_admin->set("controller",$this->controller);
+                    $this->tmp_admin->set("model",$this->obj_model->get_id($id_last));
+                    $this->tmp_admin->set("error",$error);
+                    $this->load->tmp_admin->setLayout($this->template);
+                    $this->load->tmp_admin->render($this->cview.'/editar_view.php');
+                redirect("admin/".$this->controller."/editar/".$id_last);
+                // $error = array('error' => $this->upload->display_errors());
+                // print_r($error);
+                // redirect("admin/".$this->controller."/agregar");
+            }
+            else
+            {
+                $result = array('upload_data' => $this->upload->data());
+            
+                $data = [
+                    "imagen" => $result["upload_data"]["file_name"]
+                ];
+                $this->obj_model->update($data,$id_last);
+
+                redirect("admin/".$this->controller);
+            }
+
+
+            //redirect("admin/".$this->controller);
         }
     }
 
@@ -116,7 +169,51 @@ class Piezas extends MX_Controller {
             $data = $this->upPost($this->data);
            
             $this->obj_model->update($data,$id);
-            redirect("admin/".$this->controller);
+
+            if (empty($_FILES['imagen']['name']))
+            {
+                redirect("admin/".$this->controller);
+            }else{
+                $carpeta = "static/images/repuestos/".$id."/";
+                if (!file_exists($carpeta)) {
+                    mkdir($carpeta, 0777, true);
+                }
+            
+                $config['upload_path']          = $carpeta;
+                $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                $config['max_size']             = 1025;
+                $config['max_width']            = 5000;
+                $config['max_height']           = 5000;
+                $config['file_name']           = "1";
+                $config['overwrite']           = TRUE;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('imagen'))
+                {
+                    $error = "Imagen sobrepaso el límite de tamaño de un 1 Mb o el formato de la imagen no es válida";
+                    
+                    //redirect("admin/".$this->controller."/editar/".$id);
+                    $this->tmp_admin->set("controller",$this->controller);
+                    $this->tmp_admin->set("model",$this->obj_model->get_id($id));
+                    $this->tmp_admin->set("error",$error);
+                    $this->load->tmp_admin->setLayout($this->template);
+                    $this->load->tmp_admin->render($this->cview.'/editar_view.php');
+                }
+                else
+                {
+                    $result = array('upload_data' => $this->upload->data());
+                
+                    $data = [
+                        "imagen" => $result["upload_data"]["file_name"]
+                    ];
+                    $this->obj_model->update($data,$id);
+
+                    redirect("admin/".$this->controller);
+                }
+            }    
+
+            //redirect("admin/".$this->controller);
         }
     }
 
