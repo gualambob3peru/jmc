@@ -28,7 +28,7 @@
                 </form>
             </div>
             <div class="col-md-6">
-                <img src="static/images/repuestos/<?php echo $model->id ?>/<?php echo $model->imagen ?>" class="img-fluid" alt="Foto">
+                <img src="static/images/repuestos/<?php echo $model->id ?>/<?php echo $model->imagen ?>"  onError='this.onerror=null;this.src="static/images/image-not-found.png";' class="img-fluid" alt="Foto">
             </div>
         </div>
 

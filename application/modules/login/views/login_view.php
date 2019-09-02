@@ -26,8 +26,9 @@
             <div class="col-md-4">
                 <div>
                     <form method="post"> 
+                    <br>
                         <div class="row text-center">
-                            <img src="static/images/logo.png" alt="">
+                            <img src="static/images/logo.png" alt="" style="margin: 0 auto">
                         </div>
 
                         <br>
@@ -40,7 +41,7 @@
                             <div class="col-md-4">
                             </div>
                             <div class="col-md-8">
-                                <button type="submit" class="btn btn-lg btn-success">Entrar</button>
+                                <button type="submit" class="btn btn-lg btn-outline-success">Entrar</button>
                             </div>
                         </div>
                     </form>

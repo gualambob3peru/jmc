@@ -20,8 +20,22 @@ $(function() {
             "infoFiltered": "(Buscando de _MAX_ total registros)"
         }
     } );
+
+    $(".miImagen").click(function(){
+        $(".modalImagen").modal();
+        $(".imagenGrande").attr("src",$(this).attr("src"));
+    });
 });
 </script>
+
+<style>
+    .modal-body{
+        text-align:center;
+    }
+    .miImagen{
+        cursor:pointer;
+    }
+</style>
 
 <br>
 
@@ -47,6 +61,7 @@ $(function() {
                             <th>Precio Venta</th>
                             <th>Precio Costo</th>
                             <th>Stock</th>
+                            <th>Imagen</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -60,6 +75,7 @@ $(function() {
                             <td><?php echo $value->costo ?></td>
                             <td><?php echo $value->precioCosto ?></td>
                             <td><?php echo $value->stock ?></td>
+                            <td><img class="miImagen" style="max-width:100px;max-height:100px" src="static/images/repuestos/<?php echo $value->id ?>/<?php echo $value->imagen ?>" onError='this.onerror=null;this.src="static/images/image-not-found.png";' alt=""></td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group-prepend" id="button-addon3">
@@ -96,6 +112,22 @@ $(function() {
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-outline-success" id="btnAceptar">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal modalImagen" tabindex="-1" role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Imagen de repuesto</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <img src="" alt="" class="imagenGrande img-fluid" >
             </div>
         </div>
     </div>
