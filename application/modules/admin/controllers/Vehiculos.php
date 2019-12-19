@@ -113,25 +113,31 @@ class Vehiculos extends MX_Controller {
             }
             else
             {
+
                 $result = array('upload_data' => $this->upload->data());
-            
                 $data = [
                     "imagen" => $result["upload_data"]["file_name"]
                 ];
                 $this->obj_model->update($data,$id_last);
-
                 redirect("admin/".$this->controller);
+
             }
             
         }
     }
 
 	public function editar($id){ 
+        $vehiculo = $this->obj_model->get_id($id);
+
+        if($this->input->post("placa")!=$vehiculo->placa){
+            $this->form_validation->set_rules('placa', 'placa', 'trim|required|callback_placacheck');
+        }
+        
         $this->form_validation->set_rules('idClientes', 'idClientes', 'trim|required');
-        // $this->form_validation->set_rules('placa', 'Placa', 'trim|required|callback_placacheck');
         $this->form_validation->set_rules('idMarcas', 'idMarca', 'trim|required');
         $this->form_validation->set_rules('idModelos', 'idModelo', 'trim|required');
 
+        
         if (empty($_FILES['imagen']['name']))
         {
             //$this->form_validation->set_rules('imagen', 'imagen', 'trim|required');

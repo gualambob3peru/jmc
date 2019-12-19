@@ -32,6 +32,7 @@ $(function() {
                 <table class="table">
                     <tr>
                         <th>#</th>
+                        <th>Código</th>
                         <th>Nombre del Servicio</th>
                         <th>Descripción</th>    
                         <th>Costo</th>    
@@ -41,6 +42,7 @@ $(function() {
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
                         <td><?php echo ($key+1) ?></td>
+                        <td><?php echo $value->codigo ?></td>
                         <td><?php echo $value->descripcion ?></td>
                         <td><?php echo $value->detalle ?></td>
                         <td><?php echo $value->costo ?></td>

@@ -5,10 +5,10 @@ class Servicios extends MX_Controller {
     public $template = 'templates/admin_config';
     public $controller = "servicios";
     public $data =[
+        "codigo" => "",
         "descripcion" => "",
         "detalle" => "",
         "costo" => "",
-        "fechaRegistro" => "",
         "idEstados" => "1"
     ];
 
@@ -31,8 +31,20 @@ class Servicios extends MX_Controller {
         $this->load->tmp_admin->setLayout($this->template);
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
+
+    public function codigocheck($codigo){
+        $servicio = $this->obj_model->get_campo("codigo",$codigo);
+
+        if(is_object($servicio)){
+            $this->form_validation->set_message('codigocheck', 'Esta codigo ya fue registrado');
+            return FALSE;
+        }else{
+            return TRUE;
+        }
+    }
     
 	public function agregar(){ 
+        $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required|callback_codigocheck');
         $this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|required');
         $this->form_validation->set_rules('detalle', 'Detalle', 'trim|required');
         $this->form_validation->set_rules('costo', 'Costo', 'trim|required');
@@ -56,6 +68,12 @@ class Servicios extends MX_Controller {
     }
 
 	public function editar($id){ 
+        $servicio = $this->obj_model->get_id($id);
+
+        if($this->input->post("codigo")!=$servicio->codigo){
+            $this->form_validation->set_rules('codigo', 'Codigo', 'trim|required|callback_codigocheck');
+        }
+
         $this->form_validation->set_rules('descripcion', 'Descripcion', 'trim|required');
         $this->form_validation->set_rules('detalle', 'Detalle', 'trim|required');
         $this->form_validation->set_rules('costo', 'Costo', 'trim|required');

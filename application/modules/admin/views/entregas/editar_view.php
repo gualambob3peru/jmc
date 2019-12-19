@@ -608,8 +608,16 @@ $(function() {
                             <select required class="form-control" name="idServicios" id="idServicios">
                                 <option value="">Elegir...</option>
                                 <?php foreach($servicios as $key=>$value): ?>
+                                <?php
+                                    if($value->codigo == ""){
+                                        $codigo = "";
+                                    }else{
+                                        $codigo = $value->codigo." - ";
+                                    }
+                                    
+                                ?>
                                 <option value="<?php echo $value->id ?>" monto="<?php echo $value->costo ?>">
-                                    <?php echo $value->descripcion ?></option>
+                                    <?php echo $codigo.$value->descripcion ?></option>
                                 <?php endforeach; ?>
                             </select>
                         </div>

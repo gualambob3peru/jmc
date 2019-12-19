@@ -14,6 +14,7 @@
         <div class="row">
             <div class="col-md-6">
                 <form method="post">
+                    <?php helper_form_text("codigo","Código") ?>
                     <?php helper_form_text("descripcion","Nombre del Servicio") ?>
                     <?php helper_form_text("costo","Costo","","number") ?>
                     <?php helper_form_textarea("detalle","Descripción") ?>
