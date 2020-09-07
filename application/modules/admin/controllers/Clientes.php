@@ -114,6 +114,7 @@ class Clientes extends MX_Controller {
         //$this->form_validation->set_rules('tipoCambio', 'Tipo de Cambio', 'trim|required');
         $this->form_validation->set_rules('monto', 'Monto', 'trim|required');
 
+        $this->form_validation->set_message('required', 'Este campo es requerido');
         
         
         if ($this->form_validation->run($this) == FALSE)

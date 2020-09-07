@@ -31,6 +31,8 @@ $(function() {
                 break;
         }
     });
+    $("#idTipoMoneda").change();
+    $("#idTipoPago").change();
 });
 </script>
 
