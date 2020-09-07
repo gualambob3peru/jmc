@@ -30,7 +30,7 @@ class Reportes extends MX_Controller {
         $this->load->tmp_admin->render($this->cview.'/view.php');
     }
 
-    public function repuestos($fechaInicio="2019-03-01",$fechaFin="",$factura=""){ 
+    public function repuestos($fechaInicio="2019-03-01",$fechaFin="",$factura="true"){ 
         if($fechaFin==""){
             $fechaFin = date("Y-m-d");
         }

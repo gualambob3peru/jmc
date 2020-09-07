@@ -80,6 +80,7 @@ $db['default'] = array(
 	'username' => 'jmcracin_user',
 	'password' => '*JMC123*',
 	'database' => 'jmcracin_jmc',
+
 	// 'username' => 'root',
 	// 'password' => '',
 	// 'database' => 'jmc',

@@ -11,7 +11,13 @@ $(function() {
         window.location = "admin/" + controller + "/eliminar/" + $("#modalEliminar").attr("elId");
     });
 
-    $('[data-toggle="tooltip"]').tooltip()
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('#miTabla').DataTable({
+        language : {
+            url : "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        }
+    });
 });
 </script>
 
@@ -32,36 +38,41 @@ $(function() {
         <div class="row">
             <div class="col-md-12">
 
-                <table class="table">
-                    <tr>
-                        <th>Nombres</th>
-                        <th>Documento</th>
-                        <th>Número</th>
-                        <th>Dirección</th>
-                        <th>Correo</th>
-                        <th>Saldo</th>
-                        <th>Acción</th>
-                    </tr>
+                <table class="table" id="miTabla">
+                    <thead>
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Documento</th>
+                            <th>Número</th>
+                            <th>Dirección</th>
+                            <th>Correo</th>
+                            <th>Saldo</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
 
-                    <?php foreach($model as $key=>$value): ?>
-                    <tr>
-                        <td><?php echo $value->nombresCompletos ?></td>
-                        <td><?php echo $value->descripcion_tipoDocumentos ?></td>
-                        <td><?php echo $value->documento ?></td>
-                        <td><?php echo $value->direccion ?></td>
-                        <td><?php echo $value->correo ?></td>
-                        <td><?php echo $value->saldo ?></td>
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-prepend" id="button-addon3">
-                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
-                                    <a href="admin/<?php echo $controller ?>/pagos/<?php echo $value->id ?>" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Pagos"><i class="far fa-edit"></i></a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+                    <tbody>
+                    
+                        <?php foreach($model as $key=>$value): ?>
+                        <tr>
+                            <td><?php echo $value->nombresCompletos ?></td>
+                            <td><?php echo $value->descripcion_tipoDocumentos ?></td>
+                            <td><?php echo $value->documento ?></td>
+                            <td><?php echo $value->direccion ?></td>
+                            <td><?php echo $value->correo ?></td>
+                            <td><?php echo $value->saldo ?></td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend" id="button-addon3">
+                                        <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>" class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
+                                        <a href="admin/<?php echo $controller ?>/pagos/<?php echo $value->id ?>" class="btn btn-outline-success" data-toggle="tooltip" data-placement="top" title="Pagos"><i class="far fa-edit"></i></a>
+                                        <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </div>

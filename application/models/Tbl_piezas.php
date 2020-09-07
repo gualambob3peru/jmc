@@ -52,6 +52,30 @@ class Tbl_piezas extends CI_Model{
         }
     }
 
+    public function get_repuestos_de_entregaservicio($idEntregaServicios){
+        try {
+            
+            $this->db->where("idEntregaServicios",$idEntregaServicios);
+            $this->db->where("idEstados","1");
+            $query = $this->db->get("servicioRepuestos");
+            return $query->result();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+    public function update_repuestos_de_entregaservicio($idEntregaServicios){
+        try {
+            $this->db->set('idEstados', '0');
+            $this->db->where("idEntregaServicios",$idEntregaServicios);
+            $this->db->update("servicioRepuestos");
+       
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
+
     public function update($data,$id){
         try {
             $this->db->where($this->id, $id);

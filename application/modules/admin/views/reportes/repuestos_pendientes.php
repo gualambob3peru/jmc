@@ -60,7 +60,13 @@ $(function() {
                     <tr>
 
                         <td><?php echo $key+1 ?></td>
-                        <td><?php echo substr($value->fechaServicio,0,10) ?></td>
+                        <td>
+                        <?php
+                        $originalDate = substr($value->fechaServicio,0,10);
+                        $newDate = date("d/m/Y", strtotime($originalDate));
+                        echo $newDate;
+                        ?>
+                        </td>
                         <td><?php echo $value->descripcion ?></td>
                         <td><?php echo $value->monto;$total+=$value->monto ?></td>
                         <td><?php echo $value->cantidad ?></td>

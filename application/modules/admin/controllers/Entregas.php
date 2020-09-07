@@ -256,7 +256,7 @@ class Entregas extends MX_Controller {
             redirect("admin/".$this->controller);
         }
     }
-
+   
 	public function eliminar($id){ 
 
         //listando entregaservicios de la entrega
@@ -343,6 +343,18 @@ class Entregas extends MX_Controller {
         }
         $this->obj_clientes->update_saldo($entrega->idClientes,$montoRepuestos,2);
 
+        //Actualizando Stock derepuestos
+        //tabla serviciorespuestos a idestado = 0 y sacar cantidades de repuestos
+        $repuestos_del_servicio = $this->obj_piezas->get_repuestos_de_entregaservicio($id);
+        //cambiando a los repuestos del servicio a estado 0
+        $this->obj_piezas->update_repuestos_de_entregaservicio($id);
+
+
+        foreach($repuestos_del_servicio as $key => $value){
+            //aumentandolas el stock a los repuestos generales
+            $this->obj_piezas->update_cantidad($value->idPiezas,$value->cantidad,"1");
+        }
+       
         redirect("admin/".$this->controller."/editar/".$idEntrega);
     }
 
