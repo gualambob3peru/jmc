@@ -154,7 +154,7 @@ class Clientes extends MX_Controller {
 
             $this->obj_model->insert_pago($data);
 
-            $this->obj_model->update_saldo($idClientes,$data["monto"],2);
+            $this->obj_model->update_saldo($idClientes,$data["monto"],"2");
             redirect("admin/clientes/pagos/".$idClientes);
         }
     }
@@ -163,14 +163,26 @@ class Clientes extends MX_Controller {
         $data = [
             "idEstados" => "0"
         ];
+
+        
         $this->obj_model->update($data,$id);
         redirect("admin/".$this->controller);
     }
 
     public function eliminarPago($idClientes,$id){ 
+
+        $pago = $this->obj_model->get_pago($id);
+
+        
+
+        
+
+
         $data = [
             "idEstados" => "0"
         ];
+
+        $this->obj_model->update_saldo($idClientes,$pago->monto,"1");
         $this->obj_model->update_pago($data,$id);
        
         redirect("admin/clientes/pagos/".$idClientes);

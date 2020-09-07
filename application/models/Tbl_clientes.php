@@ -35,6 +35,18 @@ class Tbl_clientes extends CI_Model{
         }
     }
 
+    public function get_pago($id){
+        try {
+
+            $this->db->where("id",$id);
+   
+            $query = $this->db->get("pagoclientes");
+            return $query->row();
+        } catch (Exception $exc) {
+            return FALSE;   
+        }
+    }
+
     public function get_all(){
         try {
 
