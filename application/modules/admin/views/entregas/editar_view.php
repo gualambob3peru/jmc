@@ -474,13 +474,13 @@
 <input type="hidden" id="ide" value="<?php echo $id; ?>">
 <div class="row">
     <div class="col-md-12">
+        <form action="" method="post" enctype="multipart/form-data">
+            <div class="card">
+                <h5 class="card-header">Editar Registros de Vehículos</h5>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
 
-        <div class="card">
-            <h5 class="card-header">Editar Registros de Vehículos</h5>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <form action="" method="post" enctype="multipart/form-data">
                             <?php helper_form_text("fechaServicio", "Fecha de Registro", substr($model->fechaServicio, 0, 10), "date") ?>
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
@@ -501,7 +501,7 @@
                                     ...
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <table class="table table-sm table-borderless" >
+                                    <table class="table table-sm table-borderless">
                                         <tr>
                                             <td style="border:0 !important">Marca</td>
                                             <td style="border:0 !important" id="ajax_marca"></td>
@@ -538,24 +538,24 @@
 
                             <button type="submit" class="btn  btn-success"><i class="fas fa-save"></i>
                                 Guardar</button>
-                        </form>
-                    </div>
 
-                    <div class="col-md-6">
-                        <div class='form-group row'>
-                            <label for='ccliente' class='col-sm-4 col-form-label'>Cliente</label>
-                            <div class='col-sm-8'>
-                                <div class="input-group">
-                                    <input disabled type='text' name='ccliente' class='form-control' id='ajax_cliente'>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class='form-group row'>
+                                <label for='ccliente' class='col-sm-4 col-form-label'>Cliente</label>
+                                <div class='col-sm-8'>
+                                    <div class="input-group">
+                                        <input disabled type='text' name='ccliente' class='form-control' id='ajax_cliente'>
+
+                                    </div>
 
                                 </div>
-
                             </div>
-                        </div>
-                        <?php helper_form_text("kilometraje", "Kilometraje", $model->kilometraje, "number") ?>
+                            <?php helper_form_text("kilometraje", "Kilometraje", $model->kilometraje, "number") ?>
 
 
-                        <!-- <table class="table table-sm table-bordered">
+                            <!-- <table class="table table-sm table-bordered">
                             <tr>
                                 <td>Cliente</td>
                                 <td id="ajax_cliente2"></td>
@@ -578,50 +578,50 @@
                             </tr>
                         </table> -->
 
-                        <div style="max-height:175px;overflow-y:auto">
-                            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                                <ol class="carousel-indicators">
+                            <div style="max-height:175px;overflow-y:auto">
+                                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                                    <ol class="carousel-indicators">
 
 
-                                    <?php foreach ($imagenes as $key => $value) : ?>
-                                        <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key ?>">
-                                        <?php endforeach; ?>
+                                        <?php foreach ($imagenes as $key => $value) : ?>
+                                            <li data-target="#carouselExampleIndicators" data-slide-to="<?php echo $key ?>">
+                                            <?php endforeach; ?>
 
 
-                                        <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
+                                            <!-- <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active">
                                         </li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                                         <li data-target="#carouselExampleIndicators" data-slide-to="2"></li> -->
-                                </ol>
-                                <div class="carousel-inner">
-                                    <?php foreach ($imagenes as $key => $value) : ?>
-                                        <?php $active = ($key == 0) ? 'active' : '' ?>
-                                        <div class="carousel-item <?php echo $active ?>">
-                                            <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100 imagenCarrusel" alt="...">
-                                        </div>
-                                    <?php endforeach; ?>
+                                    </ol>
+                                    <div class="carousel-inner">
+                                        <?php foreach ($imagenes as $key => $value) : ?>
+                                            <?php $active = ($key == 0) ? 'active' : '' ?>
+                                            <div class="carousel-item <?php echo $active ?>">
+                                                <img src="static/images/entregas/<?php echo $model->id ?>/<?php echo $value->imagen ?>" class="d-block w-100 imagenCarrusel" alt="...">
+                                            </div>
+                                        <?php endforeach; ?>
 
 
 
+                                    </div>
+                                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
                             </div>
                         </div>
                     </div>
+
                 </div>
 
             </div>
 
-        </div>
-
-
+        </form>
     </div>
 </div>
 
