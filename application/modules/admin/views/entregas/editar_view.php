@@ -949,8 +949,8 @@
       </div>
       <div class="modal-body">
         <div class="form-group row">
-            <label for="inputPassword" class="col-sm-2 col-form-label">Mano de Obra</label>
-            <div class="col-sm-10">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Mano de Obra</label>
+            <div class="col-sm-8">
             <input type="text" class="form-control" id="manoObra">
             </div>
         </div>
