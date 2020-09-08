@@ -123,7 +123,7 @@
                 return false;
             }
         }).autocomplete("instance")._renderItem = function(ul, item) {
-           
+
 
             return $("<li><div><img onError='this.onerror=null;this.src=\"static/images/image-not-found.png\";' style='max-height:40px' src='static/images/repuestos/" + item.value + "/" + item.imagen + "'><span>" + item.label + "</span></div></li>").appendTo(ul);
         };
@@ -148,7 +148,7 @@
                     console.log(response);
                     let vehiculo = response.respuesta;
 
-                    $("#ajax_cliente").text(vehiculo.nombresCompletos);
+                    $("#ajax_cliente").val(vehiculo.nombresCompletos);
                     $("#ajax_marca").text(vehiculo.descripcion_marcas);
                     $("#ajax_modelo").text(vehiculo.descripcion_modelos);
                     $("#ajax_placa").text(vehiculo.placa);
@@ -288,7 +288,7 @@
                 dataType: "json",
                 success: function(response) {
                     piezas = response.respuesta;
-                    
+
                     piezas = $.map(piezas, function(item) {
                         return {
                             label: item
@@ -300,7 +300,7 @@
                         }
                     })
 
-                   
+
                     $("#autoPieza").autocomplete("destroy");
                     $("#autoPieza").autocomplete({
                         source: piezas,
@@ -422,37 +422,37 @@
             }
         });
 
-        $(".btnModalMano").click(function(){
+        $(".btnModalMano").click(function() {
 
-            $("#modalEditarMano").attr("idEntregaServicios",$(this).attr("idEntregaServicios"));
+            $("#modalEditarMano").attr("idEntregaServicios", $(this).attr("idEntregaServicios"));
             $("#modalEditarMano").modal();
         });
 
-        $("#btnGuardarMano").click(function(){
-            if(isNaN($("#manoObra").val()) || $("#manoObra").val() == ""){
+        $("#btnGuardarMano").click(function() {
+            if (isNaN($("#manoObra").val()) || $("#manoObra").val() == "") {
                 alert("Debe poner un número")
                 return;
             }
 
-            let manoObra = $("#manoObra").val(), 
-            idEntregaServicios = $("#modalEditarMano").attr("idEntregaServicios");
+            let manoObra = $("#manoObra").val(),
+                idEntregaServicios = $("#modalEditarMano").attr("idEntregaServicios");
             console.log(idEntregaServicios);
             console.log(manoObra);
             $.ajax({
-                url:"admin/entregas/ajaxGuardarMano",
-                type:"post",
-                dataType : "json",
-                data : {
-                    manoObra : manoObra, 
-                    idEntregaServicios : idEntregaServicios 
+                url: "admin/entregas/ajaxGuardarMano",
+                type: "post",
+                dataType: "json",
+                data: {
+                    manoObra: manoObra,
+                    idEntregaServicios: idEntregaServicios
                 },
-                error :function(e){
+                error: function(e) {
                     alert("No se pudo realizar la operación, intente actualizar");
                 },
-                success : function(response){
-                    if(response.resultado=="1"){
+                success: function(response) {
+                    if (response.resultado == "1") {
                         location.reload();
-                    }else{
+                    } else {
                         alert("No se pudo realizar la operación");
                     }
                 }
@@ -479,8 +479,9 @@
             <h5 class="card-header">Editar Registros de Vehículos</h5>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <form action="" method="post" enctype="multipart/form-data">
+                            <?php helper_form_text("fechaServicio", "Fecha de Registro", substr($model->fechaServicio, 0, 10), "date") ?>
                             <div class='form-group row'>
                                 <label for='autoVehiculo' class='col-sm-4 col-form-label'>Placa de Vehículo</label>
                                 <div class='col-sm-8'>
@@ -495,10 +496,37 @@
                             </div>
                             <input type="hidden" name="idVehiculos" id="idVehiculos" value="<?php echo $model->idVehiculos ?>">
 
-                            <?php helper_form_text("kilometraje", "Kilometraje", $model->kilometraje, "number") ?>
-                            <?php helper_form_text("fechaServicio", "Fecha de Registro", substr($model->fechaServicio, 0, 10), "date") ?>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    ...
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <table class="table table-sm table-borderless" >
+                                        <tr>
+                                            <td style="border:0 !important">Marca</td>
+                                            <td style="border:0 !important" id="ajax_marca"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:0 !important">Modelo</td>
+                                            <td style="border:0 !important" id="ajax_modelo"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border:0 !important">Año</td>
+                                            <td style="border:0 !important" id="ajax_anio"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
 
-                            <?php helper_form_textarea("observaciones", "Observaciones", $model->observaciones,"4","8","4","2") ?>
+                            <div class='form-group row' style="display:none">
+                                <label for='observaciones' class='col-sm-4" col-form-label'></label>
+                                <div class='col-sm-".$size2."'>
+                                    <textarea rows='4' rows='4' name='observaciones' class='form-control' id='observaciones'></textarea>
+                                </div>
+                            </div>
+
+
+                            <!-- <?php helper_form_textarea("observaciones", "Observaciones", $model->observaciones, "4", "8", "4", "2") ?> -->
 
                             <div class="form-group row">
                                 <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
@@ -513,11 +541,24 @@
                         </form>
                     </div>
 
-                    <div class="col-md-4">
-                        <table class="table table-sm table-bordered">
+                    <div class="col-md-6">
+                        <div class='form-group row'>
+                            <label for='ccliente' class='col-sm-4 col-form-label'>Cliente</label>
+                            <div class='col-sm-8'>
+                                <div class="input-group">
+                                    <input disabled type='text' name='ccliente' class='form-control' id='ajax_cliente'>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <?php helper_form_text("kilometraje", "Kilometraje", $model->kilometraje, "number") ?>
+
+
+                        <!-- <table class="table table-sm table-bordered">
                             <tr>
                                 <td>Cliente</td>
-                                <td id="ajax_cliente"></td>
+                                <td id="ajax_cliente2"></td>
                             </tr>
                             <tr>
                                 <td>Marca</td>
@@ -535,7 +576,7 @@
                                 <td>Año</td>
                                 <td id="ajax_anio"></td>
                             </tr>
-                        </table>
+                        </table> -->
 
                         <div style="max-height:175px;overflow-y:auto">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -614,15 +655,15 @@
                                 <?php
                                 $total = 0;
                                 foreach ($entregaServicios as $key => $value) {
-                                    $originalDate = substr($value->fechaServicio,0,10);
+                                    $originalDate = substr($value->fechaServicio, 0, 10);
                                     $newDate = date("d/m/Y", strtotime($originalDate));
-                                  
+
 
                                     $total += $value->monto + $value->montoTotal;
                                     echo "<tr>";
-                                    echo "<td>" . $newDate. "</td>";
+                                    echo "<td>" . $newDate . "</td>";
                                     echo "<td>" . $value->descripcion . "</td>";
-                                    echo "<td style='text-align: right;'>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='".$value->id."' ><i class='far fa-edit'></i></button></td>";
+                                    echo "<td style='text-align: right;'>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='" . $value->id . "' ><i class='far fa-edit'></i></button></td>";
                                     echo "<td>" . $value->montoTotal . "</td>";
                                     echo "<td>" . $value->nombresCompletos . "</td>";
                                     echo "<td>" . ($value->monto + $value->montoTotal) . "</td>";
@@ -937,27 +978,27 @@
     </div>
 </div>
 
-<div class="modal" tabindex="-1" id="modalEditarMano" idEntregaServicios="" >
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Editar mano de obra</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group row">
-            <label for="inputPassword" class="col-sm-4 col-form-label">Mano de Obra</label>
-            <div class="col-sm-8">
-            <input type="text" class="form-control" id="manoObra">
+<div class="modal" tabindex="-1" id="modalEditarMano" idEntregaServicios="">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar mano de obra</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-4 col-form-label">Mano de Obra</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="manoObra">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnGuardarMano" class="btn btn-outline-success">Guardar</button>
             </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="button" id="btnGuardarMano" class="btn btn-outline-success">Guardar</button>
-      </div>
     </div>
-  </div>
 </div>
