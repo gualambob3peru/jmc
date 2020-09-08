@@ -623,7 +623,7 @@
                                     echo "<tr>";
                                     echo "<td>" . $newDate. "</td>";
                                     echo "<td>" . $value->descripcion . "</td>";
-                                    echo "<td>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='".$value->id."' ><i class='far fa-edit'></i></button></td>";
+                                    echo "<td style='text-align: right;'>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='".$value->id."' ><i class='far fa-edit'></i></button></td>";
                                     echo "<td>" . $value->montoTotal . "</td>";
                                     echo "<td>" . $value->nombresCompletos . "</td>";
                                     echo "<td>" . ($value->monto + $value->montoTotal) . "</td>";
