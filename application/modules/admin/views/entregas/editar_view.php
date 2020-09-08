@@ -498,7 +498,7 @@
                             <?php helper_form_text("kilometraje", "Kilometraje", $model->kilometraje, "number") ?>
                             <?php helper_form_text("fechaServicio", "Fecha de Registro", substr($model->fechaServicio, 0, 10), "date") ?>
 
-                            <?php helper_form_textarea("observaciones", "Observaciones", $model->observaciones) ?>
+                            <?php helper_form_textarea("observaciones", "Observaciones", $model->observaciones,"4","8","4","2") ?>
 
                             <div class="form-group row">
                                 <label for="imagen" class="col-sm-4 col-form-label">Imagen</label>
@@ -508,13 +508,13 @@
                             </div>
 
 
-                            <button type="submit" class="btn btn-lg btn-success"><i class="fas fa-save"></i>
+                            <button type="submit" class="btn  btn-success"><i class="fas fa-save"></i>
                                 Guardar</button>
                         </form>
                     </div>
 
                     <div class="col-md-4">
-                        <table class="table table-bordered">
+                        <table class="table table-sm table-bordered">
                             <tr>
                                 <td>Cliente</td>
                                 <td id="ajax_cliente"></td>
@@ -537,7 +537,7 @@
                             </tr>
                         </table>
 
-                        <div>
+                        <div style="max-height:175px;overflow-y:hidden">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
 
@@ -584,9 +584,8 @@
     </div>
 </div>
 
-<br>
 
-<div class="row">
+<div class="row mt-1">
     <div class="col-md-12   ">
         <div class="card">
             <h5 class="card-header">Catálogo de servicios</h5>
