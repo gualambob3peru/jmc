@@ -307,6 +307,30 @@ class Entregas extends MX_Controller {
         echo json_encode(array('respuesta' => "1" ));
     }
 
+    public function ajaxGuardarMano(){
+        $idEntregaServicios = $this->input->post("idEntregaServicios");
+
+        $data = array();
+        $data["monto"] = $this->input->post("manoObra"); // Mano de obra
+       
+        //////Quitando todo el monto del servicio////////////////////
+        $entregaServicio = $this->obj_model->get_idEntregasServicios($idEntregaServicios);
+        $montoTotal = $entregaServicio->montoTotal;
+
+        $servicio = $this->obj_model->get_id($entregaServicio->idEntregas);
+        $cliente = $this->obj_clientes->get_id($servicio->idClientes);
+
+        //quitando del saldo total el servicio para volverlo a poner
+        $this->obj_clientes->update_saldo($cliente->id,$montoTotal,"2");
+
+        $nuevoMonto = $data["monto"]  +  $entregaServicio->montoRepuestos;
+        $this->obj_clientes->update_saldo($cliente->id,$nuevoMonto,"1");
+
+        $data["montoTotal"] = $nuevoMonto; 
+        $this->obj_model->updateServicio($data,$idEntregaServicios);
+
+        echo json_encode(array("resultado"=>1));
+    }
     public function eliminarServicio($id,$idEntrega){ 
 
         //hallando servicio y poniendo en estado 0

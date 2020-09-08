@@ -422,6 +422,42 @@
             }
         });
 
+        $(".btnModalMano").click(function(){
+
+            $("#modalEditarMano").attr("idEntregaServicios",$(this).attr("idEntregaServicios"));
+            $("#modalEditarMano").modal();
+        });
+
+        $("#btnGuardarMano").click(function(){
+            if(isNaN($("#manoObra").val()) || $("#manoObra").val() == ""){
+                alert("Debe poner un número")
+                return;
+            }
+
+            let manoObra = $("#manoObra").val(), 
+            idEntregaServicios = $("#modalEditarMano").attr("idEntregaServicios");
+            console.log(idEntregaServicios);
+            console.log(manoObra);
+            $.ajax({
+                url:"admin/entregas/ajaxGuardarMano",
+                type:"post",
+                dataType : "json",
+                data : {
+                    manoObra : manoObra, 
+                    idEntregaServicios : idEntregaServicios 
+                },
+                error :function(e){
+                    alert("No se pudo realizar la operación, intente actualizar");
+                },
+                success : function(response){
+                    if(response.resultado=="1"){
+                        location.reload();
+                    }else{
+                        alert("No se pudo realizar la operación");
+                    }
+                }
+            });
+        });
     })
 </script>
 
@@ -583,7 +619,7 @@
                                     echo "<tr>";
                                     echo "<td>" . substr($value->fechaServicio, 0, 10) . "</td>";
                                     echo "<td>" . $value->descripcion . "</td>";
-                                    echo "<td>" . $value->monto . "</td>";
+                                    echo "<td>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='".$value->id."' ><i class='far fa-edit'></i></button></td>";
                                     echo "<td>" . $value->montoTotal . "</td>";
                                     echo "<td>" . $value->nombresCompletos . "</td>";
                                     echo "<td>" . ($value->monto + $value->montoTotal) . "</td>";
@@ -896,4 +932,29 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal" tabindex="-1" id="modalEditarMano" idEntregaServicios="" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Editar mano de obra</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group row">
+            <label for="inputPassword" class="col-sm-2 col-form-label">Mano de Obra</label>
+            <div class="col-sm-10">
+            <input type="text" class="form-control" id="manoObra">
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="button" id="btnGuardarMano" class="btn btn-outline-success">Guardar</button>
+      </div>
+    </div>
+  </div>
 </div>
