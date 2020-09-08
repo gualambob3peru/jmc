@@ -615,9 +615,13 @@
                                 <?php
                                 $total = 0;
                                 foreach ($entregaServicios as $key => $value) {
+                                    $originalDate = substr($value->fechaServicio,0,10);
+                                    $newDate = date("d/m/Y", strtotime($originalDate));
+                                  
+
                                     $total += $value->monto + $value->montoTotal;
                                     echo "<tr>";
-                                    echo "<td>" . substr($value->fechaServicio, 0, 10) . "</td>";
+                                    echo "<td>" . $newDate. "</td>";
                                     echo "<td>" . $value->descripcion . "</td>";
                                     echo "<td>" . $value->monto . " <button type='button' class='btn btnModalMano btn-outline-info' idEntregaServicios='".$value->id."' ><i class='far fa-edit'></i></button></td>";
                                     echo "<td>" . $value->montoTotal . "</td>";

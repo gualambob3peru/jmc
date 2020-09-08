@@ -41,7 +41,13 @@ $(function() {
 
                     <?php foreach($model as $key=>$value): ?>
                     <tr>
-                        <td><?php echo substr($value->fechaServicio,0,10) ?></td>
+                        <td><?php 
+                        $originalDate = substr($value->fechaServicio,0,10);
+                        $newDate = date("d/m/Y", strtotime($originalDate));
+
+                        echo substr($newDate,0,10) 
+                        
+                        ?></td>
                         <td><?php echo $value->placa ?></td>
                         <td><?php echo $value->nombresClientes ?></td>
                         <td><?php echo $value->montoTotal ?></td>
