@@ -905,7 +905,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="max-height: 561px;overflow-y: auto;">
                 <img id="imagenModalCarrusel" src="" style="width:100%">
             </div>
             <div class="modal-footer">
