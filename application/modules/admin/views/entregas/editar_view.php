@@ -537,7 +537,7 @@
                             </tr>
                         </table>
 
-                        <div style="max-height:175px;overflow-y:hidden">
+                        <div style="max-height:175px;overflow-y:auto">
                             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                                 <ol class="carousel-indicators">
 
