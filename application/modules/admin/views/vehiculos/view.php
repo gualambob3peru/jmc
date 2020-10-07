@@ -19,6 +19,13 @@ $(function() {
 
     });
 
+    $('#miTabla').DataTable({
+        language : {
+            url : "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        "order": []
+    });
+
     
 });
 </script>
@@ -40,43 +47,48 @@ $(function() {
         <div class="row">
             <div class="col-md-12">
 
-                <table class="table">
-                    <tr>
-                        <th>Placa</th>
-                        <th>Cliente</th>
-                        <th>Marca</th>
-                        <th>Modelo</th>
-                        <th>Año</th>
-                        <th>Motor</th>
-                        <th>Serie</th>
-                        <th>Foto</th>
-                        <th></th>
-                    </tr>
+                <table class="table" id="miTabla">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Cliente</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Año</th>
+                            <th>Motor</th>
+                            <th>Serie</th>
+                            <th>Foto</th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                    <?php foreach($model as $key=>$value): ?>
-                    <tr>
-                        <td><?php echo $value->placa ?></td>
-                        <td><?php echo $value->nombresCompletos ?></td>
-                        <td><?php echo $value->descripcion_marcas ?></td>
-                        <td><?php echo $value->descripcion_modelos ?></td>
-                        <td><?php echo $value->anio ?></td>
-                        <td><?php echo $value->motor ?></td>
-                        <td><?php echo $value->serie ?></td>
-                        <td><img class="imagen" nombreFoto="<?php echo $value->imagen ?>" idVehiculo="<?php echo $value->id ?>" style="width:100px;cursor:pointer"
-                                src="static/images/vehiculos/<?php echo $value->id ?>/<?php echo $value->imagen ?>">
-                        </td>
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-prepend" id="button-addon3">
-                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
-                                        class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i
-                                            class="far fa-trash-alt"></i></button>
+                    <tbody>
+                        <?php foreach($model as $key=>$value): ?>
+                        <tr>
+                            <td><?php echo $value->placa ?></td>
+                            <td><?php echo $value->nombresCompletos ?></td>
+                            <td><?php echo $value->descripcion_marcas ?></td>
+                            <td><?php echo $value->descripcion_modelos ?></td>
+                            <td><?php echo $value->anio ?></td>
+                            <td><?php echo $value->motor ?></td>
+                            <td><?php echo $value->serie ?></td>
+                            <td><img class="imagen" nombreFoto="<?php echo $value->imagen ?>" idVehiculo="<?php echo $value->id ?>" style="width:100px;cursor:pointer"
+                                    src="static/images/vehiculos/<?php echo $value->id ?>/<?php echo $value->imagen ?>">
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend" id="button-addon3">
+                                        <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
+                                            class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
+                                        <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i
+                                                class="far fa-trash-alt"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    
+                    </tbody>
                 </table>
             </div>
         </div>

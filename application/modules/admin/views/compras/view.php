@@ -45,6 +45,13 @@ $(function() {
         });
          
     });
+
+    $('#miTabla').DataTable({
+        language : {
+            url : "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        "order": []
+    });
 });
 </script>
 
@@ -64,37 +71,42 @@ $(function() {
         <div class="row">
             <div class="col-md-12">
 
-                <table class="table">
-                    <tr>
-                        <th>Fecha</th>
-                        <th>RUC</th>
-                        <th>Razon Social</th>
-                        <th>Total Costo</th>
+                <table class="table" id="miTabla">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>RUC</th>
+                            <th>Razon Social</th>
+                            <th>Total Costo</th>
 
-                        <th></th>
-                    </tr>
+                            <th></th>
+                        </tr>
+                    </thead>
 
-                    <?php foreach($model as $key=>$value): ?>
-                    <tr>
-                        <td><?php echo $value->fechaCompras ?></td>
-                        <td><?php echo $value->ruc ?></td>
-                        <td><?php echo $value->razonSocial ?></td>
-                        <td><?php echo $value->montoTotal ?></td>
 
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-prepend" id="button-addon3">
-                                    <!-- <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
-                                        class="btn btn-outline-info"><i class="far fa-edit"></i> Editar</a> -->
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-info btnVisualizar"><i class="fas fa-file-invoice"></i>
-                                        Visualizar</button>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="fas fa-minus-circle"></i>
-                                        Anular</button>
+                    <tbody>
+                        <?php foreach($model as $key=>$value): ?>
+                        <tr>
+                            <td><?php echo $value->fechaCompras ?></td>
+                            <td><?php echo $value->ruc ?></td>
+                            <td><?php echo $value->razonSocial ?></td>
+                            <td><?php echo $value->montoTotal ?></td>
+
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend" id="button-addon3">
+                                        <!-- <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
+                                            class="btn btn-outline-info"><i class="far fa-edit"></i> Editar</a> -->
+                                        <button id="<?php echo $value->id ?>" class="btn btn-outline-info btnVisualizar"><i class="fas fa-file-invoice"></i>
+                                            Visualizar</button>
+                                        <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar"><i class="fas fa-minus-circle"></i>
+                                            Anular</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </div>

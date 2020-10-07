@@ -10,6 +10,13 @@ $(function() {
     $("#btnAceptar").click(function(){
         window.location = "admin/"+controller+"/eliminar/"+$("#modalEliminar").attr("elId");
     });
+
+    $('#miTabla').DataTable({
+        language : {
+            url : "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+        },
+        "order": []
+    });
 });
 </script>
 
@@ -29,34 +36,38 @@ $(function() {
         <div class="row">
             <div class="col-md-12">
 
-                <table class="table">
-                    <tr>
-                        <th>#</th>
-                        <th>Código</th>
-                        <th>Nombre del Servicio</th>
-                        <th>Descripción</th>    
-                        <th>Costo</th>    
-                        <th>Acciones</th>
-                    </tr>
+                <table class="table" id="miTabla">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Código</th>
+                            <th>Nombre del Servicio</th>
+                            <th>Descripción</th>    
+                            <th>Costo</th>    
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-                    <?php foreach($model as $key=>$value): ?>
-                    <tr>
-                        <td><?php echo ($key+1) ?></td>
-                        <td><?php echo $value->codigo ?></td>
-                        <td><?php echo $value->descripcion ?></td>
-                        <td><?php echo $value->detalle ?></td>
-                        <td><?php echo $value->costo ?></td>
-                        <td>
-                            <div class="input-group">
-                                <div class="input-group-prepend" id="button-addon3">
-                                    <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
-                                        class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
-                                    <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+                    <tbody>
+                        <?php foreach($model as $key=>$value): ?>
+                        <tr>
+                            <td><?php echo ($key+1) ?></td>
+                            <td><?php echo $value->codigo ?></td>
+                            <td><?php echo $value->descripcion ?></td>
+                            <td><?php echo $value->detalle ?></td>
+                            <td><?php echo $value->costo ?></td>
+                            <td>
+                                <div class="input-group">
+                                    <div class="input-group-prepend" id="button-addon3">
+                                        <a href="admin/<?php echo $controller ?>/editar/<?php echo $value->id ?>"
+                                            class="btn btn-outline-info" data-toggle="tooltip" data-placement="top" title="Editar"><i class="far fa-edit"></i></a>
+                                        <button id="<?php echo $value->id ?>" class="btn btn-outline-danger btnEliminar" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="far fa-trash-alt"></i></button>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
                 </table>
             </div>
         </div>
