@@ -26,7 +26,7 @@ $(function() {
     $.fn.dataTable.ext.search.push(
         function( settings, data, dataIndex ) {
             var min = $("#fechaInicio").val();
-            var max = $("#fechaFin").val();
+            var max = $("#fechaFin").val()+" 23:59:59";
           
             var columnaFecha = data[0];
             columnaFecha = columnaFecha.split('/');
