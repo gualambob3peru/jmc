@@ -1,7 +1,36 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<style>
+    .select2-selection__rendered {
+    line-height: 31px !important;
+}
+.select2-container .select2-selection--single {
+    height: 35px !important;
+}
+.select2-selection__arrow {
+    height: 34px !important;
+}
+</style>
+
 <script>
     $(function() {
+        $('#idServicios').select2({ 
+            width: '100%' ,
+            language: {
+                        noResults: function() {
+                          return "No hay resultados";        
+                        },
+                        searching: function() {
+                    
+                          return "Buscando..";
+                        }
+                    }
+        });
+
         $("#formuploadajax").on("submit", function(e) {
             e.preventDefault();
             var f = $(this);
@@ -692,7 +721,7 @@
 </div>
 
 
-<div class="modal fade" id="modalAddServicio" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalAddServicio" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <form action="admin/entregas/guardarServicios" method="post">
